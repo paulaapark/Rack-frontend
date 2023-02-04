@@ -4,10 +4,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
-  // baseUrl:string = 'https://rack-p.herokuapp.com/';
   public baseUrl:string; 
-  environment:string = 'development';
-  // environment:string = 'production';
+  environment:string = 'development'; //development or production
 
   constructor(private http:HttpClient) { 
     if (this.environment === 'development'){

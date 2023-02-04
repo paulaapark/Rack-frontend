@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { ModalController, AlertController } from '@ionic/angular';
+
 import { ActionSheetController } from '@ionic/angular';
 import { RackService } from 'src/app/services/rack.service';
 
@@ -19,7 +21,8 @@ export class NewRackPage {
 
   imageUrl:string|undefined = '';
 
-  constructor(private actionSheetCtrl: ActionSheetController, 
+  constructor(private modalCtrl: ModalController, 
+    private alertController: AlertController, private actionSheetCtrl: ActionSheetController, 
     private formBuilder: FormBuilder, 
     private router:Router, 
     private route:ActivatedRoute,
@@ -35,20 +38,26 @@ export class NewRackPage {
     })
    }
 
-   newRack(){
+   addRack(){
     let formData = this.rackForm.value;
     this.rackService.newRack(formData).subscribe({
       next: (result) => {
         console.log(result);
-        alert('New item added!');
-        this.router.navigate(['../../tab2'], {relativeTo: this.route})
+        // alert('New item added!');
+        // this.router.navigate(['../../tab2'], {relativeTo: this.route})
+        return this.modalCtrl.dismiss(this.rackForm.value.Title, 'save');
       },
       error: error => {
-        alert('Unsuccessful');
+        // alert('Unsuccessful');
         console.error(error);
+        return this.modalCtrl.dismiss(null, 'error');
       }
     });
    }
+
+   back() {
+    return this.modalCtrl.dismiss(null, 'cancel');
+  }
 
   get User_idFormControl(){
     return this.rackForm.get('User_id')!;
@@ -69,6 +78,8 @@ export class NewRackPage {
   get TypeFormControl(){
     return this.rackForm.get('Type')!;
   }
+
+ 
 
   takePicture(){
       const snapPicture = async () => {

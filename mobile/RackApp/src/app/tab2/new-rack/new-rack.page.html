@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button routerLink="../../tab2">Later</ion-button>
+      <ion-button (click)="back()" >Later</ion-button>
     </ion-buttons>
     <ion-title>RACK</ion-title> <!-- title will become logo image -->
     <!-- <ion-buttons slot="end">
@@ -64,7 +64,7 @@
       </ion-chip>
       <br>
       <br>
-      <ion-button expand="block" (click)="newRack()">Add to Rack!</ion-button>
+      <ion-button expand="block" (click)="addRack()">Add to Rack!</ion-button>
       <!-- add validation. Description not req'd-->
     </form>
   </div>

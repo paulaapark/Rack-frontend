@@ -16,12 +16,7 @@ export class RackService {
   userUrl:string = this.rackUrl + '?User_id=' + this.currentUser.id;
   
   constructor(private http:HttpClient, public service:UserService) { 
-    // if (service.environment ==='development'){
-    //   this.baseURL = 'http://localhost:3000/rack'
-    // }
-    // else {
-    //   this.baseURL = 'https://rack-p.herokuapp.com/rack'
-    // };
+    
   }
   
   

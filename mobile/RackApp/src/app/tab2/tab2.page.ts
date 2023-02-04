@@ -4,6 +4,7 @@ import { RackService } from '../services/rack.service';
 import { HttpClient } from '@angular/common/http';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ItemDetailsComponent } from '../components/item-details/item-details.component';
+import { NewRackPage } from './new-rack/new-rack.page';
 
 @Component({
   selector: 'app-tab2',
@@ -66,6 +67,52 @@ export class Tab2Page {
       console.log('item updated');
       const toast = await this.toastController.create({
         message: `${data} successfully updated`,
+        duration: 2500,
+        position: 'bottom'
+      });
+
+      await toast.present();
+    }
+
+    if (role === 'error') {
+      console.log('error');
+      const toast = await this.toastController.create({
+        message: `Sorry, something went wrong. Please try again.`,
+        duration: 2500,
+        position: 'bottom'
+      });
+
+      await toast.present();
+    }
+  }
+
+  async newRack() {
+    const modal = await this.modalCtrl.create({
+      component: NewRackPage,
+      // componentProps: {
+      //   'item': item
+      // }
+    });
+
+    modal.present();
+    // console.log(item);
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'error') {
+      console.log('error');
+      const toast = await this.toastController.create({
+        message: `Sorry, something went wrong. Please try again.`,
+        duration: 2500,
+        position: 'bottom'
+      });
+
+      await toast.present();
+    }
+
+    if (role === 'save') {
+      console.log('item added');
+      const toast = await this.toastController.create({
+        message: `${data} was successfully added to your Rack!`,
         duration: 2500,
         position: 'bottom'
       });
