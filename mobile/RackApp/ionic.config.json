@@ -1,0 +1,7 @@
+{
+  "name": "RackApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

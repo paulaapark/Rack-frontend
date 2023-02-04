@@ -1,0 +1,113 @@
+<div *ngIf="defaultView">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button color="medium" (click)="back()">Back</ion-button>
+      </ion-buttons>
+      <ion-title>Item Details</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="edit()">Edit</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+</div>
+
+<div *ngIf="editView">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+      </ion-buttons>
+      <ion-title>Edit Item</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="save()">Save</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+</div>
+
+
+<ion-content class="ion-padding">
+
+  <div *ngIf="defaultView">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          {{item.Title}}
+        </ion-card-title>
+        <ion-card-subtitle>
+          #{{item.Season}} #{{item.Item_type}}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card>
+        <img src="assets/images/generic-top.jpg" alt="">
+      </ion-card>
+      <ion-card>
+        <ion-card-content>
+          {{item.Description}}
+        </ion-card-content>
+      </ion-card>
+    </ion-card>
+  </div>
+
+  <div *ngIf="editView">
+
+    <ion-card>
+      <form [formGroup]="itemForm">
+        <ion-card>
+          <img src="assets/images/generic-top.jpg" alt="">
+        </ion-card>
+        <ion-chip (click)="takePicture()">
+          <ion-icon name="image-outline" color="primary"></ion-icon>
+          <ion-label>Add/Replace image(s) </ion-label>
+        </ion-chip>
+        <ion-card>
+          <ion-item>
+            <ion-label position="stacked" >Title</ion-label>
+            <ion-input formControlName="Title" ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><ion-icon name="partly-sunny-outline"></ion-icon>Season</ion-label>
+            <ion-select interface="popover" formControlName="Season">
+              <ion-select-option name="Season" value="&Season=Spring">Spring</ion-select-option>
+              <ion-select-option name="Season" value="&Season=Summer">Summer</ion-select-option>
+              <ion-select-option name="Season" value="&Season=Fall">Fall</ion-select-option>
+              <ion-select-option name="Season" value="&Season=Winter">Winter</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label><ion-icon name="shirt-outline"></ion-icon>Type</ion-label>
+            <ion-select interface="popover" formControlName="Item_type">
+              <ion-select-option name="Item_type" value="&Item_type=Top">Top</ion-select-option>
+              <ion-select-option name="Item_type" value="&Item_type=Bottom">Bottom</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label position="stacked">Description</ion-label>
+            <ion-textarea placeholder={{item.Description}} value={{item.Description}} [autoGrow]="true" value="" formControlName="Description">
+            </ion-textarea>
+          </ion-item>
+        </ion-card>
+      </form>
+      <ion-card-content>
+        <ion-button expand="block" (click)="presentAlert()">Delete Item</ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- <ion-button expand="block" fill="outline" (click)="presentAlert()">Delete Item</ion-button> -->
+
+  </div>
+
+
+
+</ion-content>
+
+
+
+<!-- within the modal, have a duplicate of the content but make it an input 
+  and make the placeholder text the data of the item and then patch db backend. 
+  
+  if change was not made, dont patch the item?
+
+-->

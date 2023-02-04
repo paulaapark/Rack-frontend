@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="../../startup">Later</ion-button>
+    </ion-buttons>
+    <ion-title>RACK</ion-title> <!-- title will become logo image -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <ion-text>
+    <h3>Sign Up</h3>
+    (it's free!)
+  </ion-text>
+  <br>
+  <br>
+  <form [formGroup]="signupForm">
+    <ion-list>
+      <ion-item>
+        <ion-label>First Name</ion-label>
+        <ion-input type="text" placeholder="" formControlName="FirstName" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Last Name</ion-label>
+        <ion-input type="text" placeholder="" formControlName="LastName" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Email</ion-label>
+        <ion-input type="email" placeholder="" formControlName="Email" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Password</ion-label>
+        <ion-input type="password" value="" formControlName="Password" required></ion-input>
+      </ion-item>
+
+      <!-- <ion-item> *** THIS DOESNT WORK HERE WITH MY DB SOMEHOW
+        <ion-label>Confirm Password</ion-label>
+        <ion-input type="password" value="" formControlName="confPass" required></ion-input>
+      </ion-item> -->
+    </ion-list>
+    <br>
+    <ion-button expand="block" (click)="signup()">Let's Get Started!</ion-button>
+  </form>
+  <br>
+  <ion-text>Already have an account? <a routerLink="../login">Log in!</a> </ion-text>
+  <br>
+  <br>
+  <ion-text>Powered by Paula Anderson</ion-text>
+</ion-content>

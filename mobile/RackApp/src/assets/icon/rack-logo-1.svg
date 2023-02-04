@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1920px"
+   height="1080px"
+   viewBox="0 0 1920 1080"
+   version="1.1"
+   id="SVGRoot"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="rack-logo-1.svg">
+  <defs
+     id="defs138">
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect4703"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect4699"
+       is_visible="true" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.63446244"
+     inkscape:cx="875.3888"
+     inkscape:cy="600.59349"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="745"
+     inkscape:window-x="-8"
+     inkscape:window-y="1072"
+     inkscape:window-maximized="1"
+     inkscape:snap-intersection-paths="false" />
+  <metadata
+     id="metadata141">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer 3"
+     style="display:inline">
+    <rect
+       id="rect3866"
+       width="1628.2083"
+       height="17.083702"
+       x="161.63811"
+       y="345.86163"
+       style="opacity:1;fill:#ff5757;fill-opacity:1;stroke:none;stroke-opacity:1" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:65.18637848px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.62965953"
+       x="615.24878"
+       y="649.98248"
+       id="text154"><tspan
+         sodipodi:role="line"
+         id="tspan152"
+         x="615.24878"
+         y="649.98248"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:312.8946228px;font-family:'Text Me One';-inkscape-font-specification:'Text Me One';stroke-width:1.62965953">RACK</tspan></text>
+    <path
+       transform="translate(9.198917,7.8847858)"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 860.81534,457.77097 c 0,0 -1.47509,-11.77275 -1.41551,-30.47862 0.0365,-11.46338 6.61667,-16.29619 11.40135,-23.60951 6.33875,-9.6887 18.20571,-18.73217 22.60966,-26.36778 4.40395,-7.63561 8.45538,-19.61267 6.80934,-29.60349 -1.91197,-11.60491 -9.36717,-21.11568 -18.52257,-30.03133 -9.1554,-8.91565 -21.90003,-9.11489 -33.01133,-9.15489 -11.1113,-0.04 -22.71537,3.71679 -30.39076,8.66877 -7.67539,4.95198 -12.51593,13.30711 -14.36188,21.8153 -1.72415,7.9468 -4.77621,24.72282 3.76406,24.10291 10.18618,-0.73938 8.14952,-5.16635 8.21731,-14.18671 0.0415,-5.52604 1.95215,-9.61403 10.54406,-18.26423 8.09783,-8.15277 22.24051,-8.63445 22.24051,-8.63445 5.79756,-0.64495 11.57053,-0.0446 17.30673,2.59339 5.7362,2.63801 12.00506,7.82905 15.41263,13.33763 3.40757,5.50858 5.21187,11.20698 4.5816,17.90481 -0.63028,6.69783 -11.00467,20.02508 -14.85683,25.38811 -3.85217,5.36303 -11.21624,10.74866 -16.16023,16.71746 -4.04972,4.88917 -6.05532,8.39462 -10.98973,15.55517 -4.93441,7.16055 -7.79747,18.10394 -7.79747,18.10394 0,0 19.11845,20.32367 24.61906,26.14352 z"
+       id="path4697"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ssazazzzasssszzccazcs" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-opacity:1"
+       id="rect4705"
+       width="10.184515"
+       height="0.98560178"
+       x="803.91962"
+       y="366.09833" />
+  </g>
+</svg>

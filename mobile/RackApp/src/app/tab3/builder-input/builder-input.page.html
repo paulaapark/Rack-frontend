@@ -1,0 +1,107 @@
+<app-default-head></app-default-head>
+
+<ion-content [fullscreen]="true" id="main-content" class="ion-padding">
+  <!-- *ngIf to show/hide each respective div as needed in the sequence -->
+  <div class="builder" *ngIf="builder">
+    <br>
+    <h2 class="title-theme">Outfit Builder</h2>
+    <h5>{{ userService.currentUser.FirstName }} X RACK Collab</h5>
+    <br>
+    <h4>What shall we create this {{ timeOfDay }}?</h4>
+
+    <form [formGroup]="builderForm" novalidate>
+      <div formArrayName="items" class="ion-padding">
+        <div *ngFor="let item of builderForm.controls.items.controls; let i=index">
+          <ion-item>
+            <ion-label class="fw-bold">Item #{{i + 1}}</ion-label>
+            <ion-icon type="button" name="trash-outline" slot="end"
+              *ngIf="builderForm.controls.items.controls.length > 1" (click)="deleteItem(i)" color="primary"></ion-icon>
+            <!-- <ion-button slot="end" fill="clear" *ngIf="builderForm.controls.items.controls.length > 1"
+              (click)="deleteItem(i)"><ion-icon name="trash-outline" ></ion-icon></ion-button> -->
+          </ion-item>
+
+          <div [formGroupName]="i">
+            <ion-list>
+              <ion-item>
+                <ion-label><ion-icon name="partly-sunny-outline"></ion-icon>Season</ion-label>
+                <ion-select interface="popover" placeholder="" [multiple]="true" formControlName="Season">
+                  <ion-select-option name="Season" value="&Season=Spring">Spring</ion-select-option>
+                  <ion-select-option name="Season" value="&Season=Summer">Summer</ion-select-option>
+                  <ion-select-option name="Season" value="&Season=Fall">Fall</ion-select-option>
+                  <ion-select-option name="Season" value="&Season=Winter">Winter</ion-select-option>
+                  <ion-select-option name="Season"
+                    value="&Season=Spring&Season=Summer&Season=Fall&Season=Winter">Undecided</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label><ion-icon name="shirt-outline"></ion-icon>Type</ion-label>
+                <ion-select interface="popover" placeholder="" [multiple]="true" formControlName="Item_type">
+                  <ion-select-option name="Item_type" value="&Item_type=Top">Top</ion-select-option>
+                  <ion-select-option name="Item_type" value="&Item_type=Bottom">Bottom</ion-select-option>
+                  <ion-select-option name="Item_type"
+                    value="&Item_type=Top&Item_type=Bottom">Undecided</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item lines="none">
+                <!-- <ion-label><ion-icon name="color-palette-outline"></ion-icon>Color & <ion-icon name="sparkles-outline"></ion-icon>Style Selectors Coming Soon!- Coming Soon!</ion-label> -->
+                <ion-input disabled placeholder="Color & Style Selectors Coming Soon!"></ion-input>
+              </ion-item>
+            </ion-list>
+          </div>
+        </div>
+      </div>
+      <ion-button fill="clear" (click)="addItem()">Add another item?</ion-button>
+      <br>
+      <ion-button expand="block" (click)="onSubmit()" [disabled]="!builderForm.valid">Generate!</ion-button>
+    </form>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <br>
+    <h2 class="title-theme">Outfit Builder</h2>
+    <h5>{{ userService.currentUser.FirstName }} X RACK Collab</h5>
+    <br>
+    <ion-progress-bar type="indeterminate"></ion-progress-bar>
+    <!-- loading bar for a random number of seconds between 3 and 7 and then show the content -->
+    <br>
+  </div>
+
+  <div class="results" *ngIf="results">
+    <br>
+    <h2 class="title-theme">Our Latest Outfit</h2>
+    <h5>{{ userService.currentUser.FirstName }} X RACK Collab</h5>
+    <br>
+    <br>
+    <div class="ion-padding" *ngFor="let item of generatedItems; let i=index">
+      <span>Item #{{i + 1}}</span>
+      <ion-card>
+        <img alt="Default T-Shirt Image" src="assets/images/generic-top.jpg" />
+        <ion-card-header>
+          <ion-card-title>{{item.Title}} </ion-card-title>
+          <ion-card-subtitle>#{{item.Season}} #{{item.Item_type}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <br>
+    <div *ngIf="yay">
+      <h5>Hope this does the trick!</h5>
+      <br>
+      <br>
+      <br>
+      <ion-text>I think we make a great team! <a routerLink="../../../feedback">Do you?</a></ion-text>
+    </div>
+
+    <div *ngIf="nay">
+      <h5>Sorry, looks like nothing in your Rack was a match.</h5>
+      <br>
+      <br>
+      <br>
+      <ion-text color="primary">Maybe it's time to go shopping!</ion-text>
+    </div>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,36 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <br>
+  <br>
+  <br>
+  <p class="line-1">What's in your closet?</p><br>
+  <br>
+  <p>Whats on your...</p>
+  <img src="assets/icon/rack-logo-1.svg" alt="">
+  <br>
+  <form [formGroup]="loginForm">
+
+  
+    <h2>Log In</h2>
+    <ion-list>
+      <ion-item>
+        <ion-label>Email</ion-label>
+        <ion-input type="email" placeholder="" formControlName="Email"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Password</ion-label>
+        <ion-input type="password" value="" formControlName="Password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <br>
+    <!-- add this after testing finished routerLink="../../tabs" -->
+    <ion-button expand="block"  (click)="login()">Let's Go!</ion-button>
+  </form>
+  <br>
+  <ion-text>Don't have an account? <a routerLink="../signup">Sign Up!</a></ion-text>
+    <br>
+    <br>
+    <br>
+    <ion-text>Powered by Paula Anderson</ion-text>
+  
+</ion-content>

@@ -1,0 +1,53 @@
+<app-default-head></app-default-head>
+
+<ion-content fullscreen="true" id="main-content">
+  <br>
+  <ion-text><h2 class="title-theme">{{ userService.currentUser.FirstName }}, your latest Rack Stats await!</h2></ion-text>
+  
+  <div class="ion-padding">
+    <ion-card>
+      <ion-card-header>
+        Rack Stats: by Season
+      </ion-card-header>
+      <ion-card-content>
+        <canvas baseChart 
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [legend]="false"
+        [type]="'bar'" ></canvas>
+        <br>
+        <ion-text>
+          <small>
+            You have {{sumSpring}} spring {{itemS}}, {{sumSummer}} summer {{itemSu}}, <br>
+            {{sumFall}} fall {{itemF}}, and {{sumWinter}} winter {{itemW}}!
+          </small>
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+    
+    <br>
+    <ion-card>
+      <ion-card-header>
+        Rack Stats: Tops vs Bottoms
+      </ion-card-header>
+      <ion-card-content>
+        <canvas baseChart 
+        [labels]="doughnutChartLabels"
+        [datasets]="doughnutChartData"
+        [options]="doughnutChartOptions"
+        [legend]="false"
+        [type]="'doughnut'"></canvas>
+        <br>
+        <ion-text>
+          <small>
+            You have {{sumTops}} {{topsG}} and {{sumBottoms}} {{bottomsG}}!
+          </small>
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+    
+  </div>
+
+</ion-content>
+
+<!-- get the tabs to show up here and be shared -->

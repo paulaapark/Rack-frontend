@@ -1,0 +1,21 @@
+<app-default-head></app-default-head>
+
+<ion-content [fullscreen]="true" id="main-content">
+  <br>
+  <h2 class="title-theme">Outfit Builder</h2>
+  <h5>{{ userService.currentUser.FirstName }} X RACK Collab</h5>
+  <br>
+  
+  <ion-card>
+    <img alt="closet" src="assets/icon/closet.svg" />
+    <ion-card-content>
+      <ion-button expand="block" routerLink="builder-input">Start!</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- put a progress bar thing here after the form... on the toolbar top thing? 
+    https://ionicframework.com/docs/api/progress-bar -->
+
+  
+    
+</ion-content>

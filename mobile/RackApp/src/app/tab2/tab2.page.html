@@ -1,0 +1,83 @@
+<app-default-head></app-default-head>
+
+<ion-content [fullscreen]="true" id="main-content">
+  <ion-grid class="sticky-top">
+    <!-- <ion-row>
+      <ion-col size="2"> </ion-col>
+      <ion-col>
+        <ion-searchbar animated="true" placeholder="Search Rack" show-clear-button="focus" [debounce]="100"
+          [(ngModel)]="filterTerm"></ion-searchbar>
+      </ion-col>
+      <ion-col size="2"><ion-button fill="clear" (click)="toggle()"><ion-icon
+            name="funnel-outline"></ion-icon></ion-button>
+      </ion-col>
+    </ion-row> -->
+
+    <ion-item lines="none">
+      <ion-icon name="grid-outline" slot="start" color="primary" type="button" (click)="gridToggle()"></ion-icon>
+      <ion-searchbar animated="true" placeholder="Search Rack" show-clear-button="focus" [debounce]="100"
+          [(ngModel)]="filterTerm"></ion-searchbar>
+      <ion-icon name="funnel-outline" slot="end" color="primary" type="button" (click)="toggle()"></ion-icon>
+    </ion-item>
+    
+    <div class="filter-bar" *ngIf="show">
+      <ion-row>
+        <ion-col></ion-col>
+            <ion-col>
+            <ion-item lines="none">
+              <!-- <ion-label><ion-icon name="partly-sunny-outline"></ion-icon></ion-label> -->
+              <ion-select interface="popover" placeholder="Season" [multiple]="true" name="seasons" (ionChange)="handleSChange($event)">
+                <ion-select-option name="seasons" value="&Season=Spring">Spring</ion-select-option>
+                <ion-select-option name="seasons" value="&Season=Summer">Summer</ion-select-option>
+                <ion-select-option name="seasons" value="&Season=Fall">Fall</ion-select-option>
+                <ion-select-option name="seasons" value="&Season=Winter">Winter</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1"></ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <!-- <ion-label><ion-icon name="shirt-outline"></ion-icon></ion-label> -->
+              <ion-select interface="popover" placeholder="Type" [multiple]="true" name="types" (ionChange)="handleTChange($event)">
+                <ion-select-option name="types" value="&Item_type=Top">Top</ion-select-option>
+                <ion-select-option name="types" value="&Item_type=Bottom">Bottom</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+           <ion-text color="medium"><small>*Color & Style Filters Coming Soon!</small></ion-text>
+            <!-- <ion-input disabled placeholder="Color & Style Filters Coming Soon!"></ion-input> -->
+          </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+
+  <ion-grid>
+
+  
+  <div class="ion-padding" *ngFor="let item of userRack | filter:filterTerm">
+    <ion-card (click)="openModal(item)">
+    <ion-card>
+      <img alt="Default T-Shirt Image" src="assets/images/generic-top.jpg"/>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{item.Title}} </ion-card-title>
+        <ion-card-subtitle>#{{item.Season}} #{{item.Item_type}} </ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </ion-card>
+  </div>
+
+
+  </ion-grid>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" id="new-rack-modal">
+    <ion-fab-button routerLink="new-rack">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

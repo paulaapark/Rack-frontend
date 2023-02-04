@@ -1,0 +1,58 @@
+<ion-menu type="overlay" side="end" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Settings</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item href="">Account Settings
+        <!-- <ion-button fill="clear" color="medium" size="large">Account Settings</ion-button> -->
+      </ion-item>
+
+      <ion-item href="">App Settings
+        <!-- <ion-button fill="clear" color="medium" size="large">App Settings</ion-button> -->
+      </ion-item>
+
+      <ion-item disabled>Language & Region
+        <!-- <ion-button fill="clear" color="secondary" disabled>Language & Region - Coming Soon!</ion-button> -->
+      </ion-item>
+
+      <ion-item disabled>Share Feedback
+        <!-- <ion-button fill="clear" color="secondary" disabled>Share Feedback - Coming Soon!</ion-button> -->
+      </ion-item>
+      <ion-button fill="clear" (click)="logout()"><ion-icon name="lock-closed-outline"></ion-icon> Logout</ion-button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-icon class="ion-padding" type="button" slot="start" name="camera-outline" (click)="takePicture()" color="primary" size="large"></ion-icon>
+      <!-- <ion-buttons slot="start">
+        <ion-button slot="icon-only" (click)="takePicture()">
+          <ion-icon name="camera-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons> -->
+      <ion-buttons slot="end" >
+        
+          <!-- the router isnt working.. maybe because this is the default head? -->
+        <ion-button slot="icon-only"  routerLink="../profile" disabled >
+          <ion-icon name="person-circle-outline" size="large"></ion-icon>
+          <!-- <ion-avatar> <img alt="Profile Pic" src="https://ionicframework.com/docs/img/demos/avatar.svg" /> </ion-avatar> make the src image binding of persons pic. if they dont have a pic, make that ion-icon the default img -->
+        </ion-button>
+      
+        <ion-menu-toggle>
+          <ion-button fill="clear">
+            <ion-icon name="ellipsis-vertical"></ion-icon>
+          </ion-button>
+        </ion-menu-toggle>
+      </ion-buttons>
+      
+      <img src="assets/icon/rack-logo-1.svg" alt="">
+    </ion-toolbar>
+  </ion-header>
+</div>
+
+<!-- <img [src]="imageURL"> -->
