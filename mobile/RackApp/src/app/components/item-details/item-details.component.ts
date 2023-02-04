@@ -50,7 +50,7 @@ export class ItemDetailsComponent implements OnInit {
     console.log(this.item);
     this.itemForm.patchValue(this.item);
 
-    this.itemURL = this.service.baseURL + '/' + this.item.id;
+    this.itemURL = this.service.rackUrl + '/' + this.item.id;
   }
 
   back() {

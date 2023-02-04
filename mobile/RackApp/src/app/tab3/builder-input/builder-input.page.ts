@@ -41,6 +41,9 @@ export class BuilderInputPage implements OnInit {
 
   yay:boolean = false;
   nay:boolean = false;
+
+  matches:string = 'matches';
+  requests:string = 'requests';
   
   constructor(public userService: UserService, public rackService: RackService, private formBuilder: FormBuilder, private http: HttpClient) {
     if (this.hrs < 12) {
@@ -136,18 +139,23 @@ export class BuilderInputPage implements OnInit {
 
 
   getFilter() {
-    return this.http.get(this.rackService.userURL + this.filterQuery);
+    return this.http.get(this.rackService.userUrl + this.filterQuery);
   };
 
   
   showResults(){
     this.loading = false;
     this.results = true;
-    if (this.generatedItems.length < 0){
+    if (this.filterQueryArray.length == this.generatedItems.length){
       this.yay = true;
     }
     else {
       this.nay = true;
+      if (this.filterQueryArray.length - this.generatedItems.length == 1){
+        this.matches = "a match";
+        this.requests = "request";
+      };
     }
+    
   };
 }
