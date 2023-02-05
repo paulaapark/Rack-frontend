@@ -9,6 +9,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { RackService } from 'src/app/services/rack.service';
 
 import { Camera, CameraResultType } from '@capacitor/camera';
+import { event } from 'jquery';
 
 @Component({
   selector: 'app-new-rack',
@@ -16,9 +17,10 @@ import { Camera, CameraResultType } from '@capacitor/camera';
   styleUrls: ['./new-rack.page.scss'],
 })
 export class NewRackPage {
+  result!: string;
 
   rackForm:FormGroup;
-
+  selectedImage:any;
   imageUrl:string|undefined = '';
 
   constructor(private modalCtrl: ModalController, 
@@ -33,14 +35,67 @@ export class NewRackPage {
       Description: ['', ],
       Season: ['', [Validators.required]],
       Type: ['', [Validators.required]],
-      Image: ['', ],
       User_id: [this.userService.currentUser.id, [Validators.required]]
     })
    }
 
+
+   async presentActionSheet() {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'What image would you like to upload for this item?',
+      // subHeader: 'A maximum of one image can be added per item',
+      buttons: [
+        {
+          text: 'Upload from device',
+          role: 'upload',
+          data: {
+            action: 'upload',
+          },
+        },
+        {
+          text: 'Take a new snapshot',
+          role: 'capture',
+          data: {
+            action: 'capture',
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          data: {
+            action: 'cancel',
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
+
+    const { role } = await actionSheet.onDidDismiss();
+    if (role === 'upload'){
+      this.selectFile(event);
+    }
+    if (role === 'capture'){
+      this.takePicture();
+    }
+
+  }
+
+   selectFile(event: any): void {
+    this.selectedImage = event.target.files[0];
+    console.log(this.selectedImage)
+  }
+
    addRack(){
-    let formData = this.rackForm.value;
-    this.rackService.newRack(formData).subscribe({
+    let formValues = this.rackForm.value;
+    let fd = new FormData();
+    fd.append('image', this.selectedImage);
+
+    for(let key in formValues){
+      fd.append(key, formValues[key]);
+    }
+
+    this.rackService.newRack(fd).subscribe({
       next: (result) => {
         console.log(result);
         // alert('New item added!');
@@ -79,12 +134,12 @@ export class NewRackPage {
     return this.rackForm.get('Type')!;
   }
 
- 
+  
 
   takePicture(){
       const snapPicture = async () => {
         const image = await Camera.getPhoto({
-          quality: 90,
+          quality: 100,
           allowEditing: true,
           resultType: CameraResultType.Uri
         });
@@ -98,6 +153,8 @@ export class NewRackPage {
         // Can be set to the src of an image now
         // imageElement.src = imageUrl;
         // alert(imageUrl);
+
+        console.log(this.imageUrl)
       };
       snapPicture();
     }

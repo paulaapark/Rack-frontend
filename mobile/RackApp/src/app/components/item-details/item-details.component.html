@@ -68,22 +68,22 @@
           <ion-item>
             <ion-label><ion-icon name="partly-sunny-outline"></ion-icon>Season</ion-label>
             <ion-select interface="popover" formControlName="Season">
-              <ion-select-option name="Season" value="&Season=Spring">Spring</ion-select-option>
-              <ion-select-option name="Season" value="&Season=Summer">Summer</ion-select-option>
-              <ion-select-option name="Season" value="&Season=Fall">Fall</ion-select-option>
-              <ion-select-option name="Season" value="&Season=Winter">Winter</ion-select-option>
+              <ion-select-option value="&Season=Spring">Spring</ion-select-option>
+              <ion-select-option value="&Season=Summer">Summer</ion-select-option>
+              <ion-select-option value="&Season=Fall">Fall</ion-select-option>
+              <ion-select-option value="&Season=Winter">Winter</ion-select-option>
             </ion-select>
           </ion-item>
           <ion-item>
             <ion-label><ion-icon name="shirt-outline"></ion-icon>Type</ion-label>
             <ion-select interface="popover" formControlName="Item_type">
-              <ion-select-option name="Item_type" value="&Item_type=Top">Top</ion-select-option>
-              <ion-select-option name="Item_type" value="&Item_type=Bottom">Bottom</ion-select-option>
+              <ion-select-option value="&Item_type=Top">Top</ion-select-option>
+              <ion-select-option value="&Item_type=Bottom">Bottom</ion-select-option>
             </ion-select>
           </ion-item>
           <ion-item lines="none">
             <ion-label position="stacked">Description</ion-label>
-            <ion-textarea placeholder={{item.Description}} value={{item.Description}} [autoGrow]="true" value="" formControlName="Description">
+            <ion-textarea [autoGrow]="true" formControlName="Description">
             </ion-textarea>
           </ion-item>
         </ion-card>

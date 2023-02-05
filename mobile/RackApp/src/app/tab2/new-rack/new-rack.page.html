@@ -55,13 +55,19 @@
           <ion-label><ion-icon name="sparkles-outline"></ion-icon>Style - Coming Soon!</ion-label>
           <ion-input disabled placeholder=""></ion-input>
         </ion-item>
+        <ion-item>
+          <ion-label>Image</ion-label>
+          <ion-input type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"></ion-input>
+        </ion-item>
       </ion-list>
       <br>
       <!-- show thumbnail of uploaded img here? -->
-      <ion-chip (click)="takePicture()">
+      <ion-chip>
         <ion-icon name="image-outline" color="primary"></ion-icon>
-        <ion-label>Upload new clothing image(s) </ion-label>
+        <ion-label>Upload or capture new image </ion-label>
       </ion-chip>
+
+      
       <br>
       <br>
       <ion-button expand="block" (click)="addRack()">Add to Rack!</ion-button>
