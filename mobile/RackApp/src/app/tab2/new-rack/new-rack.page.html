@@ -55,17 +55,43 @@
           <ion-label><ion-icon name="sparkles-outline"></ion-icon>Style - Coming Soon!</ion-label>
           <ion-input disabled placeholder=""></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label>Image</ion-label>
-          <ion-input type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"></ion-input>
-        </ion-item>
+        
       </ion-list>
       <br>
       <!-- show thumbnail of uploaded img here? -->
+      <ion-chip (click)="takePicture()">
+        <ion-icon name="camera-outline" color="primary"></ion-icon>
+        <ion-label>Capture new image </ion-label>
+      </ion-chip>
+      <br>
+      <ion-text>OR</ion-text>
+      <br>
       <ion-chip>
         <ion-icon name="image-outline" color="primary"></ion-icon>
-        <ion-label>Upload or capture new image </ion-label>
+        <ion-label>Upload from device</ion-label>
+        <ion-input id="selectFile" type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"></ion-input>
       </ion-chip>
+
+      <!-- <ion-item>
+        <ion-label>Choose image from device</ion-label>
+        <ion-input type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"></ion-input>
+      </ion-item> -->
+
+      <ion-grid *ngIf="img1">
+        <ion-row>
+          <ion-col>
+            <img alt="" [src]="img1" width="40%"/>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-icon type="button" name="close-circle-outline" size="large" color="primary" (click)="remove()"></ion-icon>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      
 
       
       <br>

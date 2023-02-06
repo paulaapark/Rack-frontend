@@ -8,8 +8,11 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { RackService } from 'src/app/services/rack.service';
 
-import { Camera, CameraResultType } from '@capacitor/camera';
-import { event } from 'jquery';
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-new-rack',
@@ -18,10 +21,15 @@ import { event } from 'jquery';
 })
 export class NewRackPage {
   result!: string;
+  show: boolean = false;
 
   rackForm:FormGroup;
   selectedImage:any;
-  imageUrl:string|undefined = '';
+  public imageUrl:any;
+
+  img1:any;
+
+  event:any;
 
   constructor(private modalCtrl: ModalController, 
     private alertController: AlertController, private actionSheetCtrl: ActionSheetController, 
@@ -39,57 +47,64 @@ export class NewRackPage {
     })
    }
 
-
-   async presentActionSheet() {
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'What image would you like to upload for this item?',
-      // subHeader: 'A maximum of one image can be added per item',
-      buttons: [
-        {
-          text: 'Upload from device',
-          role: 'upload',
-          data: {
-            action: 'upload',
-          },
-        },
-        {
-          text: 'Take a new snapshot',
-          role: 'capture',
-          data: {
-            action: 'capture',
-          },
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          data: {
-            action: 'cancel',
-          },
-        },
-      ],
-    });
-
-    await actionSheet.present();
-
-    const { role } = await actionSheet.onDidDismiss();
-    if (role === 'upload'){
-      this.selectFile(event);
+   selectFile(event: any): void {
+    this.selectedImage = event.target.files[0];
+    console.log(this.selectedImage);
+    let reader = new FileReader();
+    reader.onload = (event: any) => {
+      this.img1 = event.target.result;
     }
-    if (role === 'capture'){
-      this.takePicture();
-    }
+
+    reader.readAsDataURL(this.selectedImage);
 
   }
 
-   selectFile(event: any): void {
-    this.selectedImage = event.target.files[0];
-    console.log(this.selectedImage)
+  async takePicture(){
+    const snapPicture = async () => {
+      const image = await Camera.getPhoto({
+        quality: 100,
+        allowEditing: true,
+        resultType: CameraResultType.Uri
+      });
+    
+      // image.webPath will contain a path that can be set as an image src.
+      // You can access the original file using image.path, which can be
+      // passed to the Filesystem API to read the raw data of the image,
+      // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+      this.imageUrl = image.webPath;
+
+      
+    
+      // Can be set to the src of an image now
+      // imageElement.src = this.imageUrl;
+      // alert(imageUrl);
+
+      console.log(this.imageUrl);
+      
+      console.log(image);
+    };
+    snapPicture();
+
+  }
+
+
+  remove(){
+    this.img1 = undefined;
+    $('#selectFile').val('');
   }
 
    addRack(){
     let formValues = this.rackForm.value;
     let fd = new FormData();
+
     fd.append('image', this.selectedImage);
+
+    // if(this.selectedImage !== undefined){
+    //   fd.append('image', this.selectedImage);
+    // }
+    // else if( this.imageUrl !== undefined){
+    //   fd.append('image', this.imageUrl);
+    // };
 
     for(let key in formValues){
       fd.append(key, formValues[key]);
@@ -136,27 +151,6 @@ export class NewRackPage {
 
   
 
-  takePicture(){
-      const snapPicture = async () => {
-        const image = await Camera.getPhoto({
-          quality: 100,
-          allowEditing: true,
-          resultType: CameraResultType.Uri
-        });
-      
-        // image.webPath will contain a path that can be set as an image src.
-        // You can access the original file using image.path, which can be
-        // passed to the Filesystem API to read the raw data of the image,
-        // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-        this.imageUrl = image.webPath;
-      
-        // Can be set to the src of an image now
-        // imageElement.src = imageUrl;
-        // alert(imageUrl);
-
-        console.log(this.imageUrl)
-      };
-      snapPicture();
-    }
+  
   
 }
