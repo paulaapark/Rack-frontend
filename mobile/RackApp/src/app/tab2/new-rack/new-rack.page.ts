@@ -11,7 +11,10 @@ import { RackService } from 'src/app/services/rack.service';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 
+
+
 import * as $ from 'jquery';
+import { Iphoto } from 'src/app/interfaces/iphoto';
 
 
 @Component({
@@ -27,9 +30,17 @@ export class NewRackPage {
   selectedImage:any;
   public imageUrl:any;
 
+  savedFile:any;
+  savedImageFile:any;
+
+  photo:any;
+
   img1:any;
 
   event:any;
+
+  photos:any = [];
+
 
   constructor(private modalCtrl: ModalController, 
     private alertController: AlertController, private actionSheetCtrl: ActionSheetController, 
@@ -47,21 +58,45 @@ export class NewRackPage {
     })
    }
 
-   selectFile(event: any): void {
-    this.selectedImage = event.target.files[0];
-    console.log(this.selectedImage);
-    let reader = new FileReader();
-    reader.onload = (event: any) => {
-      this.img1 = event.target.result;
-    }
+  //  selectFile(event: any): void {
+  //   this.selectedImage = event.target.files[0];
+  //   console.log(this.selectedImage);
+  //   let reader = new FileReader();
+  //   reader.onload = (event: any) => {
+  //     this.img1 = event.target.result;
+  //   }
 
-    reader.readAsDataURL(this.selectedImage);
+  //   reader.readAsDataURL(this.selectedImage);
 
-  }
+  // }
 
-  async takePicture(){
-    const snapPicture = async () => {
-      const image = await Camera.getPhoto({
+  
+
+  // async getPicture(){
+  //   const snapPicture = async () => {
+  //     this.image = await Camera.getPhoto({
+  //       quality: 100,
+  //       allowEditing: true,
+  //       resultType: CameraResultType.Uri
+  //     });
+    
+  //     // image.webPath will contain a path that can be set as an image src.
+  //     // You can access the original file using image.path, which can be
+  //     // passed to the Filesystem API to read the raw data of the image,
+  //     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+  //     this.imageUrl = this.image.webPath;
+
+  //     console.log(this.imageUrl);
+
+  //     this.savedImageFile = await this.savePicture(this.image);
+  //     this.photos.unshift(this.savedImageFile);
+  //   };
+  //   snapPicture();
+  // }
+
+
+  async getPicture(){
+      this.photo = await Camera.getPhoto({
         quality: 100,
         allowEditing: true,
         resultType: CameraResultType.Uri
@@ -71,36 +106,78 @@ export class NewRackPage {
       // You can access the original file using image.path, which can be
       // passed to the Filesystem API to read the raw data of the image,
       // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-      this.imageUrl = image.webPath;
-
-      
-    
-      // Can be set to the src of an image now
-      // imageElement.src = this.imageUrl;
-      // alert(imageUrl);
+      this.imageUrl = this.photo.webPath;
 
       console.log(this.imageUrl);
+
+      this.savedImageFile = this.savePicture(this.photo);
       
-      console.log(image);
+    }
+  
+
+
+  private async savePicture(photo: Photo) {
+    // Convert photo to base64 format, required by Filesystem API to save
+    const base64Data = await this.readAsBase64(photo);
+  
+    // Write the file to the data directory
+    const fileName = new Date().getTime() + '.jpeg';
+    this.savedFile = await Filesystem.writeFile({
+      path: fileName,
+      data: base64Data,
+      directory: Directory.Data
+    });
+  
+
+    // Use webPath to display the new image instead of base64 since it's
+    // already loaded into memory
+    return {
+      filepath: fileName,
+      webviewPath: photo.webPath
     };
-    snapPicture();
 
   }
+
+  private async readAsBase64(photo: Photo) {
+    // Fetch the photo, read as a blob, then convert to base64 format
+    const response = await fetch(photo.webPath!);
+    const blob = await response.blob();
+  
+    return await this.convertBlobToBase64(blob) as string;
+  }
+  
+  private convertBlobToBase64 = (blob: Blob) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = () => {
+        resolve(reader.result);
+    };
+    reader.readAsDataURL(blob);
+  });
 
 
   remove(){
-    this.img1 = undefined;
-    $('#selectFile').val('');
+    // this.img1 = undefined;
+    // $('#selectFile').val('');
+    this.imageUrl = undefined;
+    this.photos = [];
   }
 
-   addRack(){
+   async addRack(){
+    const readFile = await Filesystem.readFile({
+      path: this.savedImageFile.filepath,
+      directory: Directory.Data,
+    });
+
+    this.savedImageFile.webviewPath = `data:image/jpeg;base64,${readFile.data}`;
+
     let formValues = this.rackForm.value;
     let fd = new FormData();
 
-    fd.append('image', this.selectedImage);
+    fd.append('image', this.savedImageFile.webviewPath);
 
-    // if(this.selectedImage !== undefined){
-    //   fd.append('image', this.selectedImage);
+    // if(this.savedImageFile !== undefined){
+    //   fd.append('image', this.savedImageFile);
     // }
     // else if( this.imageUrl !== undefined){
     //   fd.append('image', this.imageUrl);
