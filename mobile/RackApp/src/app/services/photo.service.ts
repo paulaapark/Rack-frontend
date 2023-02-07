@@ -3,7 +3,7 @@ import { Capacitor } from '@capacitor/core';
 
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
-import { Preferences } from '@capacitor/preferences';
+// import { Preferences } from '@capacitor/preferences';
 
 import { Platform } from '@ionic/angular';
 
@@ -11,14 +11,14 @@ import { Platform } from '@ionic/angular';
   providedIn: 'root'
 })
 export class PhotoService {
-  public photos: UserPhoto[] = [];
+  // public photos: UserPhoto[] = [];
 
-  public imageUrl: any;
-  private PHOTO_STORAGE: string = 'photos';
-  private platform: Platform;
+  // public imageUrl: any;
+  // private PHOTO_STORAGE: string = 'photos';
+  // private platform: Platform;
 
   constructor(platform: Platform) {
-    this.platform = platform;
+    // this.platform = platform;
   }
 
   // public async takePicture() {
@@ -127,7 +127,7 @@ export class PhotoService {
 
   // }
 }
-export interface UserPhoto {
-  filepath: string;
-  webviewPath: string;
-}
+// export interface UserPhoto {
+//   filepath: string;
+//   webviewPath: string;
+// }

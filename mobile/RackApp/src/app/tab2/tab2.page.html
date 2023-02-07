@@ -61,7 +61,7 @@
   <div class="ion-padding" *ngFor="let item of userRack | filter:filterTerm">
     <ion-card (click)="openModal(item)">
     <ion-card>
-      <img alt="Default T-Shirt Image" src="assets/images/generic-top.jpg"/>
+      <ion-img alt="" src={{item.Image}}></ion-img>
     </ion-card>
       <ion-card-header>
         <ion-card-title>{{item.Title}} </ion-card-title>

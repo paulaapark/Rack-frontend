@@ -7,11 +7,11 @@ import { UserService } from 'src/app/services/user.service';
 import { RackService } from 'src/app/services/rack.service';
 import { ItemDetailsComponent } from 'src/app/components/item-details/item-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { NewRackPage } from 'src/app/tab2/new-rack/new-rack.page';
 
 
 @NgModule({
-  declarations: [ DefaultHeadComponent, ItemDetailsComponent],
+  declarations: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage],
   providers: [ UserService, RackService ],
   imports: [
     CommonModule,
@@ -20,6 +20,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule
   ],
-  exports: [ DefaultHeadComponent, ItemDetailsComponent ],
+  exports: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage ],
 })
 export class SharedModule { }

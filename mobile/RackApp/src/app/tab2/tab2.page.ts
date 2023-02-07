@@ -28,6 +28,8 @@ export class Tab2Page {
   seasons = [];
   item_types = [];
 
+  imgUrl:any;
+
   // name!: string;
 
   constructor(public service: RackService, private http: HttpClient,

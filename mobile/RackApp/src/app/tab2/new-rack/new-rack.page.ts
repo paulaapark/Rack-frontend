@@ -8,9 +8,6 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { RackService } from 'src/app/services/rack.service';
 
-import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
-import { Filesystem, Directory } from '@capacitor/filesystem';
-
 import { Platform } from '@ionic/angular';
 
 import * as $ from 'jquery';
@@ -29,7 +26,7 @@ export class NewRackPage implements OnInit {
 
   rackForm:FormGroup;
   selectedImage:any;
-  public imageUrl:any;
+  // public imageUrl:any;
 
   // savedFile:any;
   savedImageFile:any;
@@ -40,8 +37,6 @@ export class NewRackPage implements OnInit {
 
   event:any;
 
-  photos:any = [];
-
 
   constructor(private modalCtrl: ModalController, 
     private alertController: AlertController, private actionSheetCtrl: ActionSheetController, 
@@ -49,7 +44,7 @@ export class NewRackPage implements OnInit {
     private router:Router, 
     private route:ActivatedRoute,
     private rackService:RackService,
-    public userService:UserService, private platform: Platform,
+    public userService:UserService,
     public photoService:PhotoService) {
     this.rackForm = formBuilder.group({
       Title: ['', [Validators.required]],
@@ -63,49 +58,35 @@ export class NewRackPage implements OnInit {
    async ngOnInit() {
     // await this.photoService.loadSaved();
   }
-  //  selectFile(event: any): void {
-  //   this.selectedImage = event.target.files[0];
-  //   console.log(this.selectedImage);
-  //   let reader = new FileReader();
-  //   reader.onload = (event: any) => {
-  //     this.img1 = event.target.result;
-  //   }
+   selectFile(event: any): void {
+    this.selectedImage = event.target.files[0];
+    console.log(this.selectedImage);
+    let reader = new FileReader();
+    reader.onload = (event: any) => {
+      this.img1 = event.target.result;
+    }
 
-  //   reader.readAsDataURL(this.selectedImage);
+    reader.readAsDataURL(this.selectedImage);
 
-  // }
-
-  getPicture(){
-    // this.photoService.takePicture();
   }
+
+  // getPicture(){
+  //   // this.photoService.takePicture();
+  // }
 
 
   remove(){
-    // this.img1 = undefined;
-    // $('#selectFile').val('');
-    this.imageUrl = undefined;
-    this.photos = [];
+    this.img1 = undefined;
+    $('#selectFile').val('');
+    // this.imageUrl = undefined;
+    // this.photos = [];
   }
 
    async addRack(){
-    const readFile = await Filesystem.readFile({
-      path: this.savedImageFile.filepath,
-      directory: Directory.Data,
-    });
-
-    this.savedImageFile.webviewPath = `data:image/jpeg;base64,${readFile.data}`;
-
     let formValues = this.rackForm.value;
     let fd = new FormData();
 
-    fd.append('image', this.savedImageFile.webviewPath);
-
-    // if(this.savedImageFile !== undefined){
-    //   fd.append('image', this.savedImageFile);
-    // }
-    // else if( this.imageUrl !== undefined){
-    //   fd.append('image', this.imageUrl);
-    // };
+    fd.append('image', this.selectedImage);
 
     for(let key in formValues){
       fd.append(key, formValues[key]);

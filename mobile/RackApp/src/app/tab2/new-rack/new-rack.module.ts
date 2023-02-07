@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { NewRackPageRoutingModule } from './new-rack-routing.module';
 
-import { NewRackPage } from './new-rack.page';
+// import { NewRackPage } from './new-rack.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 
 
@@ -19,6 +19,9 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
     NewRackPageRoutingModule,
     SharedModule
   ],
-  declarations: [NewRackPage]
+  // declarations: [NewRackPage]
 })
 export class NewRackPageModule {}
+
+
+//RETIRED to shared module

@@ -56,22 +56,36 @@
           <ion-input disabled placeholder=""></ion-input>
         </ion-item>
         
+        <ion-item lines="none">
+          <ion-label>Image</ion-label>
+          <ion-input slot="end" id="selectFile" type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg" placeholder=""></ion-input>
+
+        </ion-item>
       </ion-list>
       <br>
-      <ion-chip (click)="getPicture()">
+      <!-- <ion-chip (click)="getPicture()">
         <ion-icon name="camera-outline" color="primary"></ion-icon> 
         <ion-label> Capture or select image from device </ion-label>
         <ion-icon name="image-outline" color="primary"></ion-icon>
+      </ion-chip> -->
+      
+      <!-- <ion-text>or</ion-text> -->
+      
+      <ion-chip>
+        <ion-icon name="image-outline" color="primary"></ion-icon>
+        <ion-label>Upload Image</ion-label>
+         <ion-input id="selectFile" type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"></ion-input>
       </ion-chip>
       
-      <!-- <ion-text>or</ion-text>
-      
-      <ion-chip (click)="selectPicture()">
+
+      <ion-input id="selectFile" type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg">
+      <ion-chip>
         <ion-icon name="image-outline" color="primary"></ion-icon>
-        <ion-label>Upload from device</ion-label>
-         <ion-input id="selectFile" type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"></ion-input> -->
-      <!-- </ion-chip>
-      <ion-text color="primary"><small >*Currently supports single image upload only</small></ion-text> --> 
+        <ion-label>Upload Image</ion-label>
+         
+      </ion-chip>
+    </ion-input>
+      <ion-text color="primary"><small >*Currently supports single image upload only</small></ion-text> 
 
       <!-- <ion-item>
         <ion-label>Choose image from device</ion-label>
@@ -79,7 +93,7 @@
       </ion-item> -->
 
 
-      <ion-grid *ngFor="let photo of photoService.photos; index as position">
+      <!-- <ion-grid *ngFor="let photo of photoService.photos; index as position">
         <ion-row>
           <ion-col>
             <ion-img alt="" [src]="photo.webviewPath" width="40%"></ion-img>
@@ -91,10 +105,10 @@
 
           </ion-col>
         </ion-row>
-      </ion-grid>
+      </ion-grid> -->
 
 
-      <ion-grid *ngIf="imageUrl">
+      <!-- <ion-grid *ngIf="imageUrl">
         <ion-row>
           <ion-col>
             <ion-img alt="" [src]="imageUrl" width="40%"></ion-img>
@@ -106,9 +120,9 @@
 
           </ion-col>
         </ion-row>
-      </ion-grid>
+      </ion-grid> -->
 
-      <!-- <ion-grid *ngIf="img1">
+      <ion-grid *ngIf="img1">
         <ion-row>
           <ion-col>
             <ion-img alt="" [src]="img1" width="40%"></ion-img> 
@@ -120,7 +134,7 @@
 
           </ion-col>
         </ion-row>
-      </ion-grid> -->
+      </ion-grid>
 
       
       
