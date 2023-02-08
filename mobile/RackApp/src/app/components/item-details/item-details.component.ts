@@ -87,6 +87,13 @@ export class ItemDetailsComponent implements OnInit {
     reader.readAsDataURL(this.selectedImage);
   
   }
+
+  remove(){
+    this.img1 = undefined;
+    $('#selectFile').val('');
+    // this.imageUrl = undefined;
+    // this.photos = [];
+  }
   
   save() {
     let formData = this.itemForm.value;

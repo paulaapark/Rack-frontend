@@ -17,13 +17,14 @@ export class Tab2Page {
   filterTerm: string = '';
   userRack: any;
   public show: boolean = false;
-  public grid: boolean = false;
+  public grid:boolean = false;
   mainRackFunction: any;
   selection!: any;
   strSel!: any;
 
   gridToggle!:any;
 
+  notGrid!: boolean;
   seasons = [];
   item_types = [];
 
@@ -162,8 +163,8 @@ export class Tab2Page {
     this.mainRackFunction.subscribe((res: any) => {
       this.userRack = Object.values(res);
     });
-    
-    
+
+    this.gridToggle = false;
   }
 
   toggle() {
@@ -175,7 +176,7 @@ export class Tab2Page {
   }
 
   gridButton(){
-    this.grid = !this.grid;
+    this.gridToggle = !this.gridToggle;
   }
 
 }

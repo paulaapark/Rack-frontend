@@ -10,9 +10,6 @@ import { RackService } from 'src/app/services/rack.service';
 
 import * as $ from 'jquery';
 
-
-
-
 @Component({
   selector: 'app-new-rack',
   templateUrl: './new-rack.page.html',

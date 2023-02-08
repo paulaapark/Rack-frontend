@@ -55,78 +55,15 @@
           <ion-label><ion-icon name="sparkles-outline"></ion-icon>Style - Coming Soon!</ion-label>
           <ion-input disabled placeholder=""></ion-input>
         </ion-item>
-        
-        <ion-item lines="none">
-          <ion-label>Image</ion-label>
-          <ion-col size="1"></ion-col>
-          <ion-input id="selectFile" type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg" placeholder=""></ion-input>
-
-        </ion-item>
       </ion-list>
+      
+      <ion-chip (click)="filePicker.click()">
+        <ion-icon name="image-outline" color="primary"></ion-icon>
+        <ion-label>Upload Image</ion-label>
+         <input id="selectFile" #filePicker type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"/>
+      </ion-chip>
       <br>
-      <!-- <ion-chip (click)="getPicture()">
-        <ion-icon name="camera-outline" color="primary"></ion-icon> 
-        <ion-label> Capture or select image from device </ion-label>
-        <ion-icon name="image-outline" color="primary"></ion-icon>
-      </ion-chip> -->
-      
-      <!-- <ion-text>or</ion-text> -->
-      
-      <ion-chip>
-        <ion-icon name="image-outline" color="primary"></ion-icon>
-        <ion-label>Upload Image</ion-label>
-         <ion-input id="selectFile" type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"></ion-input>
-      </ion-chip>
-      
-
-      <ion-input id="selectFile" type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg">
-      <ion-chip>
-        <ion-icon name="image-outline" color="primary"></ion-icon>
-        <ion-label>Upload Image</ion-label>
-         
-      </ion-chip>
-    </ion-input>
-      <ion-text color="primary"><small >*Currently supports single image upload only</small></ion-text> 
-
-
-      <label>user image:</label><br>
-      <ion-button class="imagebut" (click)="filePicker.click()" accept="image/x-png,image/gif,image/jpeg">select image...</ion-button>
-      <input type="file" #filePicker class="form-control file-input" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg">
-      <p>{{uploadImage}}</p>
-      <!-- <ion-item>
-        <ion-label>Choose image from device</ion-label>
-        <ion-input type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"></ion-input>
-      </ion-item> -->
-
-
-      <!-- <ion-grid *ngFor="let photo of photoService.photos; index as position">
-        <ion-row>
-          <ion-col>
-            <ion-img alt="" [src]="photo.webviewPath" width="40%"></ion-img>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-icon type="button" name="close-circle-outline" size="large" color="primary" (click)="remove()"></ion-icon>
-
-          </ion-col>
-        </ion-row>
-      </ion-grid> -->
-
-
-      <!-- <ion-grid *ngIf="imageUrl">
-        <ion-row>
-          <ion-col>
-            <ion-img alt="" [src]="imageUrl" width="40%"></ion-img>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-icon type="button" name="close-circle-outline" size="large" color="primary" (click)="remove()"></ion-icon>
-
-          </ion-col>
-        </ion-row>
-      </ion-grid> -->
+      <ion-text color="medium"><small >*Currently supports single image upload only</small></ion-text> 
 
       <ion-grid *ngIf="img1">
         <ion-row>
@@ -136,20 +73,19 @@
         </ion-row>
         <ion-row>
           <ion-col>
+          <ion-text *ngIf="selectedImage">{{selectedImage.name}}</ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
             <ion-icon type="button" name="close-circle-outline" size="large" color="primary" (click)="remove()"></ion-icon>
-
           </ion-col>
         </ion-row>
       </ion-grid>
-
-      
-      
-
       
       <br>
       <br>
       <ion-button expand="block" (click)="addRack()">Add to Rack!</ion-button>
-      <!-- add validation. Description not req'd-->
     </form>
   </div>
   <br>

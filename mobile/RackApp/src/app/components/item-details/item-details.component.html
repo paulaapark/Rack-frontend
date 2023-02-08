@@ -55,9 +55,30 @@
         <ion-card *ngIf="item.Image">
           <img [src]="bUrl + item.Image" alt="">
         </ion-card>
-        <ion-chip (click)="takePicture()">
+
+        <ion-grid *ngIf="img1">
+          <ion-row>
+            <ion-col>
+              <ion-img alt="" [src]="img1" width="40%"></ion-img> 
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+            <ion-text *ngIf="selectedImage">{{selectedImage.name}}</ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-icon type="button" name="close-circle-outline" size="large" color="primary" (click)="remove()"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+        <ion-chip (click)="filePicker.click()">
           <ion-icon name="image-outline" color="primary"></ion-icon>
-          <ion-label>Add/Replace image </ion-label>
+          <ion-label>Add/Replace Image</ion-label>
+           <input id="selectFile" #filePicker type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"/>
         </ion-chip>
         <ion-card>
           <ion-item>

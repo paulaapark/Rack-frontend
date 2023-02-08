@@ -1,20 +1,3 @@
-.imagebut {
-    font-family: “sniglet”;
-    --background: #7DCE94;
-    color: #EFEDE7;
-    margin: 10px;
-    width: 180px;
-    border: #EFEDE7 4px solid;
-    border-radius: 4px;
-    margin: 0 auto;
-    display: flex;
-    width: 90%;
-    font-size: 24px;
-    text-transform: lowercase;
-    height: 40px;
-    --border-radius: 0;
-}
-
 input[type="file"]{
     visibility: hidden;
     width: 0;
