@@ -18,7 +18,7 @@
   <br>
   <div>
     <form [formGroup]="rackForm">
-      <ion-list>
+      <ion-list [inset]="true">
         <ion-item [hidden]="true">
           <ion-label>User_id</ion-label>
           <ion-input placeholder="" formControlName="User_id"></ion-input>
@@ -58,7 +58,8 @@
         
         <ion-item lines="none">
           <ion-label>Image</ion-label>
-          <ion-input slot="end" id="selectFile" type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg" placeholder=""></ion-input>
+          <ion-col size="1"></ion-col>
+          <ion-input id="selectFile" type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg" placeholder=""></ion-input>
 
         </ion-item>
       </ion-list>
@@ -87,6 +88,11 @@
     </ion-input>
       <ion-text color="primary"><small >*Currently supports single image upload only</small></ion-text> 
 
+
+      <label>user image:</label><br>
+      <ion-button class="imagebut" (click)="filePicker.click()" accept="image/x-png,image/gif,image/jpeg">select image...</ion-button>
+      <input type="file" #filePicker class="form-control file-input" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg">
+      <p>{{uploadImage}}</p>
       <!-- <ion-item>
         <ion-label>Choose image from device</ion-label>
         <ion-input type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"></ion-input>

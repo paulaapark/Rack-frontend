@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RackService } from 'src/app/services/rack.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-item-details',
@@ -28,11 +29,17 @@ export class ItemDetailsComponent implements OnInit {
   itemForm:FormGroup;
   itemURL!:string;
 
+  selectedImage:any;
+
+  img1:any;
+
+  public bUrl:string = this.userService.baseUrl;
+
   @Input() item:any;
 
   constructor(private modalCtrl: ModalController, 
     private alertController: AlertController, 
-    private actionSheetCtrl: ActionSheetController, private http:HttpClient, private service:RackService,
+    private actionSheetCtrl: ActionSheetController, private http:HttpClient, private service:RackService, private userService:UserService,
     private router:Router, private route:ActivatedRoute, private formBuilder: FormBuilder) {
 
       this.itemForm = formBuilder.group({
@@ -69,8 +76,18 @@ export class ItemDetailsComponent implements OnInit {
     this.editView = true;
   }
 
-  
+  selectFile(event: any): void {
+    this.selectedImage = event.target.files[0];
+    console.log(this.selectedImage);
+    let reader = new FileReader();
+    reader.onload = (event: any) => {
+      this.img1 = event.target.result;
+    }
 
+    reader.readAsDataURL(this.selectedImage);
+  
+  }
+  
   save() {
     let formData = this.itemForm.value;
     this.editItem(formData).subscribe({

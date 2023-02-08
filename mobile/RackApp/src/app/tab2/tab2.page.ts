@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ItemDetailsComponent } from '../components/item-details/item-details.component';
 import { NewRackPage } from './new-rack/new-rack.page';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-tab2',
@@ -12,8 +13,6 @@ import { NewRackPage } from './new-rack/new-rack.page';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-
-
 
   filterTerm: string = '';
   userRack: any;
@@ -28,18 +27,22 @@ export class Tab2Page {
   seasons = [];
   item_types = [];
 
-  imgUrl:any;
+  public bUrl:string = this.userService.baseUrl;
+  public imgUrl:any;
 
   // name!: string;
 
   constructor(public service: RackService, private http: HttpClient,
-    private modalCtrl: ModalController, private toastController: ToastController) {
+    private modalCtrl: ModalController, private toastController: ToastController, private userService: UserService) {
       // if(this.grid = true){
       //   this.gridToggle = 'width=50%';
       // }
       // else {
       //   this.gridToggle = '';
       // }
+
+
+      
   }
 
   async openModal(item: any) {
@@ -154,12 +157,12 @@ export class Tab2Page {
     this.handleChange();
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.mainRackFunction = this.service.getUserRack();
     this.mainRackFunction.subscribe((res: any) => {
       this.userRack = Object.values(res);
     });
-
+    
     
   }
 

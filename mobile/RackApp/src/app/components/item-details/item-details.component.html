@@ -39,8 +39,8 @@
           #{{item.Season}} #{{item.Item_type}}
         </ion-card-subtitle>
       </ion-card-header>
-      <ion-card>
-        <img src="assets/images/generic-top.jpg" alt="">
+      <ion-card *ngIf="item.Image">
+        <img [src]="bUrl + item.Image" alt="">
       </ion-card>
         <ion-card-content>
           {{item.Description}}
@@ -52,12 +52,12 @@
 
     <ion-card>
       <form [formGroup]="itemForm">
-        <ion-card>
-          <img src="assets/images/generic-top.jpg" alt="">
+        <ion-card *ngIf="item.Image">
+          <img [src]="bUrl + item.Image" alt="">
         </ion-card>
         <ion-chip (click)="takePicture()">
           <ion-icon name="image-outline" color="primary"></ion-icon>
-          <ion-label>Add/Replace image(s) </ion-label>
+          <ion-label>Add/Replace image </ion-label>
         </ion-chip>
         <ion-card>
           <ion-item>
@@ -68,17 +68,17 @@
           <ion-item>
             <ion-label><ion-icon name="partly-sunny-outline"></ion-icon>Season</ion-label>
             <ion-select interface="popover" formControlName="Season">
-              <ion-select-option value="&Season=Spring">Spring</ion-select-option>
-              <ion-select-option value="&Season=Summer">Summer</ion-select-option>
-              <ion-select-option value="&Season=Fall">Fall</ion-select-option>
-              <ion-select-option value="&Season=Winter">Winter</ion-select-option>
+              <ion-select-option value="Spring">Spring</ion-select-option>
+              <ion-select-option value="Summer">Summer</ion-select-option>
+              <ion-select-option value="Fall">Fall</ion-select-option>
+              <ion-select-option value="Winter">Winter</ion-select-option>
             </ion-select>
           </ion-item>
           <ion-item>
             <ion-label><ion-icon name="shirt-outline"></ion-icon>Type</ion-label>
             <ion-select interface="popover" formControlName="Item_type">
-              <ion-select-option value="&Item_type=Top">Top</ion-select-option>
-              <ion-select-option value="&Item_type=Bottom">Bottom</ion-select-option>
+              <ion-select-option value="Top">Top</ion-select-option>
+              <ion-select-option value="Bottom">Bottom</ion-select-option>
             </ion-select>
           </ion-item>
           <ion-item lines="none">

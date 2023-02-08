@@ -8,11 +8,9 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { RackService } from 'src/app/services/rack.service';
 
-import { Platform } from '@ionic/angular';
-
 import * as $ from 'jquery';
 
-import { PhotoService } from 'src/app/services/photo.service';
+
 
 
 @Component({
@@ -26,9 +24,7 @@ export class NewRackPage implements OnInit {
 
   rackForm:FormGroup;
   selectedImage:any;
-  // public imageUrl:any;
-
-  // savedFile:any;
+  
   savedImageFile:any;
 
   photo:any;
@@ -37,6 +33,7 @@ export class NewRackPage implements OnInit {
 
   event:any;
 
+  uploadImage = 'no image selected...';
 
   constructor(private modalCtrl: ModalController, 
     private alertController: AlertController, private actionSheetCtrl: ActionSheetController, 
@@ -44,8 +41,7 @@ export class NewRackPage implements OnInit {
     private router:Router, 
     private route:ActivatedRoute,
     private rackService:RackService,
-    public userService:UserService,
-    public photoService:PhotoService) {
+    public userService:UserService) {
     this.rackForm = formBuilder.group({
       Title: ['', [Validators.required]],
       Description: ['', ],
