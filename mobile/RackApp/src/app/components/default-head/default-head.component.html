@@ -28,7 +28,8 @@
 
 <div>
   <ion-header [translucent]="true">
-    <ion-toolbar>
+    <ion-toolbar  class="position-relative">
+        <img class="position-absolute top-50 start-50 translate-middle logo-img" src="assets/icon/rack-logo-6.svg" alt="RACK">
       <ion-icon class="ion-padding" type="button" slot="start" name="bag-add-outline" (click)="quickRack()"
         color="primary" size="large"></ion-icon>
       <!-- <ion-buttons slot="start">
@@ -50,9 +51,8 @@
           </ion-button>
         </ion-menu-toggle>
       </ion-buttons>
-      <div class="default-head">
-        <img class="logo-img" src="assets/icon/rack-logo-6.svg" alt="RACK">
-      </div>
+      
+
     </ion-toolbar>
   </ion-header>
 </div>

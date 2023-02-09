@@ -1,12 +1,14 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header [translucent]="true" class="default-head">
+  <ion-toolbar class="position-relative ">
+    <!-- <img class="position-absolute top-50 start-50 translate-middle logo-img" src="assets/icon/rack-logo-6.svg" alt="RACK"> -->
+    <!-- height of toolbar isnt working with img size. its fine, we dont need the logo here anyway -->
     <ion-buttons slot="start">
       <ion-button (click)="back()" >Later</ion-button>
     </ion-buttons>
-    <ion-title>RACK</ion-title> <!-- title will become logo image -->
-    <!-- <ion-buttons slot="end">
-      <ion-button>Done</ion-button>
-    </ion-buttons> -->
+
+    <ion-title>New Rack Item</ion-title>
+    
+      
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding" [fullscreen]="true">
