@@ -73,9 +73,11 @@
     <br>
     <br>
     <div class="ion-padding" *ngFor="let item of generatedItems; let i=index">
-      <span>Item #{{i + 1}}</span>
-      <ion-card>
-        <img alt="Default T-Shirt Image" src="assets/images/generic-top.jpg" />
+      <span *ngIf="generatedItems.length > 1">Item #{{i + 1}}</span>
+      <ion-card (click)="openModal(item)" type="button">
+        <ion-card *ngIf="item.Image">
+          <ion-img [src]="bUrl + item.Image"></ion-img>
+        </ion-card>
         <ion-card-header>
           <ion-card-title>{{item.Title}} </ion-card-title>
           <ion-card-subtitle>#{{item.Season}} #{{item.Item_type}}</ion-card-subtitle>
@@ -91,7 +93,10 @@
       <br>
       <br>
       <br>
-      <ion-text>I think we make a great team! <a routerLink="../../../feedback">Do you?</a></ion-text>
+      <ion-text>I think we make a great team! <ion-text color="primary">Do you?</ion-text></ion-text>
+      <br>
+      <br>
+      <ion-button fill="clear" (click)="restart()">Build another?</ion-button>
     </div>
 
     <div *ngIf="nay">
@@ -100,6 +105,9 @@
       <br>
       <br>
       <ion-text color="primary">Maybe it's time to go shopping!</ion-text>
+      <br>
+      <br>
+      <ion-button fill="clear" (click)="restart()">Try again?</ion-button>
     </div>
 
   </div>

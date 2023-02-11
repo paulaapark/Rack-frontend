@@ -62,7 +62,7 @@
       <ion-chip (click)="filePicker.click()">
         <ion-icon name="image-outline" color="primary"></ion-icon>
         <ion-label>Upload Image</ion-label>
-         <input id="selectFile" #filePicker type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"/>
+         <input id="selectFile" #filePicker type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg,image/webp"/>
       </ion-chip>
       <br>
       <ion-text color="medium"><small >*Currently supports single image upload only</small></ion-text> 

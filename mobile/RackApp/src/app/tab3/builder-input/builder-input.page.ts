@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { RackService } from 'src/app/services/rack.service';
 import { UserService } from 'src/app/services/user.service';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
-import { concat, timer } from 'rxjs';
-import { map } from 'rxjs';
+
 import { HttpClient } from '@angular/common/http';
+
+import { ModalController, ToastController } from '@ionic/angular';
+import { ItemDetailsComponent } from 'src/app/components/item-details/item-details.component';
 
 @Component({
   selector: 'app-builder-input',
@@ -44,8 +46,10 @@ export class BuilderInputPage implements OnInit {
 
   matches:string = 'matches';
   requests:string = 'requests';
+
+  public bUrl:string = this.userService.baseUrl;
   
-  constructor(public userService: UserService, public rackService: RackService, private formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(public userService: UserService, public rackService: RackService, private formBuilder: FormBuilder, private http: HttpClient, private modalCtrl:ModalController, private toastController:ToastController) {
     if (this.hrs < 12) {
       this.timeOfDay = 'morning';
     } else if (this.hrs >= 12 && this.hrs <= 17) {
@@ -158,4 +162,57 @@ export class BuilderInputPage implements OnInit {
     }
     
   };
+
+  restart(){
+    this.builderForm.reset();
+    this.builder = true;
+    this.results = false;
+    // clear the form array on restarting? only 1 item
+  }
+
+  async openModal(item: any) {
+    const modal = await this.modalCtrl.create({
+      component: ItemDetailsComponent,
+      componentProps: {
+        'item': item
+      }
+    });
+
+    modal.present();
+    // console.log(item);
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'delete') {
+      console.log('deleted');
+      const toast = await this.toastController.create({
+        message: `${data} successfully deleted`,
+        duration: 2500,
+        position: 'bottom'
+      });
+
+      await toast.present();
+    }
+
+    if (role === 'save') {
+      console.log('item updated');
+      const toast = await this.toastController.create({
+        message: `${data} successfully updated!`,
+        duration: 2500,
+        position: 'bottom'
+      });
+
+      await toast.present();
+    }
+
+    if (role === 'error') {
+      console.log('error');
+      const toast = await this.toastController.create({
+        message: `Sorry, something went wrong. Please try again.`,
+        duration: 2500,
+        position: 'bottom'
+      });
+
+      await toast.present();
+    }
+  }
 }
