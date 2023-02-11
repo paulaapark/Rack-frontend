@@ -17,7 +17,7 @@ export class Tab2Page {
   filterTerm: string = '';
   userRack: any;
   public show: boolean = false;
-  public grid:boolean = false;
+  
   mainRackFunction: any;
   selection!: any;
   strSel!: any;
@@ -64,7 +64,7 @@ export class Tab2Page {
     if (role === 'save') {
       console.log('item updated');
       const toast = await this.toastController.create({
-        message: `${data} successfully updated`,
+        message: `${data} successfully updated!`,
         duration: 2500,
         position: 'bottom'
       });
@@ -153,7 +153,7 @@ export class Tab2Page {
       this.userRack = Object.values(res);
     });
 
-    this.gridToggle = false;
+    this.gridToggle = true;
   }
 
   toggle() {

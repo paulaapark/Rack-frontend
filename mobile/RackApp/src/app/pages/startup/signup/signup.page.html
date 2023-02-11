@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button routerLink="../../startup">Later</ion-button>
+      <ion-button (click)="back()">Later</ion-button>
     </ion-buttons>
     <ion-title>RACK</ion-title> <!-- title will become logo image -->
   </ion-toolbar>
@@ -44,7 +44,7 @@
     <ion-button expand="block" (click)="signup()">Let's Get Started!</ion-button>
   </form>
   <br>
-  <ion-text>Already have an account? <a routerLink="../login">Log in!</a> </ion-text>
+  <ion-text>Already have an account? <ion-text color="primary" (click)="login()">Log in!</ion-text> </ion-text>
   <br>
   <br>
   <ion-text>Powered by Paula Anderson</ion-text>

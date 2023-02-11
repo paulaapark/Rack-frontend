@@ -8,10 +8,12 @@ import { RackService } from 'src/app/services/rack.service';
 import { ItemDetailsComponent } from 'src/app/components/item-details/item-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewRackPage } from 'src/app/tab2/new-rack/new-rack.page';
+import { LoginPage } from 'src/app/pages/startup/login/login.page';
+import { SignupPage } from 'src/app/pages/startup/signup/signup.page';
 
 
 @NgModule({
-  declarations: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage],
+  declarations: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage],
   providers: [ UserService, RackService ],
   imports: [
     CommonModule,
@@ -20,6 +22,6 @@ import { NewRackPage } from 'src/app/tab2/new-rack/new-rack.page';
     ReactiveFormsModule,
     FormsModule
   ],
-  exports: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage ],
+  exports: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage ],
 })
 export class SharedModule { }

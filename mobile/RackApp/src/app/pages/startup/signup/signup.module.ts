@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SignupPageRoutingModule } from './signup-routing.module';
 
-import { SignupPage } from './signup.page';
+// import { SignupPage } from './signup.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 
 
@@ -21,6 +21,6 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
     SignupPageRoutingModule,
     SharedModule
   ],
-  declarations: [SignupPage],
+  declarations: [],
 })
 export class SignupPageModule {}

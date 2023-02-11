@@ -105,16 +105,15 @@ export class ItemDetailsComponent implements OnInit {
       fd.append(key, formValues[key]);
     }
 
-
     this.editItem(fd).subscribe({
       next: (result) => {
         console.log(result);
-        alert('Item edited');
+        // alert('Item edited');
         return this.modalCtrl.dismiss(this.item.Title, 'save');
       },
       error: error => {
         alert('Unsuccessful');
-        console.error(error);
+        // console.error(error);
         return this.modalCtrl.dismiss(null, 'error');
       }
     })

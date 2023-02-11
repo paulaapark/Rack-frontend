@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastController, ModalController } from '@ionic/angular';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class SignupPage implements OnInit {
 
   signupForm;
 
-  constructor(private service:UserService, private formBuilder: FormBuilder, private router:Router, private route:ActivatedRoute) { 
+  constructor(private service:UserService, private formBuilder: FormBuilder, private router:Router, private route:ActivatedRoute, private toastController:ToastController, private modalCtrl:ModalController) { 
     this.signupForm = formBuilder.group({
       FirstName: ['', [Validators.required]],
       LastName: ['', [Validators.required]],
@@ -31,14 +32,24 @@ export class SignupPage implements OnInit {
     this.service.signup(formData).subscribe({
         next: (result) => {
           console.log(result);
-          alert('Register successful!');
-          this.router.navigate(['../login'], {relativeTo: this.route});
+          // alert('Register successful!');
+          return this.modalCtrl.dismiss(this.signupForm.value.FirstName, 'success');  
+          
         }, 
         error: error => {
-        alert('Register failed!');
+        // alert('Register failed!');
         console.error(error);
+        return this.modalCtrl.dismiss(null, 'error');
         }
     });
+  }
+
+  login(){
+    return this.modalCtrl.dismiss(null, 'login');
+  }
+
+  back() {
+    return this.modalCtrl.dismiss(null, 'cancel');
   }
 
   get FirstNameFormControl(){
