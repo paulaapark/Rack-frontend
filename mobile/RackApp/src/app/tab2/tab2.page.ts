@@ -35,15 +35,7 @@ export class Tab2Page {
 
   constructor(public service: RackService, private http: HttpClient,
     private modalCtrl: ModalController, private toastController: ToastController, private userService: UserService) {
-      // if(this.grid = true){
-      //   this.gridToggle = 'width=50%';
-      // }
-      // else {
-      //   this.gridToggle = '';
-      // }
-
-
-      
+          
   }
 
   async openModal(item: any) {
@@ -95,9 +87,6 @@ export class Tab2Page {
   async newRack() {
     const modal = await this.modalCtrl.create({
       component: NewRackPage,
-      // componentProps: {
-      //   'item': item
-      // }
     });
 
     modal.present();

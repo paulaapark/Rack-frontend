@@ -20,7 +20,7 @@
       </ion-buttons>
       <ion-title>Edit Item</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="save()">Save</ion-button>
+        <ion-button (click)="presentAlert()">Delete</ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
@@ -42,9 +42,9 @@
       <ion-card *ngIf="item.Image" class="my-2">
         <img [src]="bUrl + item.Image" alt="">
       </ion-card>
-        <ion-card-content class="my-3">
-          {{item.Description}}
-        </ion-card-content>
+      <ion-card-content class="my-3">
+        {{item.Description}}
+      </ion-card-content>
     </ion-card>
   </div>
 
@@ -52,38 +52,41 @@
 
     <ion-card>
       <form [formGroup]="itemForm">
+        <div *ngIf="!img1">
         <ion-card *ngIf="item.Image">
           <img [src]="bUrl + item.Image" alt="">
         </ion-card>
+        </div>
 
-        <ion-grid *ngIf="img1">
-          <ion-row>
-            <ion-col>
-              <ion-img alt="" [src]="img1" width="40%"></ion-img> 
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-            <ion-text *ngIf="selectedImage">{{selectedImage.name}}</ion-text>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-icon type="button" name="close-circle-outline" size="large" color="primary" (click)="remove()"></ion-icon>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-
+        <div *ngIf="img1">
+          <ion-card>
+            <img alt="" [src]="img1">
+          </ion-card>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-text *ngIf="selectedImage">{{selectedImage.name}}</ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-icon type="button" name="close-circle-outline" size="large" color="primary"
+                  (click)="remove()"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
 
         <ion-chip (click)="filePicker.click()">
           <ion-icon name="image-outline" color="primary"></ion-icon>
           <ion-label>Add/Replace Image</ion-label>
-           <input id="selectFile" #filePicker type="file" (change)="selectFile($event)" accept="image/x-png,image/gif,image/jpeg"/>
+          <input id="selectFile" #filePicker type="file" (change)="selectFile($event)"
+            accept="image/x-png,image/gif,image/jpeg" />
         </ion-chip>
         <ion-card>
           <ion-item>
-            <ion-label position="stacked" >Title</ion-label>
-            <ion-input formControlName="Title" ></ion-input>
+            <ion-label position="stacked">Title</ion-label>
+            <ion-input formControlName="Title"></ion-input>
           </ion-item>
 
           <ion-item>
@@ -110,7 +113,7 @@
         </ion-card>
       </form>
       <ion-card-content>
-        <ion-button expand="block" (click)="presentAlert()">Delete Item</ion-button>
+        <ion-button expand="block" (click)="save()">Save Updates!</ion-button>
       </ion-card-content>
     </ion-card>
 

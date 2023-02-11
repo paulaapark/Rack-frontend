@@ -96,8 +96,17 @@ export class ItemDetailsComponent implements OnInit {
   }
   
   save() {
-    let formData = this.itemForm.value;
-    this.editItem(formData).subscribe({
+    let formValues = this.itemForm.value;
+    let fd = new FormData();
+
+    fd.append('image', this.selectedImage);
+
+    for(let key in formValues){
+      fd.append(key, formValues[key]);
+    }
+
+
+    this.editItem(fd).subscribe({
       next: (result) => {
         console.log(result);
         alert('Item edited');
@@ -154,33 +163,33 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   deleteItem(){
-    return this.http.delete(this.itemURL)
+    return this.http.delete(this.itemURL);
   }
 
   editItem(formData:object){
-    return this.http.patch(this.itemURL, formData)
+    return this.http.patch(this.itemURL, formData);
   }
 
-  takePicture(){
-    const snapPicture = async () => {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Uri
-      });
+  // takePicture(){
+  //   const snapPicture = async () => {
+  //     const image = await Camera.getPhoto({
+  //       quality: 90,
+  //       allowEditing: true,
+  //       resultType: CameraResultType.Uri
+  //     });
     
-      // image.webPath will contain a path that can be set as an image src.
-      // You can access the original file using image.path, which can be
-      // passed to the Filesystem API to read the raw data of the image,
-      // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-      this.imageUrl = image.webPath;
+  //     // image.webPath will contain a path that can be set as an image src.
+  //     // You can access the original file using image.path, which can be
+  //     // passed to the Filesystem API to read the raw data of the image,
+  //     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+  //     this.imageUrl = image.webPath;
     
-      // Can be set to the src of an image now
-      // imageElement.src = imageUrl;
-      // alert(imageUrl);
-    };
-    snapPicture();
-  }
+  //     // Can be set to the src of an image now
+  //     // imageElement.src = imageUrl;
+  //     // alert(imageUrl);
+  //   };
+  //   snapPicture();
+  // }
 
 
   get TitleFormControl(){
