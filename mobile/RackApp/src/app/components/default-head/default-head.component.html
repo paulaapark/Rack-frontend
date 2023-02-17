@@ -1,57 +1,110 @@
 <ion-menu type="overlay" side="end" contentId="main-content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Settings</ion-title>
+      <ion-menu-toggle><ion-icon *ngIf="!accountSettings" name="backspace-outline" type="button" color="primary"
+          size="large"></ion-icon></ion-menu-toggle>
+      <ion-icon *ngIf="accountSettings" name="chevron-back-outline" type="button" (click)="back()" slot="start"
+        size="large" color="primary"></ion-icon>
+      <ion-title *ngIf="!accountSettings">Settings</ion-title>
+      <ion-title *ngIf="accountSettings">Account</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
 
-    <ion-accordion-group>
-      <ion-item>Account Settings
+    <ion-accordion-group *ngIf="!accountSettings">
+      <ion-item (click)="openAS()" lines="none" type="button">Account Settings
         <ion-icon slot="end" name="chevron-forward"></ion-icon>
       </ion-item>
-      <ion-accordion value="first">
+      <ion-accordion value="first" toggleIcon="chevron-forward">
         <ion-item slot="header">
           <ion-label>Display Settings</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
-          
+          <ion-list>
+            <ion-radio-group value="light">
+              <ion-item>
+                <ion-icon slot="start" name="sunny-outline"></ion-icon>
+                <ion-label>Light mode</ion-label>
+                <ion-radio slot="end" value="light"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-icon slot="start" name="moon-outline"></ion-icon>
+                <ion-label>Dark mode</ion-label>
+                <ion-radio slot="end" value="dark"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-icon slot="start" name="settings-outline"></ion-icon>
+                <ion-label>System</ion-label>
+                <ion-radio slot="end" value="system"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
         </div>
       </ion-accordion>
-      <ion-item [disabled]="true">Language & Region
+      <ion-item [disabled]="true" lines="none">Language & Region
         <ion-icon slot="end" name="chevron-forward"></ion-icon>
       </ion-item>
-      <ion-item [disabled]="true">Share Feedback
+      <ion-item [disabled]="true" lines="none">Share Feedback
         <ion-icon slot="end" name="chevron-forward"></ion-icon>
       </ion-item>
-      <ion-button fill="clear" (click)="logout()"><ion-icon name="lock-closed-outline"></ion-icon> Logout</ion-button>
+      <ion-button fill="clear" (click)="logout()"><ion-icon name="exit-outline"></ion-icon> Logout</ion-button>
     </ion-accordion-group>
 
-    <ion-list>
-      <ion-item href="">Account Settings
-      </ion-item>
 
-      <ion-item href="">App Settings
-        <!-- <ion-button fill="clear" color="medium" size="large">App Settings</ion-button> -->
-      </ion-item>
-
-      <ion-item disabled>Language & Region
-        <!-- <ion-button fill="clear" color="secondary" disabled>Language & Region - Coming Soon!</ion-button> -->
-      </ion-item>
-
-      <ion-item disabled>Share Feedback
-        <!-- <ion-button fill="clear" color="secondary" disabled>Share Feedback - Coming Soon!</ion-button> -->
-      </ion-item>
-      <ion-button fill="clear" (click)="logout()"><ion-icon name="lock-closed-outline"></ion-icon> Logout</ion-button>
-    </ion-list>
+    <ion-accordion-group *ngIf="accountSettings">
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>User Settings</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-avatar class="mx-auto d-block">
+            <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          </ion-avatar>
+          <ion-list>
+            <ion-item>
+              First Name
+            </ion-item>
+            <ion-item>
+              Last Name
+            </ion-item>
+            <ion-item>
+              Birthday
+            </ion-item>
+            <ion-item>
+              Gender
+            </ion-item>
+          </ion-list>
+          <ion-button fill="clear">Edit Details</ion-button>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="second">
+        <ion-item slot="header" color="light">
+          <ion-label>Security</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-list>
+            <ion-item type="button" >
+              <ion-icon slot="start" name="mail-outline" color="primary"></ion-icon>
+              <ion-text color="primary">Change Email</ion-text>
+            </ion-item>
+            <ion-item type="button" >
+              <ion-icon slot="start" name="key-outline" color="primary"></ion-icon>
+              <ion-text color="primary">Update Password</ion-text>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
   </ion-content>
 </ion-menu>
 
 <div>
   <ion-header [translucent]="true">
-    <ion-toolbar  class="position-relative ">
+    <ion-toolbar class="position-relative ">
       <div class="logo-div">
-        <ion-img class="position-absolute top-50 start-50 translate-middle logo-img" src="assets/icon/rack-logo-6.svg" alt="RACK"></ion-img>
+        <ion-img class="mx-auto d-block logo-img" src="assets/icon/rack-logo-6.svg" alt="RACK"></ion-img>
       </div>
       <ion-icon class="ion-padding" type="button" slot="start" name="bag-add-outline" (click)="quickRack()"
         color="primary" size="large"></ion-icon>
@@ -73,7 +126,7 @@
           </ion-button>
         </ion-menu-toggle>
       </ion-buttons>
-      
+
 
     </ion-toolbar>
   </ion-header>

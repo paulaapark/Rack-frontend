@@ -10,11 +10,17 @@ import { Camera, CameraResultType } from '@capacitor/camera';
   styleUrls: ['./default-head.component.scss'],
 })
 export class DefaultHeadComponent implements OnInit {
+  accountSettings!:boolean;
 
   constructor(private router:Router, private service:QuickRackService) {}
     
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
+  ionViewWillEnter() {
+    this.accountSettings= false;
+  }
 
   quickRack(){
     this.service.quickRack();
@@ -24,5 +30,12 @@ export class DefaultHeadComponent implements OnInit {
     localStorage.removeItem("currentUser");
     this.router.navigate(['startup']);
   }
+
+  openAS(){
+    this.accountSettings=true;
+  }
   
+  back(){
+    this.accountSettings=false;
+  }
 }

@@ -62,8 +62,9 @@
     <h5>{{ userService.currentUser.FirstName }} X RACK Collab</h5>
     <br>
     <ion-progress-bar type="indeterminate"></ion-progress-bar>
-    <!-- loading bar for a random number of seconds between 3 and 7 and then show the content -->
     <br>
+    <br>
+    <ion-text>{{loadingString}}</ion-text>
   </div>
 
   <div class="results" *ngIf="results">

@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { ModalController, ToastController } from '@ionic/angular';
 import { ItemDetailsComponent } from 'src/app/components/item-details/item-details.component';
+import { delay } from 'rxjs';
+
 
 @Component({
   selector: 'app-builder-input',
@@ -40,6 +42,10 @@ export class BuilderInputPage implements OnInit {
   min:number = 3;
   max:number = 7;
   rand:number = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
+
+  loadingArray= ["Looking through your closet","Digging through the piles", "Checking behind the drawers","Sorting through the options"];
+  loadingShuffled!:string[];
+  public loadingString!:string;
 
   yay:boolean = false;
   nay:boolean = false;
@@ -89,7 +95,7 @@ export class BuilderInputPage implements OnInit {
     control.removeAt(i);
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.builder = false;
     this.loading = true;
     this.formData = this.builderForm.value;
@@ -134,6 +140,8 @@ export class BuilderInputPage implements OnInit {
       });
     }
 
+    this.shuffleLoading();
+
     console.log(this.filteredRackArray);
     console.log(this.generatedItems);
 
@@ -146,6 +154,18 @@ export class BuilderInputPage implements OnInit {
     return this.http.get(this.rackService.userUrl + this.filterQuery);
   };
 
+  pause(number:number) {
+    return new Promise(resolve => {
+        setTimeout(() => { resolve('') }, number);
+    })
+}
+
+  async shuffleLoading(){
+    for (let i=0; i < this.loadingArray.length; i++) {
+      this.loadingString = this.loadingArray[Math.floor(Math.random() * this.loadingArray.length)];
+      await this.pause(1055);
+    }
+  }
   
   showResults(){
     this.loading = false;
