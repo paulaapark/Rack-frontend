@@ -6,6 +6,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { ItemDetailsComponent } from '../components/item-details/item-details.component';
 import { NewRackPage } from './new-rack/new-rack.page';
 import { UserService } from '../services/user.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -34,7 +35,7 @@ export class Tab2Page {
   // name!: string;
 
   constructor(public service: RackService, private http: HttpClient,
-    private modalCtrl: ModalController, private toastController: ToastController, private userService: UserService) {
+    private modalCtrl: ModalController, private toastController: ToastController, private userService: UserService, private router:Router, private route:ActivatedRoute) {
           
   }
 
@@ -59,10 +60,12 @@ export class Tab2Page {
       });
 
       await toast.present();
+      this.ionViewWillEnter();
     }
 
     if (role === 'save') {
       console.log('item updated');
+      this.router.navigate(['../tabs/tab2']);
       const toast = await this.toastController.create({
         message: `${data} successfully updated!`,
         duration: 2500,
@@ -70,6 +73,8 @@ export class Tab2Page {
       });
 
       await toast.present();
+      this.ionViewWillEnter();
+      
     }
 
     if (role === 'error') {
@@ -81,6 +86,7 @@ export class Tab2Page {
       });
 
       await toast.present();
+      this.ionViewWillEnter();
     }
   }
 
@@ -102,6 +108,7 @@ export class Tab2Page {
       });
 
       await toast.present();
+      this.ionViewWillEnter();
     }
 
     if (role === 'save') {
@@ -113,6 +120,7 @@ export class Tab2Page {
       });
 
       await toast.present();
+      this.ionViewWillEnter();
     }
 
     
@@ -147,7 +155,7 @@ export class Tab2Page {
     this.handleChange();
   }
 
-  ionViewWillEnter() {
+  ionViewWillEnter():void {
     this.mainRackFunction = this.service.getUserRack();
     this.mainRackFunction.subscribe((res: any) => {
       this.userRack = Object.values(res);

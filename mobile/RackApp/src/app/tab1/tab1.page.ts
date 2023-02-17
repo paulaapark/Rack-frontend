@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { NgModule } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
@@ -13,7 +12,7 @@ export class Tab1Page {
 public myDate = new Date();
 public hrs = this.myDate.getHours();
 public greeting:string;
-
+public firstName!:string;
 
 
   constructor(public userService:UserService, private router:Router, private route:ActivatedRoute) {
@@ -27,6 +26,7 @@ public greeting:string;
   }
 
   ngOnInit() {
+    this.firstName = this.userService.currentUser.FirstName;
   }
 
   stats(){

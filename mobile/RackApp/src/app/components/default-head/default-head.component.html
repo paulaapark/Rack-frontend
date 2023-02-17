@@ -5,9 +5,30 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
+
+    <ion-accordion-group>
+      <ion-item>Account Settings
+        <ion-icon slot="end" name="chevron-forward"></ion-icon>
+      </ion-item>
+      <ion-accordion value="first">
+        <ion-item slot="header">
+          <ion-label>Display Settings</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          
+        </div>
+      </ion-accordion>
+      <ion-item [disabled]="true">Language & Region
+        <ion-icon slot="end" name="chevron-forward"></ion-icon>
+      </ion-item>
+      <ion-item [disabled]="true">Share Feedback
+        <ion-icon slot="end" name="chevron-forward"></ion-icon>
+      </ion-item>
+      <ion-button fill="clear" (click)="logout()"><ion-icon name="lock-closed-outline"></ion-icon> Logout</ion-button>
+    </ion-accordion-group>
+
     <ion-list>
       <ion-item href="">Account Settings
-        <!-- <ion-button fill="clear" color="medium" size="large">Account Settings</ion-button> -->
       </ion-item>
 
       <ion-item href="">App Settings
@@ -28,8 +49,10 @@
 
 <div>
   <ion-header [translucent]="true">
-    <ion-toolbar  class="position-relative">
-        <img class="position-absolute top-50 start-50 translate-middle logo-img" src="assets/icon/rack-logo-6.svg" alt="RACK">
+    <ion-toolbar  class="position-relative ">
+      <div class="logo-div">
+        <ion-img class="position-absolute top-50 start-50 translate-middle logo-img" src="assets/icon/rack-logo-6.svg" alt="RACK"></ion-img>
+      </div>
       <ion-icon class="ion-padding" type="button" slot="start" name="bag-add-outline" (click)="quickRack()"
         color="primary" size="large"></ion-icon>
       <!-- <ion-buttons slot="start">
@@ -39,13 +62,12 @@
       </ion-buttons> -->
       <ion-buttons slot="end">
 
-        <!-- the router isnt working.. maybe because this is the default head? -->
-        <ion-button slot="icon-only" routerLink="../profile" disabled>
+        <ion-button slot="icon-only" routerLink="#" disabled>
           <ion-icon name="person-circle-outline" size="large"></ion-icon>
           <!-- <ion-avatar> <img alt="Profile Pic" src="https://ionicframework.com/docs/img/demos/avatar.svg" /> </ion-avatar> make the src image binding of persons pic. if they dont have a pic, make that ion-icon the default img -->
         </ion-button>
 
-        <ion-menu-toggle>
+        <ion-menu-toggle autoHide="false">
           <ion-button fill="clear">
             <ion-icon name="ellipsis-vertical"></ion-icon>
           </ion-button>

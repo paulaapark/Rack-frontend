@@ -109,7 +109,7 @@ export class ItemDetailsComponent implements OnInit {
       next: (result) => {
         console.log(result);
         // alert('Item edited');
-        return this.modalCtrl.dismiss(this.item.Title, 'save');
+        return this.modalCtrl.dismiss(this.itemForm.value.Title, 'save');
       },
       error: error => {
         alert('Unsuccessful');
