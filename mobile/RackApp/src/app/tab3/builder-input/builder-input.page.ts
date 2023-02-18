@@ -163,7 +163,7 @@ export class BuilderInputPage implements OnInit {
   async shuffleLoading(){
     for (let i=0; i < this.loadingArray.length; i++) {
       this.loadingString = this.loadingArray[Math.floor(Math.random() * this.loadingArray.length)];
-      await this.pause(1055);
+      await this.pause(1355);
     }
   }
   

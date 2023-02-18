@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button routerLink="../tabs">Later</ion-button>
+      <ion-button (click)="later()">Later</ion-button>
     </ion-buttons>
     <ion-title>RACK</ion-title> <!-- title will become logo image -->
   </ion-toolbar>
@@ -39,13 +39,13 @@
           <ion-select-option value="Female">Female</ion-select-option>
           <ion-select-option value="Male">Male</ion-select-option>
           <ion-select-option value="Non-Binary">Non-Binary</ion-select-option>
-          <ion-select-option value="Prefer not to answer">Prefer not to answer</ion-select-option>
+          <ion-select-option value="Unselected">Unselected</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>What do you look like?</ion-label>
-        <ion-chip (click)="takePicture()">
+        <ion-chip>
           <ion-icon name="image-outline" color="primary"></ion-icon>
           <ion-label>Upload a selfie </ion-label>
         </ion-chip>

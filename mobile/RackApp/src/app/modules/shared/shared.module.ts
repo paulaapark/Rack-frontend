@@ -10,10 +10,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewRackPage } from 'src/app/tab2/new-rack/new-rack.page';
 import { LoginPage } from 'src/app/pages/startup/login/login.page';
 import { SignupPage } from 'src/app/pages/startup/signup/signup.page';
+import { DetailsPage } from 'src/app/pages/details/details.page';
 
 
 @NgModule({
-  declarations: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage],
+  declarations: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage, DetailsPage],
   providers: [ UserService, RackService ],
   imports: [
     CommonModule,
@@ -22,6 +23,6 @@ import { SignupPage } from 'src/app/pages/startup/signup/signup.page';
     ReactiveFormsModule,
     FormsModule
   ],
-  exports: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage ],
+  exports: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage, DetailsPage ],
 })
 export class SharedModule { }

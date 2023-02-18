@@ -4,6 +4,7 @@ import { SignupPage } from './signup/signup.page';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginPage } from './login/login.page';
+import { DetailsPage } from '../details/details.page';
 
 
 @Component({
@@ -32,13 +33,13 @@ export class StartupPage implements OnInit {
     if (role === 'success') {
       console.log('item updated');
       const toast = await this.toastController.create({
-        message: `Welcome, ${data}! Please log in to get started.`,
+        message: `Welcome, ${data}! Almost there!`,
         duration: 2500,
         position: 'bottom'
       });
 
       await toast.present();
-      this.loginModal();
+      this.detailsModal();
     }
 
     if (role === 'error') {
@@ -57,6 +58,42 @@ export class StartupPage implements OnInit {
     }
   }
 
+  async detailsModal() {
+    const modal = await this.modalCtrl.create({
+      component: DetailsPage,
+    });
+
+    modal.present();
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'success') {
+      console.log('success');
+      const toast = await this.toastController.create({
+        message: `Nice getting to know you! Please log in to get started.`,
+        duration: 2500,
+        position: 'bottom'
+      });
+
+      await toast.present();
+      this.loginModal();   }
+
+    if (role === 'error') {
+      console.log('error');
+      const toast = await this.toastController.create({
+        message: `Sorry something went wrong. Please log in to get started.`,
+        duration: 2500,
+        position: 'bottom'
+      });
+
+      await toast.present();
+      this.loginModal();
+    }
+
+    if (role === 'later') {
+      this.loginModal();
+    }
+  }
+
 
   async loginModal() {
     const modal = await this.modalCtrl.create({
@@ -64,24 +101,17 @@ export class StartupPage implements OnInit {
     });
 
     modal.present();
-    // console.log(item);
     const { data, role } = await modal.onWillDismiss();
 
     if (role === 'success') {
       console.log('success');
-      // const toast = await this.toastController.create({
-      //   message: `Welcome, ${data}! Please log in to get started.`,
-      //   duration: 2500,
-      //   position: 'bottom'
-      // });
-
-      // await toast.present();
-      this.router.navigate(['../tabs'], {relativeTo: this.route});    }
+      this.router.navigate(['../tabs'], {relativeTo: this.route});    
+    }
 
     if (role === 'error') {
       console.log('error');
       const toast = await this.toastController.create({
-        message: `Sorry, something went wrong. Please try signing up again.`,
+        message: `Sorry, something went wrong. Please try again.`,
         duration: 2500,
         position: 'bottom'
       });

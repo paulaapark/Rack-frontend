@@ -12,16 +12,16 @@
   <ion-content class="ion-padding">
 
     <ion-accordion-group *ngIf="!accountSettings">
-      <ion-item (click)="openAS()" lines="none" type="button">Account Settings
+      <ion-item (click)="openAS()" lines="none" type="button">Account
         <ion-icon slot="end" name="chevron-forward"></ion-icon>
       </ion-item>
       <ion-accordion value="first" toggleIcon="chevron-forward">
         <ion-item slot="header">
-          <ion-label>Display Settings</ion-label>
+          <ion-label>Display</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
           <ion-list>
-            <ion-radio-group value="light">
+            <ion-radio-group value="light" (ionChange)="onClick($event)">
               <ion-item>
                 <ion-icon slot="start" name="sunny-outline"></ion-icon>
                 <ion-label>Light mode</ion-label>
@@ -41,55 +41,102 @@
               </ion-item>
             </ion-radio-group>
           </ion-list>
+
+
         </div>
       </ion-accordion>
       <ion-item [disabled]="true" lines="none">Language & Region
-        <ion-icon slot="end" name="chevron-forward"></ion-icon>
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
       </ion-item>
       <ion-item [disabled]="true" lines="none">Share Feedback
-        <ion-icon slot="end" name="chevron-forward"></ion-icon>
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
       </ion-item>
       <ion-button fill="clear" (click)="logout()"><ion-icon name="exit-outline"></ion-icon> Logout</ion-button>
     </ion-accordion-group>
 
 
     <ion-accordion-group *ngIf="accountSettings">
-      <ion-accordion value="first">
-        <ion-item slot="header" color="light">
-          <ion-label>User Settings</ion-label>
+      <ion-accordion value="first" toggleIcon="chevron-forward-outline">
+        <ion-item slot="header" lines="none">
+          <ion-label>User</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
-          <ion-avatar class="mx-auto d-block">
-            <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-          </ion-avatar>
-          <ion-list>
-            <ion-item>
-              First Name
-            </ion-item>
-            <ion-item>
-              Last Name
-            </ion-item>
-            <ion-item>
-              Birthday
-            </ion-item>
-            <ion-item>
-              Gender
-            </ion-item>
-          </ion-list>
-          <ion-button fill="clear">Edit Details</ion-button>
+          <div *ngIf="!edit">
+            <ion-avatar class="mx-auto d-block">
+              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <ion-list>
+              <ion-item>
+                <ion-label>First Name</ion-label>
+                <ion-text>{{firstName}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label>Last Name</ion-label>
+                <ion-text>{{lastName}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label>Birthday</ion-label>
+                <ion-text>{{birthday | date}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label>Gender</ion-label>
+                <ion-text>{{gender}}</ion-text>
+              </ion-item>
+            </ion-list>
+            <ion-button fill="clear" (click)="editDetails()">Edit Details</ion-button>
+          </div>
+
+          <div *ngIf="edit">
+            <form [formGroup]="detailsForm">
+            <ion-list>
+              <ion-item>
+                <ion-label>First Name</ion-label>
+                <ion-input type="text" required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>Last Name</ion-label>
+                <ion-text type="text"></ion-text>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Birthday</ion-label>
+                <!-- <ion-input type="date" placeholder="" formControlName="Birthday" required></ion-input> -->
+                <ion-datetime-button formControlName="Birthday" datetime="datetime"></ion-datetime-button>
+
+                <ion-modal [keepContentsMounted]="true">
+                  <ng-template>
+                    <ion-datetime id="datetime" presentation="date" [preferWheel]="true"></ion-datetime>
+                  </ng-template>
+                </ion-modal>
+
+              </ion-item>
+              <ion-item>
+                <ion-label>Gender</ion-label>
+                <ion-select interface="popover" placeholder="Select" formControlName="Gender">
+                  <ion-select-option value="Female">Female</ion-select-option>
+                  <ion-select-option value="Male">Male</ion-select-option>
+                  <ion-select-option value="Non-Binary">Non-Binary</ion-select-option>
+                  <ion-select-option value="Unselected">Unselected</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+            <ion-button fill="clear" (click)="submitEdit()">Save Changes</ion-button>
+          </form>
+          </div>
         </div>
+
       </ion-accordion>
-      <ion-accordion value="second">
-        <ion-item slot="header" color="light">
+      <ion-accordion value="second" toggleIcon="chevron-forward-outline">
+        <ion-item slot="header">
           <ion-label>Security</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
           <ion-list>
-            <ion-item type="button" >
+            <ion-item type="button">
               <ion-icon slot="start" name="mail-outline" color="primary"></ion-icon>
               <ion-text color="primary">Change Email</ion-text>
             </ion-item>
-            <ion-item type="button" >
+            <ion-item type="button">
               <ion-icon slot="start" name="key-outline" color="primary"></ion-icon>
               <ion-text color="primary">Update Password</ion-text>
             </ion-item>
@@ -131,5 +178,3 @@
     </ion-toolbar>
   </ion-header>
 </div>
-
-<!-- <img [src]="imageURL"> -->

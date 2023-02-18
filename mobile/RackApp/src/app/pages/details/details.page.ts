@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { Camera, CameraResultType } from '@capacitor/camera';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-details',
@@ -14,13 +13,17 @@ export class DetailsPage implements OnInit {
 
   detailsForm;
 
-  imageUrl:string|undefined = '';
+  selectedImage:any;
 
-  constructor(private service:UserService, private formBuilder: FormBuilder, private router:Router, private route:ActivatedRoute) { 
+  img1:any;
+
+  public bUrl:string = this.service.baseUrl;
+
+
+  constructor(private service:UserService, private formBuilder: FormBuilder, private router:Router, private route:ActivatedRoute, private modalCtrl:ModalController) { 
     this.detailsForm = formBuilder.group({
       Birthday: ['', [Validators.required]],
-      Gender: ['', [Validators.required]],
-      Image: ['']
+      Gender: ['', [Validators.required]]
     });
   }
 
@@ -32,14 +35,29 @@ export class DetailsPage implements OnInit {
     this.service.userEdit(formData).subscribe({
         next: (result) => {
           console.log(result);
-          alert('Nice getting to know you!');
-          this.router.navigate(['../tabs'], {relativeTo: this.route});
+          return this.modalCtrl.dismiss(null, 'success');
         }, 
         error: error => {
-        alert('Sorry, something went wrong');
-        console.error(error);
+          console.error(error);
+          return this.modalCtrl.dismiss(null, 'error');
         }
     });
+  }
+
+  later(){
+    return this.modalCtrl.dismiss(null, 'later');
+  }
+
+  selectFile(event: any): void {
+    this.selectedImage = event.target.files[0];
+    console.log(this.selectedImage);
+    let reader = new FileReader();
+    reader.onload = (event: any) => {
+      this.img1 = event.target.result;
+    }
+
+    reader.readAsDataURL(this.selectedImage);
+  
   }
 
   get BirthdayFormControl(){
@@ -51,27 +69,6 @@ export class DetailsPage implements OnInit {
   }
   get ImageFormControl(){
     return this.detailsForm.get('Image')!;
-  }
-
-  takePicture(){
-    const snapPicture = async () => {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Uri
-      });
-    
-      // image.webPath will contain a path that can be set as an image src.
-      // You can access the original file using image.path, which can be
-      // passed to the Filesystem API to read the raw data of the image,
-      // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-      this.imageUrl = image.webPath;
-    
-      // Can be set to the src of an image now
-      // imageElement.src = imageUrl;
-      // alert(imageUrl);
-    };
-    snapPicture();
   }
 
 }
