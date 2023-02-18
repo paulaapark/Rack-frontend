@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-button (click)="later()">Later</ion-button>
     </ion-buttons>
-    <ion-title>RACK</ion-title> <!-- title will become logo image -->
+    <ion-title>RACK</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -20,12 +20,13 @@
   <form [formGroup]="detailsForm">
 
     <ion-list>
-
+      <!-- <ion-item [hidden]="true">
+        <ion-label>User_id</ion-label>
+        <ion-input placeholder="" formControlName="User_id"></ion-input>
+      </ion-item> -->
       <ion-item>
         <ion-label>When's your birthday?</ion-label>
-        <!-- <ion-input type="date" placeholder="" formControlName="Birthday" required></ion-input> -->
-        <ion-datetime-button formControlName="Birthday" datetime="datetime" required></ion-datetime-button>
-
+        <ion-input formControlName="Birthday" required><ion-datetime-button datetime="datetime" required></ion-datetime-button></ion-input>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
             <ion-datetime id="datetime" presentation="date" [preferWheel]="true"></ion-datetime>
@@ -45,9 +46,11 @@
 
       <ion-item>
         <ion-label>What do you look like?</ion-label>
-        <ion-chip>
+        <ion-chip (click)="filePicker.click()">
           <ion-icon name="image-outline" color="primary"></ion-icon>
-          <ion-label>Upload a selfie </ion-label>
+          <ion-label>Upload </ion-label>
+          <input id="selectFile" #filePicker type="file" (change)="selectFile($event)"
+            accept="image/x-png,image/gif,image/jpeg,image/webp" />
         </ion-chip>
       </ion-item>
     </ion-list>

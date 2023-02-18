@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./default-head.component.scss'],
 })
 export class DefaultHeadComponent implements OnInit {
-  detailsForm;
+  detailsForm:FormGroup;
   accountSettings!:boolean;
   firstName!:string;
   lastName!:string;
@@ -27,7 +27,7 @@ export class DefaultHeadComponent implements OnInit {
     this.detailsForm = formBuilder.group({
       FirstName: ['', [Validators.required]],
       LastName: [''],
-      Birthday: [Date],
+      Birthday: [''],
       Gender: ['', [Validators.required]]
     });
   }
@@ -41,12 +41,18 @@ export class DefaultHeadComponent implements OnInit {
     this.lastName = this.userService.currentUser.LastName;
     this.gender = this.userService.currentUser.Gender;
     this.birthday = this.userService.currentUser.Birthday;
+    
+    this.detailsForm.patchValue(this.userService.currentUser);
     this.accountSettings = false;
     this.edit = false;
+
+    
   }
   ionViewWillEnter() {
+    
     this.accountSettings = false;
     this.edit = false;
+    
   }
 
   quickRack(){
@@ -84,19 +90,33 @@ export class DefaultHeadComponent implements OnInit {
   }
 
   submitEdit(){
-    let formData = this.detailsForm.value;
-    this.userService.userEdit(formData).subscribe({
-        next: (result) => {
-          console.log(result);
-          //toast here
-          //close edit view
-        }, 
-        error: error => {
+    let formValues = this.detailsForm.value;
+    let fd = new FormData();
+
+    fd.append('image', this.selectedImage);
+
+    for(let key in formValues){
+      fd.append(key, formValues[key]);
+    }
+
+    this.userService.userEdit(fd).subscribe({
+      next: (result) => {
+        console.log(result);
+      },
+      error: error => {
         console.error(error);
-        //toast here
-        //close edit view?
-        }
-    });
+      }
+    })
+    console.log('save');
+    this.edit = false;
+  }
+
+  get FirstNameFormControl(){
+    return this.detailsForm.get('FirstName')!;
+  }
+
+  get LastNameFormControl(){
+    return this.detailsForm.get('LastName')!;
   }
 
   get BirthdayFormControl(){

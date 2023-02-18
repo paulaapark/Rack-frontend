@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 
-import { Camera, CameraResultType } from '@capacitor/camera';
 import { ActionSheetController } from '@ionic/angular';
 
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -118,9 +117,6 @@ export class ItemDetailsComponent implements OnInit {
       }
     })
     console.log('save');
-    // return this.modalCtrl.dismiss(this.name, 'confirm');
-    
-    // load & apply changes, toast successful item update
     
   }
 

@@ -91,17 +91,19 @@
             <ion-list>
               <ion-item>
                 <ion-label>First Name</ion-label>
-                <ion-input type="text" required></ion-input>
+                <ion-input type="text" formControlName="FirstName" required></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label>Last Name</ion-label>
-                <ion-text type="text"></ion-text>
+                <ion-input type="text" formControlName="LastName"></ion-input>
               </ion-item>
 
               <ion-item>
                 <ion-label>Birthday</ion-label>
-                <!-- <ion-input type="date" placeholder="" formControlName="Birthday" required></ion-input> -->
-                <ion-datetime-button formControlName="Birthday" datetime="datetime"></ion-datetime-button>
+                <ion-input type="date" formControlName="Birthday" required>
+                  <!-- <ion-datetime-button datetime="datetime"></ion-datetime-button> -->
+                </ion-input>
+                
 
                 <ion-modal [keepContentsMounted]="true">
                   <ng-template>

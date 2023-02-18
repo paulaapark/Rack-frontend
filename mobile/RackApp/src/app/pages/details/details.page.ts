@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { Iuser } from 'src/app/interfaces/iuser';
 
 @Component({
   selector: 'app-details',
@@ -11,7 +12,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class DetailsPage implements OnInit {
 
-  detailsForm;
+  detailsForm:FormGroup;
 
   selectedImage:any;
 
@@ -22,26 +23,49 @@ export class DetailsPage implements OnInit {
 
   constructor(private service:UserService, private formBuilder: FormBuilder, private router:Router, private route:ActivatedRoute, private modalCtrl:ModalController) { 
     this.detailsForm = formBuilder.group({
+      // User_id: [this.service.currentUser.id, [Validators.required]],
       Birthday: ['', [Validators.required]],
       Gender: ['', [Validators.required]]
     });
   }
 
   ngOnInit(): void {
+    
   }
 
   details() {
-    let formData = this.detailsForm.value;
-    this.service.userEdit(formData).subscribe({
-        next: (result) => {
-          console.log(result);
-          return this.modalCtrl.dismiss(null, 'success');
-        }, 
-        error: error => {
-          console.error(error);
-          return this.modalCtrl.dismiss(null, 'error');
-        }
-    });
+    let formValues = this.detailsForm.value;
+    let fd = new FormData();
+
+    fd.append('image', this.selectedImage);
+
+    for(let key in formValues){
+      fd.append(key, formValues[key]);
+    }
+
+    this.service.userEdit(fd).subscribe({
+      next: (result) => {
+        console.log(result);
+        return this.modalCtrl.dismiss(null, 'save');
+      },
+      error: error => {
+        console.error(error);
+        return this.modalCtrl.dismiss(null, 'error');
+      }
+    })
+    console.log('save');
+
+    // let formData = this.detailsForm.value;
+    // this.service.userEdit(formData).subscribe({
+    //     next: (result) => {
+    //       console.log(result);
+    //       return this.modalCtrl.dismiss(null, 'success');
+    //     }, 
+    //     error: error => {
+    //       console.error(error);
+    //       return this.modalCtrl.dismiss(null, 'error');
+    //     }
+    // });
   }
 
   later(){
@@ -67,9 +91,6 @@ export class DetailsPage implements OnInit {
   get GenderFormControl(){
     return this.detailsForm.get('Gender')!;
   }
-  get ImageFormControl(){
-    return this.detailsForm.get('Image')!;
-  }
-
+  
 }
 
