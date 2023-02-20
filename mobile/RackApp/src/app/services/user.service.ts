@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable({providedIn: 'root'})
 export class UserService {
   public baseUrl:string; 
-  public userUrl:string;
+  // public userUrl:string;
   environment:string = 'development'; //development or production
   public currentUser:any = JSON.parse(localStorage.getItem('currentUser')!);
   
@@ -15,8 +15,7 @@ export class UserService {
     }
     else {
       this.baseUrl = 'https://rack-p.herokuapp.com/'
-    }
-    this.userUrl = this.baseUrl + 'users/' + this.currentUser.id;
+    };
   }
   
 
@@ -36,12 +35,13 @@ export class UserService {
     return this.get_current_user() ? true: false;
   }
 
-  getUserDetails(){
-    return this.http.get(this.userUrl);
-  }
+  // getUserDetails(){
+  //   return this.http.get(this.userUrl);
+  // }
 
   userEdit(formData:object){
-    return this.http.patch(this.userUrl, formData);
+    let userUrl = this.baseUrl + 'users/' + this.currentUser.id;
+    return this.http.patch(userUrl, formData);
   }
   
 };
