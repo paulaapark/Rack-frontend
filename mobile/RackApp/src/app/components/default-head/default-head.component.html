@@ -63,24 +63,25 @@
         <div class="ion-padding" slot="content">
           <div *ngIf="!edit">
             <ion-avatar class="mx-auto d-block">
-              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+              <img *ngIf="currentUser.Image" [src]="bUrl + currentUser.Image">
+              <img src="assets/icon/person-circle-outline.svg"/>
             </ion-avatar>
             <ion-list>
               <ion-item>
                 <ion-label>First Name</ion-label>
-                <ion-text>{{firstName}}</ion-text>
+              <ion-text>{{currentUser.FirstName}}</ion-text>
               </ion-item>
               <ion-item>
                 <ion-label>Last Name</ion-label>
-                <ion-text>{{lastName}}</ion-text>
+                <ion-text>{{currentUser.LastName}}</ion-text>
               </ion-item>
               <ion-item>
                 <ion-label>Birthday</ion-label>
-                <ion-text>{{birthday | date}}</ion-text>
+                <ion-text>{{currentUser.Birthday}}</ion-text>
               </ion-item>
               <ion-item>
                 <ion-label>Gender</ion-label>
-                <ion-text>{{gender}}</ion-text>
+                <ion-text>{{currentUser.Gender}}</ion-text>
               </ion-item>
             </ion-list>
             <ion-button fill="clear" (click)="editDetails()">Edit Details</ion-button>
@@ -89,6 +90,21 @@
           <div *ngIf="edit">
             <form [formGroup]="detailsForm">
             <ion-list>
+              <ion-avatar class="mx-auto d-block">
+                <img *ngIf="!currentUser.Image" alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                <img *ngIf="currentUser.Image && !img1" [src]="bUrl + currentUser.Image">
+                <img *ngIf="img1" [src]="img1"/>
+              </ion-avatar>
+
+
+
+              <ion-chip (click)="filePicker.click()">
+                <ion-icon name="image-outline" color="primary"></ion-icon>
+                <ion-label>Change Picture</ion-label>
+                <input id="selectFile" #filePicker type="file" (change)="selectFile($event)"
+                  accept="image/x-png,image/gif,image/jpeg,image/webp" />
+              </ion-chip>
+              <br>
               <ion-item>
                 <ion-label>First Name</ion-label>
                 <ion-input type="text" formControlName="FirstName" required></ion-input>
@@ -157,17 +173,11 @@
       </div>
       <ion-icon class="ion-padding" type="button" slot="start" name="bag-add-outline" (click)="quickRack()"
         color="primary" size="large"></ion-icon>
-      <!-- <ion-buttons slot="start">
-        <ion-button slot="icon-only" (click)="takePicture()">
-          <ion-icon name="camera-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons> -->
       <ion-buttons slot="end">
 
-        <ion-button slot="icon-only" routerLink="#" disabled>
-          <ion-icon name="person-circle-outline" size="large"></ion-icon>
-          <!-- <ion-avatar> <img alt="Profile Pic" src="https://ionicframework.com/docs/img/demos/avatar.svg" /> </ion-avatar> make the src image binding of persons pic. if they dont have a pic, make that ion-icon the default img -->
-        </ion-button>
+          <ion-icon *ngIf="!currentUser.Image" name="person-circle-outline" size="large" color="primary"></ion-icon>
+          
+          <ion-avatar *ngIf="currentUser.Image" size="small"> <img [src]="bUrl + currentUser.Image"/> </ion-avatar>
 
         <ion-menu-toggle autoHide="false">
           <ion-button fill="clear">

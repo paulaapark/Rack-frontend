@@ -20,8 +20,6 @@ export class ItemDetailsComponent implements OnInit {
   defaultView!:boolean;
   editView!:boolean;
 
-  imageUrl:string|undefined = '';
-
   handlerMessage = '';
   roleMessage = '';
 
@@ -90,8 +88,7 @@ export class ItemDetailsComponent implements OnInit {
   remove(){
     this.img1 = undefined;
     $('#selectFile').val('');
-    // this.imageUrl = undefined;
-    // this.photos = [];
+    
   }
   
   save() {
@@ -164,28 +161,6 @@ export class ItemDetailsComponent implements OnInit {
   editItem(formData:object){
     return this.http.patch(this.itemURL, formData);
   }
-
-  // takePicture(){
-  //   const snapPicture = async () => {
-  //     const image = await Camera.getPhoto({
-  //       quality: 90,
-  //       allowEditing: true,
-  //       resultType: CameraResultType.Uri
-  //     });
-    
-  //     // image.webPath will contain a path that can be set as an image src.
-  //     // You can access the original file using image.path, which can be
-  //     // passed to the Filesystem API to read the raw data of the image,
-  //     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-  //     this.imageUrl = image.webPath;
-    
-  //     // Can be set to the src of an image now
-  //     // imageElement.src = imageUrl;
-  //     // alert(imageUrl);
-  //   };
-  //   snapPicture();
-  // }
-
 
   get TitleFormControl(){
     return this.itemForm.get('Title')!;

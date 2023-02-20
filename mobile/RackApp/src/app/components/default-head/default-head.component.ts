@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Irack } from 'src/app/interfaces/irack';
+import { Iuser } from 'src/app/interfaces/iuser';
 import { QuickRackService } from 'src/app/services/quick-rack.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,21 +12,20 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './default-head.component.html',
   styleUrls: ['./default-head.component.scss'],
 })
-export class DefaultHeadComponent implements OnInit {
+export class DefaultHeadComponent implements OnInit{
   detailsForm:FormGroup;
   accountSettings!:boolean;
-  firstName!:string;
-  lastName!:string;
-  gender!:string;
-  birthday!:Date;
   edit!:boolean;
+  currentUser = this.userService.currentUser;
+  details!:any;
+  userDetails!:any;
 
   selectedImage:any;
   img1:any;
 
   public bUrl:string = this.userService.baseUrl;
 
-  constructor(private router:Router, private service:QuickRackService, private userService:UserService, private formBuilder:FormBuilder) {
+  constructor(private router:Router, private service:QuickRackService, private userService:UserService, private formBuilder:FormBuilder, private http:HttpClient) {
     this.detailsForm = formBuilder.group({
       FirstName: ['', [Validators.required]],
       LastName: [''],
@@ -33,23 +35,23 @@ export class DefaultHeadComponent implements OnInit {
   }
     
 
-  
-  
+  ngOnInit():void{
+    this.userService.getUserDetails().subscribe((res: any) => {
+      this.userDetails = Object.values(res);
+    });
 
-  ngOnInit() {
-    this.firstName = this.userService.currentUser.FirstName;
-    this.lastName = this.userService.currentUser.LastName;
-    this.gender = this.userService.currentUser.Gender;
-    this.birthday = this.userService.currentUser.Birthday;
-    
     this.detailsForm.patchValue(this.userService.currentUser);
+
     this.accountSettings = false;
     this.edit = false;
+  }
+  
+  ionViewWillEnter(): void {
 
     
-  }
-  ionViewWillEnter() {
     
+    
+
     this.accountSettings = false;
     this.edit = false;
     
@@ -111,6 +113,7 @@ export class DefaultHeadComponent implements OnInit {
     this.edit = false;
   }
 
+
   get FirstNameFormControl(){
     return this.detailsForm.get('FirstName')!;
   }
@@ -127,7 +130,10 @@ export class DefaultHeadComponent implements OnInit {
     return this.detailsForm.get('Gender')!;
   }
 
-
+  // getUserDetails(){
+  //   let userUrl = this.userService.baseUrl + 'users/' + this.userService.currentUser.id;
+  //   return this.http.get(userUrl);
+  // }
 
   onClick(event:any){
     // let systemDark = window.matchMedia("(prefers-color-scheme: dark)");
