@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Irack } from 'src/app/interfaces/irack';
-import { Iuser } from 'src/app/interfaces/iuser';
 import { QuickRackService } from 'src/app/services/quick-rack.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -17,8 +15,9 @@ export class DefaultHeadComponent implements OnInit{
   accountSettings!:boolean;
   edit!:boolean;
   currentUser = this.userService.currentUser;
-  details!:any;
+  detailsFunction!:any;
   userDetails!:any;
+  public user!:any;
 
   selectedImage:any;
   img1:any;
@@ -35,17 +34,24 @@ export class DefaultHeadComponent implements OnInit{
   }
     
 
-  ngOnInit():void{
-    this.detailsForm.patchValue(this.userService.currentUser);
+  ngOnInit() {
+    this.userService.getUserDetails().subscribe((res:any) => {
+      this.userDetails = Object.values(res);
+      console.log(this.userDetails);
+      this.detailsForm.patchValue(this.userDetails[0]);
+    });
 
     this.accountSettings = false;
     this.edit = false;
+    
   }
   
   ionViewWillEnter(): void {
-    this.accountSettings = false;
-    this.edit = false;
-    
+    this.userService.getUserDetails().subscribe((res:any) => {
+      this.userDetails = Object.values(res);
+      console.log(this.userDetails);
+      this.detailsForm.patchValue(this.userDetails[0]);
+    });
   }
 
   quickRack(){
@@ -54,11 +60,13 @@ export class DefaultHeadComponent implements OnInit{
 
   logout(){
     localStorage.removeItem("currentUser");
+    location.reload();
     this.router.navigate(['startup']);
   }
 
   openAS(){
     this.accountSettings = true;
+    
   }
   
   back(){
@@ -102,8 +110,13 @@ export class DefaultHeadComponent implements OnInit{
     })
     console.log('save');
     this.edit = false;
+    this.ionViewWillEnter();
   }
 
+  // getUserDetails(){
+  //   let userUrl = this.userService.baseUrl + 'users/' + this.currentUser.id;
+  //   return this.http.get(userUrl);
+  // }
 
   get FirstNameFormControl(){
     return this.detailsForm.get('FirstName')!;

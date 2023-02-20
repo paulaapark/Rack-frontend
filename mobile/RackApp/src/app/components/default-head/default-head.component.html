@@ -66,22 +66,22 @@
               <img *ngIf="currentUser.Image" [src]="bUrl + currentUser.Image">
               <img src="assets/icon/person-circle-outline.svg"/>
             </ion-avatar>
-            <ion-list>
+            <ion-list *ngFor="let user of userDetails">
               <ion-item>
                 <ion-label>First Name</ion-label>
-              <ion-text>{{currentUser.FirstName}}</ion-text>
+              <ion-text>{{user.FirstName}}</ion-text>
               </ion-item>
               <ion-item>
                 <ion-label>Last Name</ion-label>
-                <ion-text>{{currentUser.LastName}}</ion-text>
+                <ion-text>{{user.LastName}}</ion-text>
               </ion-item>
               <ion-item>
                 <ion-label>Birthday</ion-label>
-                <ion-text>{{currentUser.Birthday}}</ion-text>
+                <ion-text>{{user.Birthday}}</ion-text>
               </ion-item>
               <ion-item>
                 <ion-label>Gender</ion-label>
-                <ion-text>{{currentUser.Gender}}</ion-text>
+                <ion-text>{{user.Gender}}</ion-text>
               </ion-item>
             </ion-list>
             <ion-button fill="clear" (click)="editDetails()">Edit Details</ion-button>
@@ -90,9 +90,9 @@
           <div *ngIf="edit">
             <form [formGroup]="detailsForm">
             <ion-list>
-              <ion-avatar class="mx-auto d-block">
-                <img *ngIf="!currentUser.Image && !img1" src="assets/icon/person-circle-outline.svg" />
-                <img *ngIf="currentUser.Image && !img1" [src]="bUrl + currentUser.Image">
+              <ion-avatar class="mx-auto d-block" *ngFor="let user of userDetails">
+                <img *ngIf="!user.Image && !img1" src="assets/icon/person-circle-outline.svg" />
+                <img *ngIf="user.Image && !img1" [src]="bUrl + user.Image">
                 <img *ngIf="img1" [src]="img1"/>
               </ion-avatar>
 
@@ -171,11 +171,11 @@
       </div>
       <ion-icon class="ion-padding" type="button" slot="start" name="bag-add-outline" (click)="quickRack()"
         color="primary" size="large"></ion-icon>
-      <ion-buttons slot="end">
+      <ion-buttons slot="end" *ngFor="let user of userDetails">
 
-          <ion-icon *ngIf="!currentUser.Image" name="person-circle-outline" size="large" color="primary"></ion-icon>
+          <ion-icon *ngIf="!user.Image" name="person-circle-outline" size="large" color="primary"></ion-icon>
           
-          <ion-avatar *ngIf="currentUser.Image" size="small"> <img [src]="bUrl + currentUser.Image"/> </ion-avatar>
+          <ion-avatar *ngIf="user.Image" size="small"> <img [src]="bUrl + user.Image"/> </ion-avatar>
 
         <ion-menu-toggle autoHide="false">
           <ion-button fill="clear">
