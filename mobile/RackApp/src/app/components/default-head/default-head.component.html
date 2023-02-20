@@ -1,10 +1,16 @@
 <ion-menu type="overlay" side="end" contentId="main-content">
   <ion-header>
     <ion-toolbar>
-      <ion-menu-toggle><ion-icon *ngIf="!accountSettings" name="backspace-outline" type="button" color="primary"
-          size="large"></ion-icon></ion-menu-toggle>
-      <ion-icon *ngIf="accountSettings" name="chevron-back-outline" type="button" (click)="back()" slot="start"
+      <ion-buttons slot="start">
+        <ion-menu-toggle *ngIf="!accountSettings">
+          <ion-button fill="clear">
+            <ion-icon name="backspace-outline" type="button" color="primary" size="large"></ion-icon>
+          </ion-button>
+        </ion-menu-toggle>
+        <ion-icon *ngIf="accountSettings" name="chevron-back-outline" type="button" (click)="back()"
         size="large" color="primary"></ion-icon>
+      </ion-buttons>
+      
       <ion-title *ngIf="!accountSettings">Settings</ion-title>
       <ion-title *ngIf="accountSettings">Account</ion-title>
     </ion-toolbar>
@@ -62,10 +68,11 @@
         </ion-item>
         <div class="ion-padding" slot="content">
           <div *ngIf="!edit">
-            <ion-avatar class="mx-auto d-block">
-              <img *ngIf="currentUser.Image" [src]="bUrl + currentUser.Image">
-              <img src="assets/icon/person-circle-outline.svg"/>
+            <ion-avatar class="mx-auto d-block avatar-details" *ngFor="let user of userDetails">
+              <img *ngIf="user.Image" [src]="bUrl + user.Image">
+              <img *ngIf="!user.Image" src="assets/icon/person-circle-outline.svg"/>
             </ion-avatar>
+            <br>
             <ion-list *ngFor="let user of userDetails">
               <ion-item>
                 <ion-label>First Name</ion-label>
@@ -84,59 +91,58 @@
                 <ion-text>{{user.Gender}}</ion-text>
               </ion-item>
             </ion-list>
-            <ion-button fill="clear" (click)="editDetails()">Edit Details</ion-button>
+            <ion-button fill="clear" (click)="editDetails()">Edit</ion-button>
           </div>
 
           <div *ngIf="edit">
             <form [formGroup]="detailsForm">
+              <div class="position-relative">
+                <ion-avatar class="mx-auto d-block avatar-details" *ngFor="let user of userDetails" (click)="filePicker.click()" type="button">
+                  <img *ngIf="!user.Image && !img1" src="assets/icon/person-circle-outline.svg" />
+                  <img *ngIf="user.Image && !img1" [src]="bUrl + user.Image">
+                  <img *ngIf="img1" [src]="img1"/>
+                </ion-avatar>
+                <span class="position-absolute top-100 start-75 translate-middle p-2"><ion-icon name="add-circle" color="primary" class="add-photo-icon" type="button" (click)="filePicker.click()"></ion-icon></span>
+              </div>
+              <input id="selectFile" #filePicker type="file" (change)="selectFile($event)"
+                accept="image/x-png,image/gif,image/jpeg,image/webp" />
             <ion-list>
-              <ion-avatar class="mx-auto d-block" *ngFor="let user of userDetails">
-                <img *ngIf="!user.Image && !img1" src="assets/icon/person-circle-outline.svg" />
-                <img *ngIf="user.Image && !img1" [src]="bUrl + user.Image">
-                <img *ngIf="img1" [src]="img1"/>
-              </ion-avatar>
-
-              <ion-chip (click)="filePicker.click()">
-                <ion-icon name="image-outline" color="primary"></ion-icon>
-                <ion-label>Change Picture</ion-label>
-                <input id="selectFile" #filePicker type="file" (change)="selectFile($event)"
-                  accept="image/x-png,image/gif,image/jpeg,image/webp" />
-              </ion-chip>
-              <br>
               <ion-item>
-                <ion-label>First Name</ion-label>
-                <ion-input type="text" formControlName="FirstName" required></ion-input>
+                <ion-label for="firstname">First Name</ion-label>
+                <ion-input class="text-end" type="text" id="firstname" formControlName="FirstName" required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label>Last Name</ion-label>
-                <ion-input type="text" formControlName="LastName"></ion-input>
+                <ion-label for="lastname">Last Name</ion-label>
+                <ion-input class="text-end" type="text" id="lastname" formControlName="LastName"></ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-label>Birthday</ion-label>
-                <ion-input type="date" formControlName="Birthday" required>
+                <ion-label for="birthdayinput">Birthday</ion-label>
+                <ion-input class="text-end" type="date" id="birthdayinput" formControlName="Birthday" required>
                   <!-- <ion-datetime-button datetime="datetime"></ion-datetime-button> -->
                 </ion-input>
                 
-
-                <ion-modal [keepContentsMounted]="true">
+                <!-- <ion-modal [keepContentsMounted]="true">
                   <ng-template>
                     <ion-datetime id="datetime" presentation="date" [preferWheel]="true"></ion-datetime>
                   </ng-template>
-                </ion-modal>
+                </ion-modal> -->
 
               </ion-item>
               <ion-item>
-                <ion-label>Gender</ion-label>
-                <ion-select interface="popover" placeholder="Select" formControlName="Gender">
+                <ion-label for="genderselect">Gender</ion-label>
+                <ion-select id="genderselect" class="text-end" interface="popover" formControlName="Gender">
                   <ion-select-option value="Female">Female</ion-select-option>
                   <ion-select-option value="Male">Male</ion-select-option>
                   <ion-select-option value="Non-Binary">Non-Binary</ion-select-option>
                   <ion-select-option value="Unselected">Unselected</ion-select-option>
                 </ion-select>
               </ion-item>
+              
             </ion-list>
-            <ion-button fill="clear" (click)="submitEdit()">Save Changes</ion-button>
+            <ion-button fill="clear" color="medium" (click)="cancel()">Cancel</ion-button>
+            <ion-button fill="clear" (click)="submitEdit()">Save</ion-button>
+            
           </form>
           </div>
         </div>
@@ -181,19 +187,6 @@
             </ion-button>
           </ion-menu-toggle>
         </ion-buttons>
-      <!-- <ion-buttons slot="end" *ngFor="let user of userDetails">
-        <ion-item lines="none" color="none">
-          <ion-icon *ngIf="!user.Image" name="person-circle-outline" size="large" color="primary"></ion-icon>
-          <ion-avatar *ngIf="user.Image" size="small"> <img [src]="bUrl + user.Image"/> </ion-avatar>
-        </ion-item>
-        <ion-menu-toggle autoHide="false">
-          <ion-button fill="clear">
-            <ion-icon name="ellipsis-vertical"></ion-icon>
-          </ion-button>
-        </ion-menu-toggle>
-      </ion-buttons> -->
-
-
     </ion-toolbar>
   </ion-header>
 </div>

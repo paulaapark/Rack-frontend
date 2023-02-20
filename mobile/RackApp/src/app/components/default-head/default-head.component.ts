@@ -72,6 +72,10 @@ export class DefaultHeadComponent implements OnInit{
     this.edit = false;
   }
 
+  cancel(){
+    this.accountSettings = true;
+    this.edit = false;
+  }
   editDetails(){
     this.edit = true;
   }
