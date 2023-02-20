@@ -104,12 +104,11 @@ export class ItemDetailsComponent implements OnInit {
     this.editItem(fd).subscribe({
       next: (result) => {
         console.log(result);
-        // alert('Item edited');
         return this.modalCtrl.dismiss(this.itemForm.value.Title, 'save');
       },
       error: error => {
         alert('Unsuccessful');
-        // console.error(error);
+        console.error(error);
         return this.modalCtrl.dismiss(null, 'error');
       }
     })

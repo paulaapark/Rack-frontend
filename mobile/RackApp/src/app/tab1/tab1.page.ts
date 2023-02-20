@@ -12,7 +12,7 @@ export class Tab1Page {
 public myDate = new Date();
 public hrs = this.myDate.getHours();
 public greeting:string;
-public firstName!:string;
+public userDetails!:any;
 
 
   constructor(public userService:UserService, private router:Router, private route:ActivatedRoute) {
@@ -25,8 +25,10 @@ public firstName!:string;
     }
   }
 
-  ngOnInit() {
-    this.firstName = this.userService.currentUser.FirstName;
+  ionViewWillEnter() {
+    this.userService.getUserDetails().subscribe((res:any) => {
+      this.userDetails = Object.values(res);
+    });
   }
 
   stats(){

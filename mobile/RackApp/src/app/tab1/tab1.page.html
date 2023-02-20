@@ -4,7 +4,7 @@
   <!-- do interpolation for these lines -->
   <br>
   <br>
-  <h2 class="greeting title-theme color-main">{{greeting}}, {{ firstName }}!</h2>
+  <h2 class="greeting title-theme color-main" *ngFor="let user of userDetails">{{greeting}}, {{ user.FirstName }}!</h2>
   <h5 class="quote">"Another day, another outfit!"</h5>
   <br>
   <ion-grid>

@@ -1,7 +1,6 @@
 <app-default-head></app-default-head>
 
 <ion-content [fullscreen]="true" id="main-content" class="ion-padding">
-  <!-- *ngIf to show/hide each respective div as needed in the sequence -->
   <div class="builder" *ngIf="builder">
     <br>
     <h2 class="title-theme">Outfit Builder</h2>
@@ -59,7 +58,7 @@
   <div class="loading" *ngIf="loading">
     <br>
     <h2 class="title-theme">Outfit Builder</h2>
-    <h5>{{ userService.currentUser.FirstName }} X RACK Collab</h5>
+    <h5 *ngFor="let user of userDetails">{{ user.FirstName }} X RACK Collab</h5>
     <br>
     <ion-progress-bar type="indeterminate"></ion-progress-bar>
     <br>
@@ -70,7 +69,7 @@
   <div class="results" *ngIf="results">
     <br>
     <h2 class="title-theme">Our Latest Outfit</h2>
-    <h5>{{ userService.currentUser.FirstName }} X RACK Collab</h5>
+    <h5 *ngFor="let user of userDetails">{{ user.FirstName }} X RACK Collab</h5>
     <br>
     <br>
     <div class="ion-padding" *ngFor="let item of generatedItems; let i=index">

@@ -2,7 +2,7 @@
 
 <ion-content fullscreen="true" id="main-content">
   <br>
-  <ion-text><h2 class="title-theme">{{ userService.currentUser.FirstName }}, your latest Rack Stats await!</h2></ion-text>
+  <ion-text *ngFor="let user of userDetails"><h2 class="title-theme">{{ user.FirstName }}, your latest Rack Stats await!</h2></ion-text>
   
   <div class="ion-padding">
     <ion-card>

@@ -171,18 +171,27 @@
       </div>
       <ion-icon class="ion-padding" type="button" slot="start" name="bag-add-outline" (click)="quickRack()"
         color="primary" size="large"></ion-icon>
-      <ion-buttons slot="end" *ngFor="let user of userDetails">
 
+        <ion-buttons slot="end" *ngFor="let user of userDetails">
+            <ion-icon *ngIf="!user.Image" name="person-circle-outline" size="large" color="primary"></ion-icon>
+            <ion-avatar *ngIf="user.Image" class="tool-avatar"> <ion-img [src]="bUrl + user.Image"></ion-img> </ion-avatar>
+          <ion-menu-toggle autoHide="false">
+            <ion-button fill="clear">
+              <ion-icon name="ellipsis-vertical" type="button" color="primary"></ion-icon>
+            </ion-button>
+          </ion-menu-toggle>
+        </ion-buttons>
+      <!-- <ion-buttons slot="end" *ngFor="let user of userDetails">
+        <ion-item lines="none" color="none">
           <ion-icon *ngIf="!user.Image" name="person-circle-outline" size="large" color="primary"></ion-icon>
-          
           <ion-avatar *ngIf="user.Image" size="small"> <img [src]="bUrl + user.Image"/> </ion-avatar>
-
+        </ion-item>
         <ion-menu-toggle autoHide="false">
           <ion-button fill="clear">
             <ion-icon name="ellipsis-vertical"></ion-icon>
           </ion-button>
         </ion-menu-toggle>
-      </ion-buttons>
+      </ion-buttons> -->
 
 
     </ion-toolbar>

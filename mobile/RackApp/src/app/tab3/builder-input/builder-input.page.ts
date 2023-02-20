@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { ModalController, ToastController } from '@ionic/angular';
 import { ItemDetailsComponent } from 'src/app/components/item-details/item-details.component';
-import { delay } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -22,12 +22,13 @@ export class BuilderInputPage implements OnInit {
   public myDate = new Date();
   public hrs = this.myDate.getHours();
   public timeOfDay: string;
-  public userRack: any;
+  userRack: any;
   public filteredRack: any = [];
   public filteredRackArray: any = [];
+  userDetails: any;
 
   generatedItem: any;
-  public generatedItems: any = [];
+  generatedItems: any = [];
   builderForm;
   filterQuery: any;
   filterQueryArray: any;
@@ -45,7 +46,7 @@ export class BuilderInputPage implements OnInit {
 
   loadingArray= ["Looking through your closet","Digging through the piles", "Checking behind the drawers","Sorting through the options"];
   loadingShuffled!:string[];
-  public loadingString!:string;
+  loadingString!:string;
 
   yay:boolean = false;
   nay:boolean = false;
@@ -53,9 +54,10 @@ export class BuilderInputPage implements OnInit {
   matches:string = 'matches';
   requests:string = 'requests';
 
-  public bUrl:string = this.userService.baseUrl;
+  bUrl:string = this.userService.baseUrl;
   
-  constructor(public userService: UserService, public rackService: RackService, private formBuilder: FormBuilder, private http: HttpClient, private modalCtrl:ModalController, private toastController:ToastController) {
+  constructor(public userService: UserService, public rackService: RackService, private formBuilder: FormBuilder, 
+    private http: HttpClient, private modalCtrl:ModalController, private toastController:ToastController, private route:ActivatedRoute, private router:Router) {
     if (this.hrs < 12) {
       this.timeOfDay = 'morning';
     } else if (this.hrs >= 12 && this.hrs <= 17) {
@@ -75,8 +77,16 @@ export class BuilderInputPage implements OnInit {
     this.builder = true;
     this.loading = false;
 
+    this.userService.getUserDetails().subscribe((res:any) => {
+      this.userDetails = Object.values(res);
+    });
   }
 
+  ionViewWillEnter(){
+    this.userService.getUserDetails().subscribe((res:any) => {
+      this.userDetails = Object.values(res);
+    });
+  }
 
   itemInit() {
     return this.formBuilder.group({
@@ -197,7 +207,6 @@ export class BuilderInputPage implements OnInit {
         'item': item
       }
     });
-
     modal.present();
     // console.log(item);
     const { data, role } = await modal.onWillDismiss();
@@ -211,6 +220,7 @@ export class BuilderInputPage implements OnInit {
       });
 
       await toast.present();
+      this.router.navigate(['../tabs/tab3'], {relativeTo: this.route});
     }
 
     if (role === 'save') {

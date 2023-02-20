@@ -12,6 +12,7 @@ import { ChartConfiguration } from 'chart.js';
 export class StatsPage implements OnInit   {
 
   userRack!:any;
+  userDetails!:any;
   //is there a way to condense this?
 
   sumSpring!: number;
@@ -95,7 +96,9 @@ export class StatsPage implements OnInit   {
       };
     });
 
-  
+    this.userService.getUserDetails().subscribe((res:any) => {
+      this.userDetails = Object.values(res);
+    });
   }
 
   ionViewDidEnter(){
