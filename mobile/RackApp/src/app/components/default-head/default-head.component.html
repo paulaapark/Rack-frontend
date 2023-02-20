@@ -91,12 +91,10 @@
             <form [formGroup]="detailsForm">
             <ion-list>
               <ion-avatar class="mx-auto d-block">
-                <img *ngIf="!currentUser.Image" alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                <img *ngIf="!currentUser.Image && !img1" src="assets/icon/person-circle-outline.svg" />
                 <img *ngIf="currentUser.Image && !img1" [src]="bUrl + currentUser.Image">
                 <img *ngIf="img1" [src]="img1"/>
               </ion-avatar>
-
-
 
               <ion-chip (click)="filePicker.click()">
                 <ion-icon name="image-outline" color="primary"></ion-icon>

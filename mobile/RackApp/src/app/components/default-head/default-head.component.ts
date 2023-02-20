@@ -36,10 +36,6 @@ export class DefaultHeadComponent implements OnInit{
     
 
   ngOnInit():void{
-    this.userService.getUserDetails().subscribe((res: any) => {
-      this.userDetails = Object.values(res);
-    });
-
     this.detailsForm.patchValue(this.userService.currentUser);
 
     this.accountSettings = false;
@@ -47,11 +43,6 @@ export class DefaultHeadComponent implements OnInit{
   }
   
   ionViewWillEnter(): void {
-
-    
-    
-    
-
     this.accountSettings = false;
     this.edit = false;
     
@@ -129,11 +120,6 @@ export class DefaultHeadComponent implements OnInit{
   get GenderFormControl(){
     return this.detailsForm.get('Gender')!;
   }
-
-  // getUserDetails(){
-  //   let userUrl = this.userService.baseUrl + 'users/' + this.userService.currentUser.id;
-  //   return this.http.get(userUrl);
-  // }
 
   onClick(event:any){
     // let systemDark = window.matchMedia("(prefers-color-scheme: dark)");
