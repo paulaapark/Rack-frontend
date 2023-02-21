@@ -11,10 +11,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class Tab1Page {
 public myDate = new Date();
 public hrs = this.myDate.getHours();
-public greeting:string;
-public userDetails!:any;
-
-
+greeting:string;
+userDetails!:any;
+inspoArray:String[] = ["Another day, another outfit!", "Go get 'em!", "Dress to impress", "Be your own icon", "Give 'em something to talk about", "Fake it 'til you make it", "Today is your day!", "It's a great day to be you!", "Show 'em who's boss!"];
+inspoStr!:string;
   constructor(public userService:UserService, private router:Router, private route:ActivatedRoute) {
     if (this.hrs < 12){
       this.greeting = 'Good Morning';
@@ -22,6 +22,10 @@ public userDetails!:any;
       this.greeting = 'Good Afternoon';
     }else{
       this.greeting = 'Good Evening';
+    };
+
+    if (this.hrs = 0){
+      
     }
   }
 

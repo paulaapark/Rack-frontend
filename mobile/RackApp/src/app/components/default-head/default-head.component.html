@@ -7,10 +7,10 @@
             <ion-icon name="backspace-outline" type="button" color="primary" size="large"></ion-icon>
           </ion-button>
         </ion-menu-toggle>
-        <ion-icon *ngIf="accountSettings" name="chevron-back-outline" type="button" (click)="back()"
-        size="large" color="primary"></ion-icon>
+        <ion-icon *ngIf="accountSettings" name="chevron-back-outline" type="button" (click)="back()" size="large"
+          color="primary"></ion-icon>
       </ion-buttons>
-      
+
       <ion-title *ngIf="!accountSettings">Settings</ion-title>
       <ion-title *ngIf="accountSettings">Account</ion-title>
     </ion-toolbar>
@@ -18,65 +18,68 @@
   <ion-content class="ion-padding">
 
     <ion-accordion-group *ngIf="!accountSettings">
-      <ion-item (click)="openAS()" lines="none" type="button">Account
-        <ion-icon slot="end" name="chevron-forward"></ion-icon>
-      </ion-item>
-      <ion-accordion value="first" toggleIcon="chevron-forward">
-        <ion-item slot="header">
-          <ion-label>Display</ion-label>
+      <ion-list [inset]="true">
+        <ion-item (click)="openAS()" type="button" color="tertiary">Account
+          <ion-icon slot="end" name="chevron-forward"></ion-icon>
         </ion-item>
-        <div class="ion-padding" slot="content">
-          <ion-list>
-            <ion-radio-group value="light" (ionChange)="onClick($event)">
-              <ion-item>
-                <ion-icon slot="start" name="sunny-outline"></ion-icon>
-                <ion-label>Light mode</ion-label>
-                <ion-radio slot="end" value="light"></ion-radio>
-              </ion-item>
+        <ion-accordion value="first" toggleIcon="chevron-forward">
+          <ion-item slot="header" color="tertiary" lines="inset">
+            <ion-label>Display</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-radio-group value="light" (ionChange)="onClick($event)">
+                <ion-item>
+                  <ion-icon slot="start" name="sunny-outline"></ion-icon>
+                  <ion-label>Light mode</ion-label>
+                  <ion-radio slot="end" value="light"></ion-radio>
+                </ion-item>
 
-              <ion-item>
-                <ion-icon slot="start" name="moon-outline"></ion-icon>
-                <ion-label>Dark mode</ion-label>
-                <ion-radio slot="end" value="dark"></ion-radio>
-              </ion-item>
+                <ion-item>
+                  <ion-icon slot="start" name="moon-outline"></ion-icon>
+                  <ion-label>Dark mode</ion-label>
+                  <ion-radio slot="end" value="dark"></ion-radio>
+                </ion-item>
 
-              <ion-item>
-                <ion-icon slot="start" name="settings-outline"></ion-icon>
-                <ion-label>System</ion-label>
-                <ion-radio slot="end" value="system"></ion-radio>
-              </ion-item>
-            </ion-radio-group>
-          </ion-list>
+                <ion-item>
+                  <ion-icon slot="start" name="settings-outline"></ion-icon>
+                  <ion-label>System</ion-label>
+                  <ion-radio slot="end" value="system"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
 
 
-        </div>
-      </ion-accordion>
-      <ion-item [disabled]="true" lines="none">Language & Region
-        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-      </ion-item>
-      <ion-item [disabled]="true" lines="none">Share Feedback
-        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-      </ion-item>
+          </div>
+        </ion-accordion>
+        <ion-item [disabled]="true" color="tertiary">Language & Region
+          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        </ion-item>
+        <ion-item [disabled]="true" color="tertiary">Share Feedback
+          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        </ion-item>
+      </ion-list>
       <ion-button fill="clear" (click)="logout()"><ion-icon name="exit-outline"></ion-icon> Logout</ion-button>
     </ion-accordion-group>
 
 
-    <ion-accordion-group *ngIf="accountSettings">
+    <ion-accordion-group *ngIf="accountSettings" expand="inset">
       <ion-accordion value="first" toggleIcon="chevron-forward-outline">
-        <ion-item slot="header" lines="none">
+        <ion-item slot="header" lines="inset" color="tertiary">
           <ion-label>User</ion-label>
         </ion-item>
-        <div class="ion-padding" slot="content">
+        <div class="" slot="content">
+          <br>
           <div *ngIf="!edit">
             <ion-avatar class="mx-auto d-block avatar-details" *ngFor="let user of userDetails">
               <img *ngIf="user.Image" [src]="bUrl + user.Image">
-              <img *ngIf="!user.Image" src="assets/icon/person-circle-outline.svg"/>
+              <img *ngIf="!user.Image" src="assets/icon/person-circle-outline.svg" />
             </ion-avatar>
             <br>
             <ion-list *ngFor="let user of userDetails">
               <ion-item>
                 <ion-label>First Name</ion-label>
-              <ion-text>{{user.FirstName}}</ion-text>
+                <ion-text>{{user.FirstName}}</ion-text>
               </ion-item>
               <ion-item>
                 <ion-label>Last Name</ion-label>
@@ -95,61 +98,63 @@
           </div>
 
           <div *ngIf="edit">
-            <form [formGroup]="detailsForm">
+            <form [formGroup]="detailsForm" class="mx-0 px-0">
               <div class="position-relative">
-                <ion-avatar class="mx-auto d-block avatar-details" *ngFor="let user of userDetails" (click)="filePicker.click()" type="button">
+                <ion-avatar class="mx-auto d-block avatar-details" *ngFor="let user of userDetails"
+                  (click)="filePicker.click()" type="button">
                   <img *ngIf="!user.Image && !img1" src="assets/icon/person-circle-outline.svg" />
                   <img *ngIf="user.Image && !img1" [src]="bUrl + user.Image">
-                  <img *ngIf="img1" [src]="img1"/>
+                  <img *ngIf="img1" [src]="img1" />
                 </ion-avatar>
-                <span class="position-absolute top-100 start-75 translate-middle p-2"><ion-icon name="add-circle" color="primary" class="add-photo-icon" type="button" (click)="filePicker.click()"></ion-icon></span>
+                <span class="position-absolute top-100 start-75 translate-middle p-2"><ion-icon name="add-circle"
+                    color="primary" class="add-photo-icon" type="button" (click)="filePicker.click()"></ion-icon></span>
               </div>
               <input id="selectFile" #filePicker type="file" (change)="selectFile($event)"
                 accept="image/x-png,image/gif,image/jpeg,image/webp" />
-            <ion-list>
-              <ion-item>
-                <ion-label for="firstname">First Name</ion-label>
-                <ion-input class="text-end" type="text" id="firstname" formControlName="FirstName" required></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label for="lastname">Last Name</ion-label>
-                <ion-input class="text-end" type="text" id="lastname" formControlName="LastName"></ion-input>
-              </ion-item>
+              <ion-list class="mx-0 px-0">
+                <ion-item class="mx-0 px-0">
+                  <ion-label for="firstname">First Name</ion-label>
+                  <ion-input class="text-end" type="text" id="firstname" formControlName="FirstName"
+                    required></ion-input>
+                </ion-item>
+                <ion-item class="mx-0 px-0">
+                  <ion-label for="lastname">Last Name</ion-label>
+                  <ion-input class="text-end" type="text" id="lastname" formControlName="LastName"></ion-input>
+                </ion-item>
 
-              <ion-item>
-                <ion-label for="birthdayinput">Birthday</ion-label>
-                <ion-input class="text-end" type="date" id="birthdayinput" formControlName="Birthday" required>
-                  <!-- <ion-datetime-button datetime="datetime"></ion-datetime-button> -->
-                </ion-input>
-                
-                <!-- <ion-modal [keepContentsMounted]="true">
+                <ion-item class="mx-0 px-0 input-fs">
+                  <ion-label for="birthdayinput"><ion-text>Birthday</ion-text></ion-label>
+                  <div class="text-end"><ion-input  type="date" id="birthdayinput" formControlName="Birthday" required></ion-input></div>
+                  
+                    <!-- <ion-datetime-button datetime="datetime"></ion-datetime-button> -->
+                  <!-- <ion-modal [keepContentsMounted]="true">
                   <ng-template>
                     <ion-datetime id="datetime" presentation="date" [preferWheel]="true"></ion-datetime>
                   </ng-template>
                 </ion-modal> -->
 
-              </ion-item>
-              <ion-item>
-                <ion-label for="genderselect">Gender</ion-label>
-                <ion-select id="genderselect" class="text-end" interface="popover" formControlName="Gender">
-                  <ion-select-option value="Female">Female</ion-select-option>
-                  <ion-select-option value="Male">Male</ion-select-option>
-                  <ion-select-option value="Non-Binary">Non-Binary</ion-select-option>
-                  <ion-select-option value="Unselected">Unselected</ion-select-option>
-                </ion-select>
-              </ion-item>
-              
-            </ion-list>
-            <ion-button fill="clear" color="medium" (click)="cancel()">Cancel</ion-button>
-            <ion-button fill="clear" (click)="submitEdit()">Save</ion-button>
-            
-          </form>
+                </ion-item>
+                <ion-item>
+                  <ion-label for="genderselect"><ion-text>Gender</ion-text></ion-label>
+                  <ion-select class="text-end input-fs" id="genderselect" interface="popover" formControlName="Gender">
+                    <ion-select-option value="Female">Female</ion-select-option>
+                    <ion-select-option value="Male">Male</ion-select-option>
+                    <ion-select-option value="Non-Binary">Non-Binary</ion-select-option>
+                    <ion-select-option value="Unselected">Unselected</ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+              </ion-list>
+              <ion-button fill="clear" color="medium" (click)="cancel()">Cancel</ion-button>
+              <ion-button fill="clear" (click)="submitEdit()">Save</ion-button>
+
+            </form>
           </div>
         </div>
 
       </ion-accordion>
       <ion-accordion value="second" toggleIcon="chevron-forward-outline">
-        <ion-item slot="header">
+        <ion-item slot="header" color="tertiary" lines="inset">
           <ion-label>Security</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
@@ -160,7 +165,7 @@
             </ion-item>
             <ion-item type="button">
               <ion-icon slot="start" name="key-outline" color="primary"></ion-icon>
-              <ion-text color="primary">Update Password</ion-text>
+              <ion-text color="primary">Change Password</ion-text>
             </ion-item>
           </ion-list>
         </div>
@@ -178,15 +183,15 @@
       <ion-icon class="ion-padding" type="button" slot="start" name="bag-add-outline" (click)="quickRack()"
         color="primary" size="large"></ion-icon>
 
-        <ion-buttons slot="end" *ngFor="let user of userDetails">
-            <ion-icon *ngIf="!user.Image" name="person-circle-outline" size="large" color="primary"></ion-icon>
-            <ion-avatar *ngIf="user.Image" class="tool-avatar"> <ion-img [src]="bUrl + user.Image"></ion-img> </ion-avatar>
-          <ion-menu-toggle autoHide="false">
-            <ion-button fill="clear">
-              <ion-icon name="ellipsis-vertical" type="button" color="primary"></ion-icon>
-            </ion-button>
-          </ion-menu-toggle>
-        </ion-buttons>
+      <ion-buttons slot="end" *ngFor="let user of userDetails">
+        <ion-icon *ngIf="!user.Image" name="person-circle-outline" size="large" color="primary"></ion-icon>
+        <ion-avatar *ngIf="user.Image" class="tool-avatar"> <ion-img [src]="bUrl + user.Image"></ion-img> </ion-avatar>
+        <ion-menu-toggle autoHide="false">
+          <ion-button fill="clear">
+            <ion-icon name="ellipsis-vertical" type="button" color="primary"></ion-icon>
+          </ion-button>
+        </ion-menu-toggle>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
 </div>
