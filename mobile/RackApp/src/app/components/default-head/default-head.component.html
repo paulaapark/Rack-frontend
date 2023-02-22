@@ -18,7 +18,7 @@
   <ion-content class="ion-padding">
 
     <ion-accordion-group *ngIf="!accountSettings">
-      <ion-list [inset]="true">
+      <ion-list [inset]="true" class="py-0">
         <ion-item (click)="openAS()" type="button" color="tertiary">Account
           <ion-icon slot="end" name="chevron-forward"></ion-icon>
         </ion-item>
@@ -26,9 +26,15 @@
           <ion-item slot="header" color="tertiary" lines="inset">
             <ion-label>Display</ion-label>
           </ion-item>
-          <div class="ion-padding" slot="content">
+          <div slot="content">
             <ion-list>
-              <ion-radio-group value="light" (ionChange)="onClick($event)">
+              <ion-item>
+                <ion-icon slot="start" name="moon-outline"></ion-icon>
+                <ion-label>Dark mode</ion-label>
+                <ion-toggle slot="end" class="px-0 mx-0" id="themeToggle"></ion-toggle>
+              </ion-item>
+
+              <!-- <ion-radio-group value="light" (ionChange)="onClick($event)">
                 <ion-item>
                   <ion-icon slot="start" name="sunny-outline"></ion-icon>
                   <ion-label>Light mode</ion-label>
@@ -46,7 +52,7 @@
                   <ion-label>System</ion-label>
                   <ion-radio slot="end" value="system"></ion-radio>
                 </ion-item>
-              </ion-radio-group>
+              </ion-radio-group> -->
             </ion-list>
 
 
@@ -124,7 +130,7 @@
 
                 <ion-item class="mx-0 px-0 input-fs">
                   <ion-label for="birthdayinput"><ion-text>Birthday</ion-text></ion-label>
-                  <div class="text-end"><ion-input  type="date" id="birthdayinput" formControlName="Birthday" required></ion-input></div>
+                  <ion-input class="text-end" type="date" id="birthdayinput" formControlName="Birthday" required></ion-input>
                   
                     <!-- <ion-datetime-button datetime="datetime"></ion-datetime-button> -->
                   <!-- <ion-modal [keepContentsMounted]="true">
@@ -153,21 +159,60 @@
         </div>
 
       </ion-accordion>
-      <ion-accordion value="second" toggleIcon="chevron-forward-outline">
+      <ion-accordion value="second" toggleIcon="chevron-forward-outline" disabled>
         <ion-item slot="header" color="tertiary" lines="inset">
           <ion-label>Security</ion-label>
         </ion-item>
-        <div class="ion-padding" slot="content">
-          <ion-list>
-            <ion-item type="button">
+        <div slot="content">
+          <!-- <ion-list>
+            <div *ngIf="!securityEdit">
+            <ion-item type="button" (click)="changeEmail()">
               <ion-icon slot="start" name="mail-outline" color="primary"></ion-icon>
               <ion-text color="primary">Change Email</ion-text>
             </ion-item>
-            <ion-item type="button">
+            <ion-item type="button" lines="none" (click)="changePw()">
               <ion-icon slot="start" name="key-outline" color="primary"></ion-icon>
               <ion-text color="primary">Change Password</ion-text>
             </ion-item>
-          </ion-list>
+          </div>
+            <form [formGroup]="emailForm" *ngIf="showEmailInput">
+              <ion-list>
+                <ion-item>
+                  <ion-icon slot="start" name="mail-outline" color="primary"></ion-icon>
+                  <ion-text color="primary">Change Email</ion-text>
+                </ion-item>
+              <ion-item>
+                <ion-label><ion-text><small>Current Email</small></ion-text></ion-label>
+                <ion-input type="email" formControlName="CurrentEmail"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label><ion-text><small>New Email</small></ion-text></ion-label>
+                <ion-input type="email" formControlName="NewEmail"></ion-input>
+              </ion-item>
+              <ion-button fill="clear" color="medium" (click)="cancelEmailEdit()">Cancel</ion-button>
+              <ion-button fill="clear" (click)="submitEmailEdit()" [disabled]="!pwForm.valid">Save</ion-button>
+            </ion-list>
+            </form>
+            
+            <form [formGroup]="pwForm" *ngIf="showPwInput">
+              <ion-list>
+                <ion-item type="button">
+                  <ion-icon slot="start" name="key-outline" color="primary"></ion-icon>
+                  <ion-text color="primary">Change Password</ion-text>
+                </ion-item>
+              <ion-item>
+                <ion-label><ion-text><small>Current Password</small></ion-text></ion-label>
+                <ion-input type="password" formControlName="CurrentPw"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label><ion-text><small>New Password</small></ion-text></ion-label>
+                <ion-input type="password" formControlName="NewPw"></ion-input>
+              </ion-item>
+              <ion-button fill="clear" color="medium" (click)="cancelPwEdit()">Cancel</ion-button>
+              <ion-button fill="clear" (click)="submitPwEdit()" [disabled]="!pwForm.valid">Save</ion-button>
+            </ion-list>
+            </form>
+          </ion-list> -->
         </div>
       </ion-accordion>
     </ion-accordion-group>

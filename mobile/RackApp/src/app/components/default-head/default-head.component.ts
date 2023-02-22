@@ -18,11 +18,18 @@ export class DefaultHeadComponent implements OnInit{
   detailsFunction!:any;
   userDetails!:any;
   public user!:any;
-
+  
   selectedImage:any;
   img1:any;
 
   public bUrl:string = this.userService.baseUrl;
+
+  showEmailInput:boolean = false;
+  showPwInput:boolean = false;
+  securityEdit:boolean = false;
+
+  emailForm:FormGroup;
+  pwForm:FormGroup;
 
   constructor(private router:Router, private service:QuickRackService, private userService:UserService, private formBuilder:FormBuilder, private http:HttpClient) {
     this.detailsForm = formBuilder.group({
@@ -31,6 +38,17 @@ export class DefaultHeadComponent implements OnInit{
       Birthday: [''],
       Gender: ['', [Validators.required]]
     });
+
+    this.emailForm = formBuilder.group({
+      CurrentEmail: ['', [Validators.required]],
+      NewEmail: ['', [Validators.required]]
+    });
+
+    this.pwForm = formBuilder.group({
+      CurrentPw: ['', [Validators.required]],
+      NewPw: ['', [Validators.required]]
+    });
+
   }
     
 
@@ -42,7 +60,6 @@ export class DefaultHeadComponent implements OnInit{
 
     this.accountSettings = false;
     this.edit = false;
-    
   }
   
   ionViewWillEnter(): void {
@@ -92,6 +109,8 @@ export class DefaultHeadComponent implements OnInit{
   
   }
 
+  
+
   submitEdit(){
     let formValues = this.detailsForm.value;
     let fd = new FormData();
@@ -115,10 +134,70 @@ export class DefaultHeadComponent implements OnInit{
     this.ionViewWillEnter();
   }
 
-  // getUserDetails(){
-  //   let userUrl = this.userService.baseUrl + 'users/' + this.currentUser.id;
-  //   return this.http.get(userUrl);
-  // }
+  //Security Edits
+
+  changeEmail(){
+    this.showEmailInput=true;
+    this.securityEdit=true;
+  }
+
+  changePw(){
+    this.showPwInput =true;
+    this.securityEdit=true;
+  }
+
+  cancelEmailEdit(){
+    this.securityEdit = false;
+    this.showEmailInput = false;
+  }
+
+  cancelPwEdit(){
+    this.securityEdit = false;
+    this.showPwInput = false;
+  }
+
+  submitEmailEdit(){
+    let formValues = this.emailForm.value;
+    let fd = new FormData();
+
+    for(let key in formValues){
+      fd.append(key, formValues[key]);
+    }
+
+    this.userService.userEdit(fd).subscribe({
+      next: (result) => {
+        console.log(result);
+      },
+      error: error => {
+        console.error(error);
+      }
+    })
+    console.log('save');
+    this.edit = false;
+    this.ionViewWillEnter();
+  }
+
+  submitPwEdit(){
+    let formValues = this.pwForm.value;
+    let fd = new FormData();
+
+    for(let key in formValues){
+      fd.append(key, formValues[key]);
+    }
+
+    this.userService.userEdit(fd).subscribe({
+      next: (result) => {
+        console.log(result);
+      },
+      error: error => {
+        console.error(error);
+      }
+    })
+    console.log('save');
+    this.edit = false;
+    this.ionViewWillEnter();
+  }
+  //Getters
 
   get FirstNameFormControl(){
     return this.detailsForm.get('FirstName')!;
@@ -136,25 +215,21 @@ export class DefaultHeadComponent implements OnInit{
     return this.detailsForm.get('Gender')!;
   }
 
-  onClick(event:any){
-    // let systemDark = window.matchMedia("(prefers-color-scheme: dark)");
-    // systemDark.addListener(this.colorTest);
-    // if(event.detail.value == 'dark'){
-    //   document.body.setAttribute('data-theme', 'dark');
-    // }
-    // if(event.detail.value == 'light'){
-    //   document.body.setAttribute('data-theme', 'light');
-    // }
-    // else{
-    //   document.body.setAttribute('data-theme', 'light');
-    // }
+
+  get CurrentEmailFormControl(){
+    return this.detailsForm.get('CurrentEmail')!;
+  }
+  
+  get NewEmailFormControl(){
+    return this.detailsForm.get('NewEmail')!;
   }
 
-  //  colorTest(systemInitiatedDark) {
-  //   if (systemInitiatedDark.matches) {
-  //     document.body.setAttribute('data-theme', 'dark');		
-  //   } else {
-  //     document.body.setAttribute('data-theme', 'light');
-  //   }
-  // }
+  get CurrentPwFormControl(){
+    return this.detailsForm.get('CurrentPw')!;
+  }
+
+  get NewPwFormControl(){
+    return this.detailsForm.get('NewPw')!;
+  }
+
 }
