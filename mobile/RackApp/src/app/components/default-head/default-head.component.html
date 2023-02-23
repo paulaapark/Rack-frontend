@@ -58,14 +58,39 @@
 
           </div>
         </ion-accordion>
-        <ion-item [disabled]="true" color="tertiary">Language & Region
-          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-        </ion-item>
+        <ion-accordion value="third" toggleIcon="chevron-forward-outline">
+          <ion-item slot="header" color="tertiary">
+            <ion-label>Language & Region</ion-label>
+          </ion-item>
+          <div slot="content" *ngFor="let user of userDetails">
+            <br>
+            <div>
+              <ion-list lines="inset">
+                <ion-item><ion-icon name="language-outline"></ion-icon><ion-label>Language</ion-label><ion-text>{{user.Language}}</ion-text></ion-item>
+                <ion-item><ion-icon name="earth-outline"></ion-icon><ion-label>Region</ion-label><ion-text></ion-text></ion-item>  
+              </ion-list>
+              <ion-button fill="clear">Edit</ion-button>
+            </div>
+
+            <div *ngIf="false">
+              <form>
+              <ion-list lines="inset">
+                <ion-item disabled><ion-icon name="language-outline"></ion-icon><ion-label>Language</ion-label><ion-input type="text"></ion-input></ion-item>
+                <ion-item><ion-icon name="earth-outline"></ion-icon><ion-label>Region</ion-label><ion-input type="text"></ion-input></ion-item>  
+              </ion-list>
+            
+              <ion-button fill="clear" color="medium">Cancel</ion-button>
+              <ion-button fill="clear">Save</ion-button>
+            </form>
+            </div>
+            
+          </div>
+        </ion-accordion>
         <ion-item [disabled]="true" color="tertiary">Share Feedback
           <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
         </ion-item>
       </ion-list>
-      <ion-button fill="clear" (click)="logout()"><ion-icon name="exit-outline"></ion-icon> Logout</ion-button>
+      <ion-button fill="clear" (click)="logout()"><ion-icon slot="start" name="exit-outline"></ion-icon> Logout</ion-button>
     </ion-accordion-group>
 
 

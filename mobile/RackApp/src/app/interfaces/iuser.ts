@@ -8,4 +8,6 @@ export interface Iuser {
     Birthday:Date;
     Gender:string;
     Image:string;
+    Language:string;
+    Region:number;
 }

@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Irack } from '../interfaces/irack';
-import { Iuser } from '../interfaces/iuser';
 
 
 @Injectable({providedIn: 'root'})
@@ -39,7 +37,7 @@ export class UserService {
 
   getUserDetails(){
     let userUrl = this.baseUrl + 'users?id=' + this.currentUser.id;
-    return this.http.get<Irack>(userUrl);
+    return this.http.get(userUrl);
   }
 
   userEdit(formData:object){
