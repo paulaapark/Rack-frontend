@@ -72,15 +72,16 @@
                       <span *ngIf="selectedCity"><ion-text><ion-icon name="pin-outline" color="primary"></ion-icon>{{selectedCity.City}}, {{selectedCity.Country}}</ion-text></span>
                     </ion-chip>
                   </ion-item>
-                  <ion-item>
-                    <ion-input formControlName="City_id" *ngIf="selectedCity">{{selectedCity.id}}</ion-input>
+                  <ion-item class="hiddenInput">
+                    <ion-input formControlName="City_id" type="number">
+                      <span *ngIf="user.City_id && !selCityId">{{user.City_id}}</span>
+                      <span *ngIf="selCityId">{{selCityId}}</span>
+                    </ion-input>
                   </ion-item>
-                 
               </ion-list>
-            
-              <ion-button fill="clear" color="medium" (click)="cancelLR()">Cancel</ion-button>
-              <ion-button fill="clear" (click)="submitLR()">Save</ion-button>
             </form>
+            <ion-button fill="clear" color="medium" (click)="cancelLR()">Cancel</ion-button>
+              <ion-button fill="clear" (click)="submitLR()">Save</ion-button>
             </div>
             
           </div>
@@ -154,7 +155,7 @@
 
                 <ion-item class="mx-0 px-0 input-fs">
                   <ion-label for="birthdayinput"><ion-text>Birthday</ion-text></ion-label>
-                  <ion-input class="text-end" type="date" id="birthdayinput" formControlName="Birthday" required></ion-input>
+                  <ion-input class="text-end" type="date" id="birthdayinput" formControlName="Birthday"></ion-input>
                   
                     <!-- <ion-datetime-button datetime="datetime"></ion-datetime-button> -->
                   <!-- <ion-modal [keepContentsMounted]="true">

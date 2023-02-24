@@ -40,7 +40,6 @@ export class CitiesComponent {
   }
 
   checkValue(event:any) { 
-    console.log(event.detail.value);
     this.selectedValue = event.detail.value;
   }
   submit(){

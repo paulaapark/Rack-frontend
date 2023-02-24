@@ -3,6 +3,8 @@ import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { GetWeatherService } from '../services/get-weather.service';
+import { HttpClient } from '@angular/common/http';
+import { Iuser } from '../interfaces/iuser';
 
 @Component({
   selector: 'app-tab1',
@@ -19,11 +21,13 @@ currentWeather:any;
 iconUrl:string = 'http://openweathermap.org/img/wn/';
 iconSUrl:string = '.png'
 
-snow!:boolean;
+city_id!:any;
+
+user!:Iuser;
 
 inspoArray:String[] = ["Another day, another outfit!", "Go get 'em!", "Dress to impress", "Be your own icon", "Give 'em something to talk about", "Fake it 'til you make it", "Today is your day!", "It's a great day to be you!", "Show 'em who's boss!"];
 inspoStr!:string;
-  constructor(public userService:UserService, private router:Router, private route:ActivatedRoute, private weatherService:GetWeatherService) {
+  constructor(public userService:UserService, private router:Router, private route:ActivatedRoute, private weatherService:GetWeatherService, private http:HttpClient) {
     if (this.hrs < 12){
       this.greeting = 'Good Morning';
     }else if ( this.hrs >= 12 && this.hrs <=17){
@@ -44,11 +48,14 @@ inspoStr!:string;
   ionViewWillEnter() {
     this.userService.getUserDetails().subscribe((res:any) => {
       this.userDetails = Object.values(res);
+      this.city_id = this.userDetails[0].City_id;
+      if (this.city_id !== undefined){
+        this.getMCurrent().subscribe((res:any) => {
+          this.currentWeather = res;
+        });
+      }
     });
-
-    this.weatherService.getMCurrent().subscribe((res:any) => {
-      this.currentWeather = res;
-    });
+    
   }
 
   stats(){
@@ -58,4 +65,10 @@ inspoStr!:string;
   forecast(){
 
   }
+
+
+  getMCurrent(){
+    return this.http.get(this.weatherService.weatherUrl + this.city_id + this.weatherService.apiKeyUrl + this.weatherService.metricUrl);
+  };
+  
 }

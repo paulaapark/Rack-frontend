@@ -8,6 +8,7 @@ import { ModalController } from '@ionic/angular';
 import { CitiesComponent } from '../cities/cities.component';
 import { Icity } from 'src/app/interfaces/icity';
 
+
 @Component({
   selector: 'app-default-head',
   templateUrl: './default-head.component.html',
@@ -36,13 +37,13 @@ export class DefaultHeadComponent implements OnInit{
 
   lrForm:FormGroup;
   lrEdit:boolean = false;
-  selectedCity!:any;
+  selectedCity!:Icity;
   term:string = '';
   cities!:any;
   selected:boolean=false;
   selCityId!:any;
   curCityId!:any;
-  public curCity!:any;
+  curCity!:any;
 
   constructor(private router:Router, private service:QuickRackService, private userService:UserService, private formBuilder:FormBuilder, private http:HttpClient, private modalCtrl:ModalController) {
     this.detailsForm = formBuilder.group({
@@ -187,6 +188,7 @@ export class DefaultHeadComponent implements OnInit{
       fd.append(key, formValues[key]);
     }
 
+    // let formData = this.lrForm.value;
     this.userService.userLREdit(fd).subscribe({
       next: (result) => {
         console.log(result);
@@ -194,7 +196,7 @@ export class DefaultHeadComponent implements OnInit{
       error: error => {
         console.error(error);
       }
-    })
+    });
     console.log('save');
     this.lrEdit = false;
     this.ionViewWillEnter();
@@ -219,6 +221,7 @@ export class DefaultHeadComponent implements OnInit{
       this.selCityId = data;
       this.getSelCity().subscribe((res:any) => {
         this.selectedCity = res;
+        console.log(this.selectedCity.id);
       });
     };
   }
@@ -328,11 +331,11 @@ export class DefaultHeadComponent implements OnInit{
     return this.detailsForm.get('NewPw')!;
   }
 
-  get LanguageFormControl(){
-    return this.detailsForm.get('Language')!;
-  }
+  // get LanguageFormControl(){
+  //   return this.detailsForm.get('Language')!;
+  // }
 
-  get RegionFormControl(){
+  get City_idFormControl(){
     return this.detailsForm.get('City_id')!;
   }
 

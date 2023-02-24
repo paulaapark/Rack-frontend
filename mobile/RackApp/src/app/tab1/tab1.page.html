@@ -13,21 +13,31 @@
         <ion-card *ngIf="currentWeather">
           <ion-card-header *ngFor="let weather of currentWeather.weather ">
             <ion-card-subtitle> {{ currentWeather.name }} <ion-icon name="navigate"></ion-icon></ion-card-subtitle>
-            <ion-card-title color="primary" class="py-2">{{ currentWeather.main.temp | number : '1.0-0'}} <span
+            <ion-card-title color="primary" class="py-0">{{ currentWeather.main.temp | number : '1.0-0'}} <span
                 class="mx-0 px-0">&#176;</span> </ion-card-title>
-
-            <ion-card-subtitle><ion-text>{{weather.description}}</ion-text> <img class="icon-sm" [src]="iconUrl + weather.icon + iconSUrl">
-            </ion-card-subtitle>
+            <img class="icon-sm" [src]="iconUrl + weather.icon + iconSUrl">
+            <ion-card-subtitle><ion-text>{{weather.description}}</ion-text></ion-card-subtitle>
             <ion-text class="fs-small"> Feels like <ion-text color="primary">{{currentWeather.main.feels_like | number :
-              '1.0-0'}} <span class="mx-0 px-0">&#176;</span></ion-text></ion-text>
+                '1.0-0'}} <span class="mx-0 px-0">&#176;</span></ion-text></ion-text>
           </ion-card-header>
         </ion-card>
+
+        <ion-card *ngIf="!currentWeather">
+          <ion-card-header>
+            <ion-card-subtitle>Weather</ion-card-subtitle>
+            <div class="p-3">
+              <ion-icon name="partly-sunny-outline" color="primary" class="icon-lg"></ion-icon>
+            </div>
+            <ion-text class="fs-xs">Select your Location</ion-text>
+          </ion-card-header>
+        </ion-card>
+
       </ion-col>
       <ion-col>
         <ion-card (click)="stats()" type="button">
           <ion-card-header>
             <div class="p-4">
-                <ion-icon name="bar-chart-outline" color="primary" class="icon-lg"></ion-icon>
+              <ion-icon name="bar-chart-outline" color="primary" class="icon-lg"></ion-icon>
             </div>
             <ion-card-subtitle>Rack Stats</ion-card-subtitle>
           </ion-card-header>
@@ -51,7 +61,7 @@
       <ion-col></ion-col>
     </ion-row> -->
     <br>
-    
+
 
     <ion-row>
       <ion-col>
