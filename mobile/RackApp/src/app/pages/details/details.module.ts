@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DetailsPageRoutingModule } from './details-routing.module';
+
 
 
 import { SharedModule } from 'src/app/modules/shared/shared.module';
@@ -15,7 +15,6 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    DetailsPageRoutingModule,
     SharedModule
     
   ],

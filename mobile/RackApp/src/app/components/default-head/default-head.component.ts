@@ -4,6 +4,9 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { QuickRackService } from 'src/app/services/quick-rack.service';
 import { UserService } from 'src/app/services/user.service';
+import { ModalController } from '@ionic/angular';
+import { CitiesComponent } from '../cities/cities.component';
+import { Icity } from 'src/app/interfaces/icity';
 
 @Component({
   selector: 'app-default-head',
@@ -31,7 +34,17 @@ export class DefaultHeadComponent implements OnInit{
   emailForm:FormGroup;
   pwForm:FormGroup;
 
-  constructor(private router:Router, private service:QuickRackService, private userService:UserService, private formBuilder:FormBuilder, private http:HttpClient) {
+  lrForm:FormGroup;
+  lrEdit:boolean = false;
+  selectedCity!:any;
+  term:string = '';
+  cities!:any;
+  selected:boolean=false;
+  selCityId!:any;
+  curCityId!:any;
+  curCity!:Icity;
+
+  constructor(private router:Router, private service:QuickRackService, private userService:UserService, private formBuilder:FormBuilder, private http:HttpClient, private modalCtrl:ModalController) {
     this.detailsForm = formBuilder.group({
       FirstName: ['', [Validators.required]],
       LastName: [''],
@@ -49,14 +62,31 @@ export class DefaultHeadComponent implements OnInit{
       NewPw: ['', [Validators.required]]
     });
 
+    this.lrForm = formBuilder.group({
+      Language: ['', [Validators.required]],
+      City_id: ['', [Validators.required]]
+    });
+
   }
     
 
   ngOnInit() {
     this.userService.getUserDetails().subscribe((res:any) => {
-      this.userDetails = res;
-      this.detailsForm.patchValue(this.userDetails);
+      this.userDetails = Object.values(res);
+      this.user = this.userDetails[0];
+      this.detailsForm.patchValue(this.user);
+      this.lrForm.patchValue(this.user);
+
+      if (this.user.City_id !== null){
+      this.curCityId = this.user.City_id;
+      this.getCurCity().subscribe((res:any) => {
+        this.curCity = res;
+      });
+    };
+  
     });
+
+    
 
     this.accountSettings = false;
     this.edit = false;
@@ -64,8 +94,10 @@ export class DefaultHeadComponent implements OnInit{
   
   ionViewWillEnter(): void {
     this.userService.getUserDetails().subscribe((res:any) => {
-      this.userDetails = res;
-      this.detailsForm.patchValue(this.userDetails);
+      this.userDetails = Object.values(res);
+      this.user = this.userDetails[0];
+      this.detailsForm.patchValue(this.user);
+      this.lrForm.patchValue(this.user);
     });
   }
 
@@ -134,6 +166,65 @@ export class DefaultHeadComponent implements OnInit{
     this.ionViewWillEnter();
   }
 
+  editLR(){
+    this.lrEdit = true;
+  }
+
+  cancelLR(){
+    this.lrEdit = false;
+  }
+
+  submitLR(){
+    let formValues = this.lrForm.value;
+    let fd = new FormData();
+
+    for(let key in formValues){
+      fd.append(key, formValues[key]);
+    }
+
+    this.userService.userEdit(fd).subscribe({
+      next: (result) => {
+        console.log(result);
+      },
+      error: error => {
+        console.error(error);
+      }
+    })
+    console.log('save');
+    this.lrEdit = false;
+    this.ionViewWillEnter();
+  }
+
+  async citiesModal() {
+    const modal = await this.modalCtrl.create({
+      component: CitiesComponent,
+    });
+
+    modal.present();
+    
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'cancel') {
+      console.log('cancelled');
+      this.selected = false;
+    };
+
+    if (role === 'selected') {
+      console.log('city selected');
+      this.selCityId = data;
+      this.getSelCity().subscribe((res:any) => {
+        this.selectedCity = res;
+      });
+    };
+  }
+
+  getSelCity(){
+    return this.http.get(this.bUrl + 'cities/' + this.selCityId)
+  }
+
+  getCurCity(){
+    return this.http.get(this.bUrl + 'cities/' + this.curCityId)
+  }
   //Security Edits
 
   changeEmail(){
@@ -230,6 +321,14 @@ export class DefaultHeadComponent implements OnInit{
 
   get NewPwFormControl(){
     return this.detailsForm.get('NewPw')!;
+  }
+
+  get LanguageFormControl(){
+    return this.detailsForm.get('Language')!;
+  }
+
+  get RegionFormControl(){
+    return this.detailsForm.get('City_id')!;
   }
 
 }
