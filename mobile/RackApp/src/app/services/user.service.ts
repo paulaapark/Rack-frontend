@@ -43,5 +43,10 @@ export class UserService {
     let userUrl = this.baseUrl + 'users/' + this.currentUser.id;
     return this.http.patch(userUrl, formData);
   }
+
+  userLREdit(formData:object){
+    let url = this.baseUrl + 'users/LR/' + this.currentUser.id;
+    return this.http.patch(url, formData);
+  }
   
 };

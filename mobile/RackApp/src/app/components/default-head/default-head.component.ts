@@ -42,7 +42,7 @@ export class DefaultHeadComponent implements OnInit{
   selected:boolean=false;
   selCityId!:any;
   curCityId!:any;
-  curCity!:Icity;
+  public curCity!:any;
 
   constructor(private router:Router, private service:QuickRackService, private userService:UserService, private formBuilder:FormBuilder, private http:HttpClient, private modalCtrl:ModalController) {
     this.detailsForm = formBuilder.group({
@@ -63,7 +63,7 @@ export class DefaultHeadComponent implements OnInit{
     });
 
     this.lrForm = formBuilder.group({
-      Language: ['', [Validators.required]],
+      // Language: [''],
       City_id: ['', [Validators.required]]
     });
 
@@ -75,12 +75,11 @@ export class DefaultHeadComponent implements OnInit{
       this.userDetails = Object.values(res);
       this.user = this.userDetails[0];
       this.detailsForm.patchValue(this.user);
-      this.lrForm.patchValue(this.user);
 
       if (this.user.City_id !== null){
       this.curCityId = this.user.City_id;
       this.getCurCity().subscribe((res:any) => {
-        this.curCity = res;
+        this.selectedCity = res;
       });
     };
   
@@ -97,7 +96,13 @@ export class DefaultHeadComponent implements OnInit{
       this.userDetails = Object.values(res);
       this.user = this.userDetails[0];
       this.detailsForm.patchValue(this.user);
-      this.lrForm.patchValue(this.user);
+
+      if (this.user.City_id !== null){
+        this.curCityId = this.user.City_id;
+        this.getCurCity().subscribe((res:any) => {
+          this.selectedCity = res;
+        });
+      };
     });
   }
 
@@ -182,7 +187,7 @@ export class DefaultHeadComponent implements OnInit{
       fd.append(key, formValues[key]);
     }
 
-    this.userService.userEdit(fd).subscribe({
+    this.userService.userLREdit(fd).subscribe({
       next: (result) => {
         console.log(result);
       },

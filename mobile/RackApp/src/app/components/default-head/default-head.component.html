@@ -22,37 +22,17 @@
         <ion-item (click)="openAS()" type="button" color="tertiary">Account
           <ion-icon slot="end" name="chevron-forward"></ion-icon>
         </ion-item>
-        <ion-accordion value="first" toggleIcon="chevron-forward">
+        <ion-accordion value="first" toggleIcon="chevron-forward" disabled>
           <ion-item slot="header" color="tertiary" lines="inset">
             <ion-label>Display</ion-label>
           </ion-item>
           <div slot="content">
-            <ion-list>
+            <ion-list >
               <ion-item>
                 <ion-icon slot="start" name="moon-outline"></ion-icon>
                 <ion-label>Dark mode</ion-label>
                 <ion-toggle slot="end" class="px-0 mx-0" id="themeToggle"></ion-toggle>
               </ion-item>
-
-              <!-- <ion-radio-group value="light" (ionChange)="onClick($event)">
-                <ion-item>
-                  <ion-icon slot="start" name="sunny-outline"></ion-icon>
-                  <ion-label>Light mode</ion-label>
-                  <ion-radio slot="end" value="light"></ion-radio>
-                </ion-item>
-
-                <ion-item>
-                  <ion-icon slot="start" name="moon-outline"></ion-icon>
-                  <ion-label>Dark mode</ion-label>
-                  <ion-radio slot="end" value="dark"></ion-radio>
-                </ion-item>
-
-                <ion-item>
-                  <ion-icon slot="start" name="settings-outline"></ion-icon>
-                  <ion-label>System</ion-label>
-                  <ion-radio slot="end" value="system"></ion-radio>
-                </ion-item>
-              </ion-radio-group> -->
             </ion-list>
 
 
@@ -66,8 +46,13 @@
             <br>
             <div *ngIf="!lrEdit">
               <ion-list lines="inset">
-                <ion-item><ion-icon slot="start" name="language-outline"></ion-icon><ion-text class="text-center">{{user.Language}}</ion-text></ion-item>
-                <ion-item><ion-icon slot="start" name="earth-outline"></ion-icon><ion-chip *ngIf="user.City_id"><ion-label><ion-icon name="pin-outline" color="primary"></ion-icon>{{curCity.City}}, <span *ngIf="curCity.State">{{curCity.State}},</span> {{curCity.Country}}</ion-label></ion-chip></ion-item>  
+                <ion-item><ion-icon slot="start" name="language-outline"></ion-icon><ion-chip><ion-text>{{user.Language}}</ion-text></ion-chip></ion-item>
+                <ion-item><ion-icon slot="start" name="earth-outline"></ion-icon>
+                  <ion-chip>
+                    <span *ngIf="!selectedCity"><ion-text>Unselected</ion-text></span>
+                    <span *ngIf="selectedCity"><ion-text><ion-icon name="pin-outline" color="primary"></ion-icon>{{selectedCity.City}}, {{selectedCity.Country}}</ion-text></span>
+                  </ion-chip>
+                  </ion-item>  
               </ion-list>
               <ion-button fill="clear" (click)="editLR()">Edit</ion-button>
             </div>
@@ -79,16 +64,15 @@
             <div *ngIf="lrEdit">
               <form [formGroup]="lrForm">
               <ion-list lines="inset">
-                  <ion-item disabled><ion-icon name="language-outline"></ion-icon><ion-input type="text" formControlName="Language"></ion-input></ion-item>
-                  <ion-item (click)="citiesModal()" type="button">
-                    <ion-icon name="earth-outline"></ion-icon>
-                    <ion-chip *ngIf="!user.City_id && !selectedCity"><ion-icon name="search-outline" color="primary"></ion-icon><ion-label>Search</ion-label></ion-chip>
-                    <ion-chip *ngIf="selectedCity"><ion-label><ion-icon name="pin-outline" slot="start" color="primary"></ion-icon>{{selectedCity.City}}, <span *ngIf="selectedCity.State">{{selectedCity.State}},</span> {{selectedCity.Country}}</ion-label></ion-chip>
-                    <ion-chip *ngIf="user.City_id && !selectedCity"><ion-label><ion-icon name="pin-outline" slot="start" color="primary"></ion-icon>{{curCity.City}}, <span *ngIf="curCity.State">{{curCity.State}},</span> {{curCity.Country}}</ion-label></ion-chip>
-
+                  <ion-item disabled><ion-icon name="language-outline" slot="start"></ion-icon><ion-chip><ion-text>English</ion-text></ion-chip></ion-item>
+                  <ion-item type="button">
+                    <ion-icon name="earth-outline" slot="start"></ion-icon>
+                    <ion-chip (click)="citiesModal()" >
+                      <span *ngIf="!user.City_id && !selectedCity"><ion-icon name="search-outline" color="primary"></ion-icon><ion-text>Search</ion-text></span>
+                      <span *ngIf="selectedCity"><ion-text><ion-icon name="pin-outline" color="primary"></ion-icon>{{selectedCity.City}}, {{selectedCity.Country}}</ion-text></span>
+                    </ion-chip>
                   </ion-item>
-                  <ion-item hidden="true">
-                    <ion-input formControlName="City_id" *ngIf="user.City_id && !selectedCity"></ion-input>
+                  <ion-item>
                     <ion-input formControlName="City_id" *ngIf="selectedCity">{{selectedCity.id}}</ion-input>
                   </ion-item>
                  
