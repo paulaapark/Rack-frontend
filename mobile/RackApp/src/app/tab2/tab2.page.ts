@@ -1,6 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { RackService } from '../services/rack.service';
-// import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ItemDetailsComponent } from '../components/item-details/item-details.component';
@@ -31,8 +30,6 @@ export class Tab2Page {
 
   public bUrl:string = this.userService.baseUrl;
   public imgUrl:any;
-
-  // name!: string;
 
   constructor(public service: RackService, private http: HttpClient,
     private modalCtrl: ModalController, private toastController: ToastController, private userService: UserService, private router:Router, private route:ActivatedRoute) {

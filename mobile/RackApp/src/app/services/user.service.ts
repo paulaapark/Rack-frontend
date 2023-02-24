@@ -5,9 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable({providedIn: 'root'})
 export class UserService {
   public baseUrl:string; 
-  // public userUrl:string;
   environment:string = 'development'; //development or production
-  public currentUser:any = JSON.parse(localStorage.getItem('currentUser')!);
   
   constructor(private http:HttpClient) { 
     if (this.environment === 'development'){
@@ -18,7 +16,8 @@ export class UserService {
     };
   }
   
-
+  public currentUser:any = JSON.parse(localStorage.getItem('currentUser')!);
+  
   login(formData:object){
     return this.http.post(this.baseUrl + 'login', formData);
   }

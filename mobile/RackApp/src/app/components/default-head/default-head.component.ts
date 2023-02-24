@@ -54,8 +54,8 @@ export class DefaultHeadComponent implements OnInit{
 
   ngOnInit() {
     this.userService.getUserDetails().subscribe((res:any) => {
-      this.userDetails = Object.values(res);
-      this.detailsForm.patchValue(this.userDetails[0]);
+      this.userDetails = res;
+      this.detailsForm.patchValue(this.userDetails);
     });
 
     this.accountSettings = false;
@@ -64,8 +64,8 @@ export class DefaultHeadComponent implements OnInit{
   
   ionViewWillEnter(): void {
     this.userService.getUserDetails().subscribe((res:any) => {
-      this.userDetails = Object.values(res);
-      this.detailsForm.patchValue(this.userDetails[0]);
+      this.userDetails = res;
+      this.detailsForm.patchValue(this.userDetails);
     });
   }
 

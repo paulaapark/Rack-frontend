@@ -16,6 +16,9 @@ greeting:string;
 userDetails!:any;
 currentWeather:any;
 
+iconUrl:string = 'http://openweathermap.org/img/wn/';
+iconSUrl:string = '.png'
+
 snow!:boolean;
 
 inspoArray:String[] = ["Another day, another outfit!", "Go get 'em!", "Dress to impress", "Be your own icon", "Give 'em something to talk about", "Fake it 'til you make it", "Today is your day!", "It's a great day to be you!", "Show 'em who's boss!"];

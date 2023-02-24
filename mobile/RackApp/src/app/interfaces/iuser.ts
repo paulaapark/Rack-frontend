@@ -1,3 +1,4 @@
+import { Icity } from "./icity"; 
 export interface Iuser {
     id:number;
     FirstName:string;
@@ -9,5 +10,5 @@ export interface Iuser {
     Gender:string;
     Image:string;
     Language:string;
-    Region:number;
+    City_id:Icity;
 }

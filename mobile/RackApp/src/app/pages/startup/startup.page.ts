@@ -5,6 +5,7 @@ import { SignupPage } from './signup/signup.page';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginPage } from './login/login.page';
 import { DetailsPage } from '../details/details.page';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { DetailsPage } from '../details/details.page';
 export class StartupPage implements OnInit {
 
   constructor( private modalCtrl:ModalController, private toastController:ToastController, private router:Router, 
-    private route:ActivatedRoute,) { }
+    private route:ActivatedRoute, private userService:UserService) { }
 
   ngOnInit() {
   }

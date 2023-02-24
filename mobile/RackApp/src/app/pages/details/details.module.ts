@@ -17,6 +17,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
     IonicModule,
     DetailsPageRoutingModule,
     SharedModule
+    
   ],
   declarations: []
 })

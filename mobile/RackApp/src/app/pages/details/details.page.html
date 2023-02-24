@@ -26,12 +26,14 @@
       </ion-item> -->
       <ion-item>
         <ion-label>When's your birthday?</ion-label>
-        <ion-input formControlName="Birthday" required><ion-datetime-button datetime="datetime" required></ion-datetime-button></ion-input>
+        <ion-input slot="end" type="date"></ion-input>
+        <!-- <ion-input formControlName="Birthday" required><ion-datetime-button datetime="datetime"
+            required></ion-datetime-button></ion-input>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
             <ion-datetime id="datetime" presentation="date" [preferWheel]="true"></ion-datetime>
           </ng-template>
-        </ion-modal>
+        </ion-modal> -->
 
       </ion-item>
       <ion-item>
@@ -42,6 +44,16 @@
           <ion-select-option value="Non-Binary">Non-Binary</ion-select-option>
           <ion-select-option value="Unselected">Unselected</ion-select-option>
         </ion-select>
+      </ion-item>
+
+      
+      <ion-item (click)="citiesModal()" type="button">
+        <ion-label>What's your location?</ion-label>
+        <ion-chip *ngIf="!selectedCity"><ion-icon name="search-outline" color="primary"></ion-icon><ion-label>Search</ion-label></ion-chip>
+        <ion-chip *ngIf="selectedCity"><ion-label><ion-icon name="pin-outline" color="primary"></ion-icon>{{selectedCity.City}}, <span *ngIf="selectedCity.State">{{selectedCity.State}},</span> {{selectedCity.Country}}</ion-label></ion-chip>
+      </ion-item>
+      <ion-item hidden="true" *ngIf="selectedCity">
+        <ion-input formControlName="City_id">{{selectedCity.id}}</ion-input>
       </ion-item>
 
       <ion-item>

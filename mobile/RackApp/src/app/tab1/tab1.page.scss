@@ -6,3 +6,19 @@
     height: 52px;
     width: 52px;
 }
+
+.icon-sm {
+    height:32px;
+    width: 32px;
+    object-fit: contain;
+    aspect-ratio: 1/1;
+}
+
+.subtitle {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    --color: var(--ion-color-step-600, #666666);
+    letter-spacing: 0.4px;
+}
+

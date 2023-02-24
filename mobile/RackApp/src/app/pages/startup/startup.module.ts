@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { StartupPageRoutingModule } from './startup-routing.module';
 
 import { StartupPage } from './startup.page';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SharedModule } from 'src/app/modules/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    StartupPageRoutingModule
+    StartupPageRoutingModule,
+    Ng2SearchPipeModule,
+    SharedModule
   ],
   declarations: [StartupPage],
 })

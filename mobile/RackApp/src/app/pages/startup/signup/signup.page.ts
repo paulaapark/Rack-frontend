@@ -20,7 +20,6 @@ export class SignupPage implements OnInit {
       LastName: ['', [Validators.required]],
       Email: ['', [Validators.required]],
       Password: ['', [Validators.required]],
-      // confPass: ['', [Validators.required]], this doesnt work with db somehow
     });
   }
 
@@ -65,10 +64,6 @@ export class SignupPage implements OnInit {
 
   get PasswordFormControl(){
     return this.signupForm.get('Password')!;
-  }
-
-  get confPassFormControl(){
-    return this.signupForm.get('confPass')!;
   }
 
 

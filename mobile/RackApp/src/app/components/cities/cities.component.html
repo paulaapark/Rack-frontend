@@ -1,3 +1,27 @@
-<p>
-  cities works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>What's your location?</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="submit()">Done</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item><ion-searchbar animated="true" placeholder="Search" [debounce]="100" [(ngModel)]="filterTerm"></ion-searchbar></ion-item>
+ 
+  <ion-list [inset]="true" >
+    <ion-radio-group *ngFor="let city of cities | filter:filterTerm" [allowEmptySelection]="true" [(ngModel)]="selectedValue"
+    (ionChange)="checkValue($event)">
+      <ion-item lines="inset">
+        <ion-label>{{city.City}}, <span *ngIf="city.State">{{city.State}},</span> {{city.Country}}</ion-label>
+        <ion-radio slot="end" [value]="city.id"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+    
+  </ion-list>
+
+</ion-content>

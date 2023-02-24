@@ -11,18 +11,21 @@ import { NewRackPage } from 'src/app/tab2/new-rack/new-rack.page';
 import { LoginPage } from 'src/app/pages/startup/login/login.page';
 import { SignupPage } from 'src/app/pages/startup/signup/signup.page';
 import { DetailsPage } from 'src/app/pages/details/details.page';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { CitiesComponent } from 'src/app/components/cities/cities.component';
 
 
 @NgModule({
-  declarations: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage, DetailsPage],
+  declarations: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage, DetailsPage, CitiesComponent],
   providers: [ UserService, RackService ],
   imports: [
     CommonModule,
     IonicModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    Ng2SearchPipeModule
   ],
-  exports: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage, DetailsPage ],
+  exports: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage, DetailsPage, CitiesComponent ],
 })
 export class SharedModule { }

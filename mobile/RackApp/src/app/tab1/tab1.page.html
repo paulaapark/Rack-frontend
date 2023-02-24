@@ -13,21 +13,13 @@
         <ion-card *ngIf="currentWeather">
           <ion-card-header *ngFor="let weather of currentWeather.weather ">
             <ion-card-subtitle> {{ currentWeather.name }} <ion-icon name="navigate"></ion-icon></ion-card-subtitle>
-            <ion-card-title color="primary" class="py-3">{{ currentWeather.main.temp | number : '1.0-0'}} <span
+            <ion-card-title color="primary" class="py-2">{{ currentWeather.main.temp | number : '1.0-0'}} <span
                 class="mx-0 px-0">&#176;</span> </ion-card-title>
-            <!-- <ion-button fill="clear" size="large">
-                <ion-icon name="sunny-outline" size="large" *ngIf="false"></ion-icon>
-                <ion-icon name="partly-sunny-outline" size="large" *ngIf="false"></ion-icon>
-                <ion-icon name="moon-outline" size="large" *ngIf="false"></ion-icon>
-                <ion-icon name="cloudy-outline" size="large" *ngIf="false"></ion-icon>
-                <ion-icon name="cloudy-night-outline" size="large" *ngIf="false"></ion-icon>
-                <ion-icon name="rainy-outline" size="large" *ngIf="false"></ion-icon>
-                <ion-icon name="thunderstorm-outline" size="large" *ngIf="false"></ion-icon>
-                
-          </ion-button> -->
-            <ion-card-subtitle>{{weather.description}} <ion-icon name="snow-outline"></ion-icon></ion-card-subtitle>
+
+            <ion-card-subtitle><ion-text>{{weather.description}}</ion-text> <img class="icon-sm" [src]="iconUrl + weather.icon + iconSUrl">
+            </ion-card-subtitle>
             <ion-text class="fs-small"> Feels like <ion-text color="primary">{{currentWeather.main.feels_like | number :
-                '1.0-0'}} <span class="mx-0 px-0">&#176;</span></ion-text> </ion-text>
+              '1.0-0'}} <span class="mx-0 px-0">&#176;</span></ion-text></ion-text>
           </ion-card-header>
         </ion-card>
       </ion-col>

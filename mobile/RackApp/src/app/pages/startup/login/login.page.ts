@@ -11,7 +11,8 @@ import { ModalController, ToastController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  loginForm;
+  loginForm:FormGroup;
+  // public currentUser:any = JSON.parse(localStorage.getItem('currentUser')!);
 
   constructor(private service:UserService, private formBuilder:FormBuilder, private router:Router, private route:ActivatedRoute, private modalCtrl:ModalController, private toastController:ToastController) {
     this.loginForm = formBuilder.group({
@@ -22,21 +23,21 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
-  async login() {
+
+  login() {
     let formData = this.loginForm.value;
     this.service.login(formData).subscribe({
       next: (result) => {
         localStorage.setItem('currentUser', JSON.stringify(result)); //Storing the data of the currently logged in user on the browser
         return this.modalCtrl.dismiss(null, 'success');
       }, error: error  => {
-        // alert('Incorrect email/password');
         console.error(error);
-        // return this.modalCtrl.dismiss(null, 'error');
         this.presentToast();
         
       }  
     });
   }
+  
 
   signup(){
     return this.modalCtrl.dismiss(null, 'signup');
