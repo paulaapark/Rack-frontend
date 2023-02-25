@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SignupPageRoutingModule } from './signup-routing.module';
+// import { SignupPageRoutingModule } from './signup-routing.module';
 
 // import { SignupPage } from './signup.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
@@ -18,7 +18,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    SignupPageRoutingModule,
+    // SignupPageRoutingModule,
     SharedModule
   ],
   declarations: [],

@@ -10,7 +10,7 @@
     <ion-row>
       <ion-col>
 
-        <ion-card *ngIf="currentWeather">
+        <ion-card *ngIf="currentWeather" (click)="forecast()" type="button">
           <ion-card-header *ngFor="let weather of currentWeather.weather ">
             <ion-card-subtitle> {{ currentWeather.name }} <ion-icon name="navigate"></ion-icon></ion-card-subtitle>
             <ion-card-title color="primary" class="py-0">{{ currentWeather.main.temp | number : '1.0-0'}} <span

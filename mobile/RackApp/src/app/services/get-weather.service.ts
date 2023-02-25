@@ -12,7 +12,7 @@ weatherUrl:string = 'https://api.openweathermap.org/data/2.5/weather?id=';
 metricUrl:string = '&units=metric';
 impUrl:string = '&units=imperial';
 forecastUrl:string= 'https://api.openweathermap.org/data/2.5/forecast?id=';
-city_id:number = 6167865;
+city_id!:number;
 apiKeyUrl:string = '&appid=4c926c7d32e2c3aae4ec15c426ad4f89';
 
   constructor(private http:HttpClient, private service:UserService) { }

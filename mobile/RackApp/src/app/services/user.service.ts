@@ -2,10 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 
+
 @Injectable({providedIn: 'root'})
 export class UserService {
   public baseUrl:string; 
   environment:string = 'development'; //development or production
+
+  // userId:any = this.startupPage.userId ; 
   
   constructor(private http:HttpClient) { 
     if (this.environment === 'development'){
@@ -41,6 +44,11 @@ export class UserService {
 
   userEdit(formData:object){
     let userUrl = this.baseUrl + 'users/' + this.currentUser.id;
+    return this.http.patch(userUrl, formData);
+  }
+
+  userDetailsEdit(formData:object){
+    let userUrl = this.baseUrl + 'users/details/' + this.currentUser.Id;
     return this.http.patch(userUrl, formData);
   }
 

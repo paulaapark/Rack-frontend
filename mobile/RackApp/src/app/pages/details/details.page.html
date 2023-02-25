@@ -26,7 +26,7 @@
       </ion-item> -->
       <ion-item>
         <ion-label>When's your birthday?</ion-label>
-        <ion-input slot="end" type="date"></ion-input>
+        <ion-input class="text-end" type="date" formControlName="Birthday"></ion-input>
         <!-- <ion-input formControlName="Birthday" required><ion-datetime-button datetime="datetime"
             required></ion-datetime-button></ion-input>
         <ion-modal [keepContentsMounted]="true">
@@ -52,8 +52,8 @@
         <ion-chip *ngIf="!selectedCity"><ion-icon name="search-outline" color="primary"></ion-icon><ion-label>Search</ion-label></ion-chip>
         <ion-chip *ngIf="selectedCity"><ion-label><ion-icon name="pin-outline" color="primary"></ion-icon>{{selectedCity.City}}, <span *ngIf="selectedCity.State">{{selectedCity.State}},</span> {{selectedCity.Country}}</ion-label></ion-chip>
       </ion-item>
-      <ion-item hidden="true" *ngIf="selectedCity">
-        <ion-input formControlName="City_id">{{selectedCity.id}}</ion-input>
+      <ion-item class="hiddenInput">
+        <ion-input formControlName="City_id"></ion-input>
       </ion-item>
 
       <ion-item>

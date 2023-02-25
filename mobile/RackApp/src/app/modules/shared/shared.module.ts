@@ -13,10 +13,11 @@ import { SignupPage } from 'src/app/pages/startup/signup/signup.page';
 import { DetailsPage } from 'src/app/pages/details/details.page';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { CitiesComponent } from 'src/app/components/cities/cities.component';
+import { ForecastComponent } from 'src/app/components/forecast/forecast.component';
 
 
 @NgModule({
-  declarations: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage, DetailsPage, CitiesComponent],
+  declarations: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage, DetailsPage, CitiesComponent, ForecastComponent],
   providers: [ UserService, RackService ],
   imports: [
     CommonModule,
@@ -26,6 +27,6 @@ import { CitiesComponent } from 'src/app/components/cities/cities.component';
     FormsModule,
     Ng2SearchPipeModule
   ],
-  exports: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage, DetailsPage, CitiesComponent ],
+  exports: [ DefaultHeadComponent, ItemDetailsComponent, NewRackPage, LoginPage, SignupPage, DetailsPage, CitiesComponent, ForecastComponent],
 })
 export class SharedModule { }

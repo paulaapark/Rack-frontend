@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { ModalController } from '@ionic/angular';
 import { GetWeatherService } from '../services/get-weather.service';
 import { HttpClient } from '@angular/common/http';
 import { Iuser } from '../interfaces/iuser';
+
+import { ForecastComponent } from '../components/forecast/forecast.component';
 
 @Component({
   selector: 'app-tab1',
@@ -27,7 +29,7 @@ user!:Iuser;
 
 inspoArray:String[] = ["Another day, another outfit!", "Go get 'em!", "Dress to impress", "Be your own icon", "Give 'em something to talk about", "Fake it 'til you make it", "Today is your day!", "It's a great day to be you!", "Show 'em who's boss!"];
 inspoStr!:string;
-  constructor(public userService:UserService, private router:Router, private route:ActivatedRoute, private weatherService:GetWeatherService, private http:HttpClient) {
+  constructor(public userService:UserService, private router:Router, private route:ActivatedRoute, private weatherService:GetWeatherService, private http:HttpClient, private modalCtrl:ModalController) {
     if (this.hrs < 12){
       this.greeting = 'Good Morning';
     }else if ( this.hrs >= 12 && this.hrs <=17){
@@ -62,7 +64,25 @@ inspoStr!:string;
     this.router.navigate(['stats'], {relativeTo: this.route});
   }
 
-  forecast(){
+  async forecast(){
+    const modal = await this.modalCtrl.create({
+      component: ForecastComponent,
+    });
+
+    modal.present();
+    // console.log(item);
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'back') {
+      console.log('back');
+      // const toast = await this.toastController.create({
+      //   message: `${data} successfully deleted`,
+      //   duration: 2500,
+      //   position: 'bottom'
+      // });
+      // await toast.present();
+      // this.ionViewWillEnter();
+    }
 
   }
 

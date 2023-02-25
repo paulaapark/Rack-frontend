@@ -9,8 +9,11 @@ import { StartupPageRoutingModule } from './startup-routing.module';
 import { StartupPage } from './startup.page';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { UserService } from 'src/app/services/user.service';
+
 
 @NgModule({
+  providers: [ UserService ],
   imports: [
     CommonModule,
     FormsModule,

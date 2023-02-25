@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,13 +8,22 @@ import { HttpClient } from '@angular/common/http';
 
 import { CitiesComponent } from 'src/app/components/cities/cities.component';
 
+
+
+
+
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
   styleUrls: ['./details.page.scss'],
 })
+
+
 export class DetailsPage {
 
+  @Input() userSignup:any;
+
+  userId!:number;
   detailsForm:FormGroup;
   selectedImage:any;
   img1:any;
@@ -26,7 +35,8 @@ export class DetailsPage {
   selected:boolean=false;
   selCityId!:any;
 
-  constructor(private service:UserService, private formBuilder: FormBuilder, private router:Router, private route:ActivatedRoute, private modalCtrl:ModalController, private weatherService:GetWeatherService, private http:HttpClient) { 
+  constructor(private service:UserService, private formBuilder: FormBuilder, private router:Router, private route:ActivatedRoute, 
+    private modalCtrl:ModalController, private weatherService:GetWeatherService, private http:HttpClient) { 
     this.detailsForm = formBuilder.group({
       Birthday: [''],
       Gender: [''],
@@ -58,44 +68,51 @@ export class DetailsPage {
       this.selCityId = data;
       this.getSelCity().subscribe((res:any) => {
         this.selectedCity = res;
+        this.detailsForm.patchValue({City_id: this.selectedCity.id});
+        console.log(this.selectedCity.id);
       });
     };
   }
 
 
   details() {
+    this.userId = this.userSignup.id
+    console.log(this.userId)
     let formValues = this.detailsForm.value;
-    let fd = new FormData();
 
-    fd.append('image', this.selectedImage);
+    if(this.selectedImage){
+      let fd = new FormData();
 
-    for(let key in formValues){
-      fd.append(key, formValues[key]);
-    }
-
-    this.service.userEdit(fd).subscribe({
-      next: (result) => {
-        console.log(result);
-        return this.modalCtrl.dismiss(null, 'save');
-      },
-      error: error => {
-        console.error(error);
-        return this.modalCtrl.dismiss(null, 'error');
+      fd.append('image', this.selectedImage);
+  
+      for(let key in formValues){
+        fd.append(key, formValues[key]);
       }
-    });
-    console.log('save');
 
-    // let formData = this.detailsForm.value;
-    // this.service.userEdit(formData).subscribe({
-    //     next: (result) => {
-    //       console.log(result);
-    //       return this.modalCtrl.dismiss(null, 'success');
-    //     }, 
-    //     error: error => {
-    //       console.error(error);
-    //       return this.modalCtrl.dismiss(null, 'error');
-    //     }
-    // });
+      this.userDetailsEdit(fd).subscribe({
+        next: (result) => {
+          console.log(result);
+          return this.modalCtrl.dismiss(null, 'success');
+        },
+        error: error => {
+          console.error(error);
+          return this.modalCtrl.dismiss(null, 'error');
+        }
+      });
+      console.log('save');
+    } else {
+      this.userDetailsEdit(formValues).subscribe({
+        next: (result) => {
+          console.log(result);
+          return this.modalCtrl.dismiss(null, 'success');
+        },
+        error: error => {
+          console.error(error);
+          return this.modalCtrl.dismiss(null, 'error');
+        }
+      });
+      console.log('save');
+    };
   }
 
   later(){
@@ -128,6 +145,11 @@ export class DetailsPage {
 
   getSelCity(){
     return this.http.get(this.bUrl + 'cities/' + this.selCityId)
+  }
+
+  userDetailsEdit(formData:object){
+    let userUrl = this.service.baseUrl + 'users/details/' + this.userId;
+    return this.http.patch(userUrl, formData);
   }
 }
 

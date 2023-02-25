@@ -31,8 +31,7 @@ export class SignupPage implements OnInit {
     this.service.signup(formData).subscribe({
         next: (result) => {
           console.log(result);
-          // alert('Register successful!');
-          return this.modalCtrl.dismiss(this.signupForm.value.FirstName, 'success');  
+          return this.modalCtrl.dismiss(result, 'success');  
           
         }, 
         error: error => {
