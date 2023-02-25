@@ -182,14 +182,16 @@ export class DefaultHeadComponent implements OnInit{
 
   submitLR(){
     let formValues = this.lrForm.value;
-    let fd = new FormData();
+    // console.log(formValues);
+    // let fd = new FormData();
 
-    for(let key in formValues){
-      fd.append(key, formValues[key]);
-    }
+
+    // for(let key in formValues){
+    //   fd.append(key, formValues[key]);
+    // }
 
     // let formData = this.lrForm.value;
-    this.userService.userLREdit(fd).subscribe({
+    this.userService.userLREdit(formValues).subscribe({
       next: (result) => {
         console.log(result);
       },
@@ -221,6 +223,7 @@ export class DefaultHeadComponent implements OnInit{
       this.selCityId = data;
       this.getSelCity().subscribe((res:any) => {
         this.selectedCity = res;
+        this.lrForm.patchValue({City_id: this.selectedCity.id});
         console.log(this.selectedCity.id);
       });
     };
