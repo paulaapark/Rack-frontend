@@ -27,7 +27,7 @@ city_id!:any;
 
 user!:Iuser;
 
-inspoArray:String[] = ["Another day, another outfit!", "Go get 'em!", "Dress to impress", "Be your own icon", "Give 'em something to talk about", "Fake it 'til you make it", "Today is your day!", "It's a great day to be you!", "Show 'em who's boss!"];
+inspoArray:string[] = ["Another day, another outfit!","Go get 'em!","Dress to impress!","Be your own icon!","Give 'em something to talk about!","Fake it 'til you make it!","Today is your day!","It's a great day to be you!","Show 'em who's boss!"];
 inspoStr!:string;
   constructor(public userService:UserService, private router:Router, private route:ActivatedRoute, private weatherService:GetWeatherService, private http:HttpClient, private modalCtrl:ModalController) {
     if (this.hrs < 12){
@@ -37,15 +37,19 @@ inspoStr!:string;
     }else{
       this.greeting = 'Good Evening';
     };
-
-    if (this.hrs = 0){
-      
-    }
   }
 
   ngOnInit() {
-    
+    if (this.hrs > 0){
+      this.getInspo();
+    }
   }
+
+
+  getInspo(){
+      this.inspoStr = this.inspoArray[Math.floor(Math.random() * this.inspoArray.length)];
+    }
+  
 
   ionViewWillEnter() {
     this.userService.getUserDetails().subscribe((res:any) => {
@@ -75,13 +79,7 @@ inspoStr!:string;
 
     if (role === 'back') {
       console.log('back');
-      // const toast = await this.toastController.create({
-      //   message: `${data} successfully deleted`,
-      //   duration: 2500,
-      //   position: 'bottom'
-      // });
-      // await toast.present();
-      // this.ionViewWillEnter();
+      
     }
 
   }

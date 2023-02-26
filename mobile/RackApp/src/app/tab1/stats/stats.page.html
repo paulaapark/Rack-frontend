@@ -1,6 +1,6 @@
 <app-default-head></app-default-head>
 
-<ion-content fullscreen="true" id="main-content">
+<ion-content [fullscreen]="true" id="main-content">
   <br>
   <ion-text *ngFor="let user of userDetails"><h2 class="title-theme">{{ user.FirstName }}, your latest Rack Stats await!</h2></ion-text>
   

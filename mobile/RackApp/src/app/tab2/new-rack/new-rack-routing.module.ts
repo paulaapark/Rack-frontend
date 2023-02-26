@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NewRackPage } from './new-rack.page';
+// import { NewRackPage } from './new-rack.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: NewRackPage
-  }
+  // {
+  //   path: '',
+  //   component: NewRackPage
+  // }
 ];
 
 @NgModule({

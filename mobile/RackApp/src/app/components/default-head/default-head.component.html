@@ -86,10 +86,20 @@
 
           </div>
         </ion-accordion>
-        
-        <ion-item [disabled]="true" color="tertiary">Share Feedback
-          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-        </ion-item>
+        <ion-accordion value="fourth" toggleIcon="chevron-forward-outline" disabled>
+          <ion-item slot="header" color="tertiary" lines="inset">
+            <ion-label>Share Feedback</ion-label>
+          </ion-item>
+          <div slot="content">
+            <ion-list >
+              <ion-item>
+                <ion-icon slot="start" name="moon-outline"></ion-icon>
+                <ion-label>Dark mode</ion-label>
+                <ion-toggle slot="end" class="px-0 mx-0" id="themeToggle"></ion-toggle>
+              </ion-item>
+            </ion-list>
+          </div>
+        </ion-accordion>
       </ion-list>
       <ion-button fill="clear" (click)="logout()"><ion-icon slot="start" name="exit-outline"></ion-icon> Logout</ion-button>
     </ion-accordion-group>

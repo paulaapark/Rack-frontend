@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StartupPageModule } from './pages/startup/startup.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgChartsModule } from 'ng2-charts';
-// import { IonicSelectableModule } from 'ionic-selectable';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,11 +22,10 @@ import { NgChartsModule } from 'ng2-charts';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    // SignupPageModule,
-    // LoginPageModule,
     StartupPageModule,
     Ng2SearchPipeModule,
-    NgChartsModule
+    NgChartsModule,
+    SharedModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

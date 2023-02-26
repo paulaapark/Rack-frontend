@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NewRackPageRoutingModule } from './new-rack-routing.module';
+// import { NewRackPageRoutingModule } from './new-rack-routing.module';
 
 // import { NewRackPage } from './new-rack.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
@@ -16,7 +16,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    NewRackPageRoutingModule,
+    // NewRackPageRoutingModule,
     SharedModule
   ],
   // declarations: [NewRackPage]
